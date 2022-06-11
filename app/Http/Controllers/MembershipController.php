@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Membership;
 use App\Models\Gradingcommittee;
-use App\Models\Users;
+use App\Models\User;
+use App\Models\PaymentTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class MembershipController extends Controller
 {
@@ -57,6 +59,69 @@ class MembershipController extends Controller
        
     }
 
+    public function Approvedmember_user(Request $request,$id)
+    {   
+        // $student = User::all();
+        // dd($student);
+        $membership = Gradingcommittee::all();
+        $aprv_id=Crypt::decrypt($id);
+       // dd($aprv_id);
+        $member_id=Membership::where('id',$aprv_id)->first();
+       
+        $level_id=Gradingcommittee::where('INT_user_id',$member_id->int_grading_level)->first('INT_level');
+        //dd($level_id->INT_level);
+        if($level_id->INT_level!=6){
+        $new_member_id=Gradingcommittee::where('INT_level',$level_id->INT_level+1)->first('INT_user_id');
+        $mbr_id=$new_member_id->INT_user_id ;
+        }
+        else{
+            $mbr_id=0;
+        }
+        $new_member_approved_id=$member_id->Int_approve_status+2;
+
+        $member_user = new User;
+        $post = Membership::find($aprv_id);
+        $password = '444333';
+        // $random=rand(111111,999999);
+        $hashedPassword = Hash::make($password);
+        $member_user->name = $post->vch_firstname;
+        $member_user->gender = $post->vch_gender;
+        $member_user->password = $hashedPassword;
+        $member_user->vch_usertype = 'member';
+        $member_user->email = $post->vch_emailid;
+    //    dd($member_user->name,
+    //    $member_user->gender,
+    //    $member_user->password,
+    //    $member_user->email);
+          $member_user->save();
+        // dd($new_member_approved_id);
+        $last_id=$member_user->id;
+        // dd($last_id);
+        $post->int_grading_level =$mbr_id;
+        $post->INT_user_id =$last_id;
+        $post->Int_payment_status =1;
+        $post->vch_dateofissue =date('Y-m-d H:i:s');
+        $post->Int_approve_status = $new_member_approved_id;
+        $post->DT_updatedon = now();
+        $post->update();
+
+        $insertPaymentTable=new PaymentTransaction;
+        $insertPaymentTable->INT_USER_id= $last_id;
+        $insertPaymentTable->INT_paymentmode=$post->INT_paymentmode;
+        $insertPaymentTable->INT_Payment_type=$post->INT_Payment_type;
+        $insertPaymentTable->vch_transactionID=$post->vch_transactionID;
+        $insertPaymentTable->vch_fee=$post->vch_amount;
+        $insertPaymentTable->INT_paymentstatus=$post->Int_payment_status;
+        $insertPaymentTable->save();
+
+
+
+        notify()->success('Member approved Successfully');
+        
+        return redirect()->back();  
+       
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -76,6 +141,7 @@ class MembershipController extends Controller
         //dd($member_rejected_id);
         
         $post->Int_approve_status =  $reject_id+1;
+        $post->INT_refund_status =  1;
         $post->DT_updatedon = now();
         //dd($post->vch_rejectedby);
         $post->update();

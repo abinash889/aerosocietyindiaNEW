@@ -103,12 +103,27 @@
 										@endif
 
 										@php 
-											$array =[2,4,6,8,10,12,14];
+											$array =[2,4,6,8,10,12,14,11];
 										@endphp
-										@if(!in_array($memberships->Int_approve_status, $array))
+
+										@if($memberships->Int_approve_status==11 && $memberships->int_grading_level==Auth::id())	
+									
+
+										
+																		
+										<td>
+										@php $approv_id=Crypt::encrypt($memberships->id); @endphp
+										@php $reject_id=Crypt::encrypt($memberships->id); @endphp
+											<a href="{{url('/membership_Approved_insert_user', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve</a>
+											<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
+										</td>
+										
+
+										@elseif(!in_array($memberships->Int_approve_status, $array))
 										@if($memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==1)
 
-										@if( $memberships->int_grading_level==Auth::id())										
+										@if( $memberships->int_grading_level==Auth::id())	
+																		
 										<td>
 										@php $approv_id=Crypt::encrypt($memberships->id); @endphp
 										@php $reject_id=Crypt::encrypt($memberships->id); @endphp
@@ -116,11 +131,14 @@
 											<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
 										</td>
 										
-										@endif
-										@endif
+									
 										@elseif(in_array($memberships->Int_approve_status, $array))
 										<td>Refund Initiated</td>
 										@endif
+										@endif
+										@endif
+										
+									
 										
 									</tr>
 									@endforeach
