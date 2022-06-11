@@ -26,6 +26,10 @@ class UserController extends Controller
          $users = User::all();
         return view('admin.users.index', compact('users'));
     }
+
+
+
+
     public function show(User $user)
     {
         $roles = Role::all();

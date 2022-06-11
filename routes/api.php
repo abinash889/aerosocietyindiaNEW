@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/all',[App\Http\Controllers\CountryController::class, 'all']);
+Route::delete('/citydlt/{id}',[App\Http\Controllers\CityController::class, 'citydlt']);
+Route::post('/citycreate',[App\Http\Controllers\CityController::class, 'citycreate']);
+Route::put('/cityudt/{id}',[App\Http\Controllers\CityController::class, 'cityudt']);

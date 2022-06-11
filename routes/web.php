@@ -145,6 +145,7 @@ Route::post('/create_branchgallery_Updt',[App\Http\Controllers\BranchGalleryCont
 //Membership ------Added by prasant 03/06-2022 ----
 Route::get('/membership',[App\Http\Controllers\MembershipController::class,'index'])->name('member_view');
 Route::get('/membership_Approved/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember'])->name('Approvedmember');
+Route::get('/membership_Approved_insert_user/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember_user'])->name('Approvedmember_user');
 Route::get('/membership_Rejected/{id}',[App\Http\Controllers\MembershipController::class,'Rejectedmember'])->name('Rejectedmember');
      
      //Proposer ------Added by prasant 06/06-2022 ----
