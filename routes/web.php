@@ -7,7 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Barryvdh\DomPDF\Facade as PDF;
 
 /*
 |--------------------------------------------------------------------------
@@ -164,7 +166,8 @@ Route::get('delete-courses/{id}',[App\Http\Controllers\CourseSyllabusController:
 
    
 
-
+//mail send
+Route::get('generate-pdf', [App\Http\Controllers\MembershipController::class, 'generatePDF']);
    
 
 
