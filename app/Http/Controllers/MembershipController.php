@@ -9,6 +9,13 @@ use App\Models\PaymentTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+
+use Illuminate\Support\Facades\Mail as FacadesMail;
+use Mail;
+ 
+use PDF;
 
 class MembershipController extends Controller
 {
@@ -81,14 +88,18 @@ class MembershipController extends Controller
 
         $member_user = new User;
         $post = Membership::find($aprv_id);
+        // dd($post->id);
         $password = '444333';
         // $random=rand(111111,999999);
         $hashedPassword = Hash::make($password);
         $member_user->name = $post->vch_firstname;
         $member_user->gender = $post->vch_gender;
         $member_user->password = $hashedPassword;
+        $mem_pwd = $member_user->password;
         $member_user->vch_usertype = 'member';
+        $member_user->vch_membership_no = "G-".$post->id;
         $member_user->email = $post->vch_emailid;
+        $mem_email= $member_user->email;
     //    dd($member_user->name,
     //    $member_user->gender,
     //    $member_user->password,
@@ -99,6 +110,8 @@ class MembershipController extends Controller
         // dd($last_id);
         $post->int_grading_level =$mbr_id;
         $post->INT_user_id =$last_id;
+        $post->vch_membership_no ="G-".$post->id;;
+        $mem_code = $post->vch_membership_no;
         $post->Int_payment_status =1;
         $post->vch_dateofissue =date('Y-m-d H:i:s');
         $post->Int_approve_status = $new_member_approved_id;
@@ -116,11 +129,53 @@ class MembershipController extends Controller
 
 
 
+
+        $this->generatePDF( $mem_code ,$mem_email,$password,'abinash889@gmail.com');
+
+
         notify()->success('Member approved Successfully');
         
         return redirect()->back();  
        
     }
+
+    public function generatePDF($mem_code ,$mem_email,$password){
+        // $data["email"]=$request->get("kprasant635@gmail.com");
+        // $data["client_name"]=$request->get("prasant");
+        // $data["subject"]=$request->get("testing");
+
+        $data = [ 'mem_code' => $mem_code , 'email' => $mem_email, 'pwd' => $password];
+
+        $pdf = FacadePdf::loadView('mail.student_id',$data);
+ 
+        try{
+            $s_mail=$data["email"];
+            FacadesMail::send('mail.test', $data, function($message)use($pdf) {
+            $message->to('kprasant631@gmail.com')
+            // FacadesMail::send('mail.otp', $data, function ($messages) use ($user) {
+            //     $messages->to($user['to']);
+            //  ->subject("member code")
+             ->attachData($pdf->output(), "invoice.pdf");
+             $message->subject('Membership Details');
+            });
+            // FacadesMail::send('emails.activation', $data, function($message) use ($email, $subject) {
+            //     $message->to($email)->subject($subject);
+            // });
+        }catch(JWTException $exception){
+            $this->serverstatuscode = "0";
+            $this->serverstatusdes = $exception->getMessage();
+        }
+        if (FacadesMail::failures()) {
+             $this->statusdesc  =   "Error sending mail";
+             $this->statuscode  =   "0";
+ 
+        }else{
+ 
+           $this->statusdesc  =   "Message sent Succesfully";
+           $this->statuscode  =   "1";
+        }
+        return response()->json(compact('this'));
+ }
 
     /**
      * Store a newly created resource in storage.
