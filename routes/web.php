@@ -149,6 +149,7 @@ Route::get('/membership',[App\Http\Controllers\MembershipController::class,'inde
 Route::get('/membership_Approved/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember'])->name('Approvedmember');
 Route::get('/membership_Approved_insert_user/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember_user'])->name('Approvedmember_user');
 Route::get('/membership_Rejected/{id}',[App\Http\Controllers\MembershipController::class,'Rejectedmember'])->name('Rejectedmember');
+Route::post('/membership_add',[App\Http\Controllers\MembershipController::class,'membershipinsert_data'])->name('Insertdmember');
      
      //Proposer ------Added by prasant 06/06-2022 ----
 Route::get('/proposer',[App\Http\Controllers\ProposerController::class,'index'])->name('proposer_view');
@@ -163,11 +164,16 @@ Route::post('/createcourse',[App\Http\Controllers\CourseSyllabusController::clas
 Route::post('/update-courses',[App\Http\Controllers\CourseSyllabusController::class,'update_Courses']);
 Route::get('delete-courses/{id}',[App\Http\Controllers\CourseSyllabusController::class,'dlt_Courses'])->name('delete-course');
 
+// Frontend
+
+Route::get('/membership-form',[App\Http\Controllers\MembershipController::class,'membershipform'])->name('viewform');
+
 
    
 
 //mail send
 Route::get('generate-pdf', [App\Http\Controllers\MembershipController::class, 'generatePDF']);
+Route::get('temp', [App\Http\Controllers\MembershipController::class, 'temp']);
    
 
 
