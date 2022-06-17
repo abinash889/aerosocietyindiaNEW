@@ -60,20 +60,10 @@
 										
 										<td>{{$memberships->vch_emailid}}</td>
 
-										@if($memberships->INT1_pro_status==15 && $memberships->INT2_pro_status==0)
-											<td>Proposer1 <span class="badge bg-success">Rejected</span></td>
-											@elseif($memberships->INT1_pro_status==0 && $memberships->INT2_pro_status==15)
-											<td>Proposer2 <span class="badge bg-success">Rejected</span></td>
-											@elseif($memberships->INT1_pro_status==15 && $memberships->INT2_pro_status==1)
-											<td>Proposer1 <span class="badge bg-success">Rejected</span></td>
-											@elseif($memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==15)
-											<td>Proposer2 <span class="badge bg-success">Rejected</span></td>
-
-										@elseif($memberships->INT1_pro_status!==1 || $memberships->INT2_pro_status!==1)
+										@if($memberships->INT1_pro_status!==1 || $memberships->INT2_pro_status!==1)
 											<td>Proposer <span class="badge bg-success">Pending</span></td>
 											@elseif($memberships->Int_approve_status==1 && $memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==1)
 											<td>Proposer <span class="badge bg-success">Accepted</span></td>
-											
 											@elseif($memberships->Int_approve_status==2)
 											<td>Proposer <span class="badge bg-danger">Rejected</span></td>
 											@elseif($memberships->Int_approve_status==3)
@@ -115,7 +105,6 @@
 											<a href="{{url('/membership_Approved', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve</a>
 											<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
 										</td>
-										
 										@endif
 										@endif
 										@elseif(in_array($memberships->Int_approve_status, $array))

@@ -1,0 +1,1172 @@
+import React, { useState, useRef } from 'react';
+import { StatusBar } from 'react-native';
+import {
+    StyleSheet, Text, Picker, View, Dimensions, Alert,
+    ImageBackground, Image, TouchableOpacity, NativeSyntheticEvent, TouchableHighlight, Button
+} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { AsyncStorage } from 'react-native';
+import { ToastAndroid } from "react-native";
+import { TextInput } from 'react-native-element-textinput';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import GlobalStyle from '../assets/css/GlobalStyles';  //Global CSS
+//import ImageLoad from 'react-native-image-placeholder';
+
+import uuid from 'react-native-uuid';
+
+//import * as ImagePicker from 'expo-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import RBSheet from "react-native-raw-bottom-sheet";
+
+import URL from './ALLAPIList/Contstant';
+import {
+  PermissionsAndroid,
+  } from "react-native";
+import { AnimatedFAB } from 'react-native-paper';
+
+
+
+
+const qs = require('qs')
+var exp
+var localUri
+
+var fileNamee
+var isImageSelected=false
+var myUri;
+
+var firstName
+var lastname
+var phone
+var email
+var degree
+var experiencedm
+var mciNumber
+var lineone
+var linetwo
+var linethree
+var cityname
+var statename
+var postcode
+var image
+var specializationRes
+let myAuth
+
+
+
+
+
+//var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+const options = {
+    title: 'Select Image',
+    type: 'library',
+    options: {
+        maxHeight: 200,
+        maxWidth: 200,
+        selectionLimit: 1,
+        mediaType: 'photo',
+        includeBase64: false,
+    },
+}
+
+ const Registration = ({ route, navigation }) => {
+    const randomId = uuid.v4();
+    const refRBSheet = useRef();
+
+    const { type } = route.params;
+   
+    // const exampleImage = require('../assets/adaptive-icon.png')
+    // const myImage = Image.resolveAssetSource(exampleImage).uri 
+
+    //const [selectedValue, setSelectedValue] = useState('Resident');
+    //const [image, setImage] = useState(null);
+    
+    const Cred=async()=>{
+        let auth = await AsyncStorage.getItem('auth');
+        let parsed = JSON.parse(auth);
+        myAuth = parsed;
+       
+     } 
+
+
+     
+     
+     try {
+        Cred();
+        
+        console.log('hello ',myAuth);
+
+        console.log("123 ",myAuth.user_ID)
+        
+
+        fetch(URL.DoctorDetailApi + myAuth.user_ID, {
+            method: 'GET',
+            headers: {
+                'accept': 'text/plain',
+                'api-version': '1.0',
+                'Content-Type': 'application/json',
+                Authorization: "Bearer " + myAuth.access_Token
+
+            },
+            // body: JSON.stringify({
+            // })
+        }).then((response) => response.json())
+            .then((responseJson) => {
+                console.log('responseJson', responseJson);
+                //console.log('responseJsonAdddress', responseJson.address);
+
+                if (responseJson.address != "null") {
+                    //.........response.......
+                    firstName = responseJson['firstname']
+                    console.log(firstName);
+                    lastname = responseJson['lastname']
+                    console.log(lastname);
+                    phone = responseJson['phone']
+                    email = responseJson['email']
+                    degree = responseJson['degree']
+                    experiencedm = responseJson['experience']
+                    //use this format for all field done     
+                    mciNumber = responseJson['mciNumber']
+
+                    //var adrstype=responseJson['address']['addressType']
+                    // var lineone = responseJson['address']
+                    if (responseJson['address']['line1'] != "null") {
+                        lineone = responseJson['address']['line1']
+                    } else {
+                        lineone = "null"
+                    }
+
+
+                    console.log("RESPONSE")
+
+                    if (responseJson['address']['line2'] != "null") {
+                        linetwo = responseJson['address']['line2']
+
+                        console.log("RESPONSE1122")
+
+
+                    } else {
+                        linetwo = "null"
+                    }
+                    if (responseJson['address']['line3'] != "null") {
+                        linethree = responseJson['address']['line3']
+
+                        console.log("RESPONSE112233")
+                    } else {
+                        linethree = "null"
+                    }
+                    if (responseJson['address']['city'] != "null") {
+                        cityname = responseJson['address']['city']
+                    } else {
+                        cityname = "null"
+                    }
+                    if (responseJson['address']['state'] != "null") {
+                        statename = responseJson['address']['state']
+                    } else {
+                        statename = "null"
+                    }
+                    if (responseJson['address']['postalCode'] != "null") {
+                        postcode = responseJson['address']['postalCode']
+                    } else {
+                        postcode = "null"
+                    }
+                    specialization = responseJson['specialization']
+                    if (responseJson['imageName'] != "null") {
+                        image = responseJson['imageName']
+                    } else {
+                        image = "null"
+                    }
+
+                    console.log("RESPONSE1122")
+
+                } else if (responseJson.address == "null") {
+
+                    firstName = responseJson['firstname']
+                    lastname = responseJson['lastname']
+                    phone = responseJson['phone']
+                    email = responseJson['email']
+                    degree = responseJson['degree']
+                    experiencedm = responseJson['experience']
+                    //use this format for all field done 
+                    mciNumber = responseJson['mciNumber']
+                    //var adrstype=responseJson['address']['addressType']                  
+                    lineone = responseJson['address']
+                    if (responseJson['address']['line1'] != "null") {
+                        lineone = responseJson['address']['line1']
+                    } else {
+                        lineone = "null"
+                    }
+                    if (responseJson['address']['line2'] != "null") {
+                        linetwo = responseJson['address']['line2']
+                    } else {
+                        linetwo = "null"
+                    }
+                    if (responseJson['address']['line3'] != "null") {
+                        linethree = responseJson['address']['line3']
+                    } else {
+                        linethree = "null"
+                    }
+                    if (responseJson['address']['city'] != "null") {
+                        cityname = responseJson['address']['city']
+                    } else {
+                        cityname = "null"
+                    }
+                    if (responseJson['address']['state'] != "null") {
+                        statename = responseJson['address']['state']
+                    } else {
+                        statename = "null"
+                    }
+                    if (responseJson['address']['postalCode'] != "null") {
+                        postcode = responseJson['address']['postalCode']
+                    } else {
+                        postcode = "null"
+                    }
+                    specializationRes = responseJson['specialization']
+
+                    if (responseJson['imageName'] != "null") {
+                        image = responseJson['imageName']
+                    } else {
+                        image = "null"
+                    }
+                }
+            })
+            .catch(error => console.log(error))
+    }
+
+    catch (error) {
+        console.error(error);                
+
+    }
+
+
+    console.log("12", lineone)  //eita aga kmti print hauchi response pare asuchi hau
+    
+    const [firstname, setfname] = React.useState(type);
+    const [lstname, setlname] = React.useState(lastname);
+    const [emailid, setemailid] = React.useState(email);
+    //const [addtype, setaddtype] = React.useState('');
+    const [line1, setline1] = React.useState(lineone);
+    const [line2, setline2] = React.useState(linetwo);
+    const [line3, setline3] = React.useState(linethree);
+    const [city, setcity] = React.useState(cityname);
+    const [state, setstate] = React.useState(statename);
+    const [postalcode, setpostalcode] = React.useState(postcode);
+    const [degrees, setdegree] = React.useState(degree);
+    const [specialization, setspecialization] = React.useState(specializationRes);
+    const [experiencee, setexperience] = React.useState(experiencedm);
+    const [mcinumber, setmcinumber] = React.useState(mciNumber);
+    const [selectedImage, setSelectedImage] = React.useState(image);
+
+    
+    
+    console.log("RESPONSE", firstname) // value hi asibani coz tesponse asiba purbaru se print karuchifoo
+
+
+
+    const openCamera = async () => {
+        let c_images = await launchCamera(options);
+        console.log("imagesss" + c_images);
+     
+        localUri = c_images.assets[0].uri
+        fileNamee = c_images.assets[0].fileName
+        console.log('Local ', localUri);
+        console.log('FILE ', fileNamee);
+        //console.log('Type ', filetype);
+        //console.log(parsed);
+        setSelectedImage(localUri);
+
+       //  myUri = 'file:///data/user/0/com.drappconnect/cache/rn_image_picker_lib_temp_2764962f-a5f9-4436-88b8-93d637d68043.jpg'
+
+        
+       
+            if (c_images.cancelled == true) {
+                return;
+            }
+            else if (c_images != null) 
+            {
+
+                isImageSelected=true;
+
+
+                // setSelectedImage(localUri)
+            }else{
+                isImageSelected=false;
+
+            }
+        }
+        const saveImageToApi = async () => {
+            const data = new FormData();
+            let auth = await AsyncStorage.getItem('auth');
+        let parsed = JSON.parse(auth);
+        
+                data.append('file', 
+                { uri: localUri, name: fileNamee, type: 'image/png' }
+                );
+                console.log(data)
+                console.log("LOCAL URI",localUri)
+
+                try{
+                fetch(
+                    URL.UploadImageApi,
+                    {
+                        method: 'POST',
+                       
+                        headers: {
+                            //'Content-Type': 'multipart/form-data',
+                            'Authorization': 'Bearer ' + parsed.access_Token,
+                            //'api-version': '1.0',
+                        
+                        },
+                        body: data,
+                    })
+                    .then((response) => response.text()) 
+                    .then(success => {
+                        console.log("Successgvgvg", success);
+                        isImageSelected=false;
+
+                        ProfileUdateProcess();
+                      }).catch(error => console.log("error",error));
+                    // .then((response) => response.json())
+                    //     .then((responseJson) => {
+                    //         //   let responseJson = await res.json();
+                    //         //   if (responseJson) {
+                    //         //alert('Upload Successful');
+                    //     })
+                    // }
+                }
+                    catch (error) {
+                        console.error(error);
+                        //ToastAndroid.show("error", ToastAndroid.SHORT);
+                    }
+        }    
+    
+
+    // const pickImageFromCamera = async () => {
+    //     let grantedcamera = await PermissionsAndroid.request(
+    //         PermissionsAndroid.PERMISSIONS.CAMERA,
+    //         {
+    //             title: "App Camera Permission",
+    //             message: "App needs access to your camera ",
+    //             buttonNeutral: "Ask Me Later",
+    //             buttonNegative: "Cancel",
+    //             buttonPositive: "OK",
+    //         }
+    //     );
+    //     console.log(grantedcamera)
+    //     let grantedstorage = await PermissionsAndroid.request(
+    //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    //         {
+    //             title: "App Camera Permission",
+    //             message: "App needs access to your camera ",
+    //             buttonNeutral: "Ask Me Later",
+    //             buttonNegative: "Cancel",
+    //             buttonPositive: "OK",
+    //         }
+    //     );
+
+    //     if (
+    //         grantedcamera === PermissionsAndroid.RESULTS.GRANTED &&
+    //         grantedstorage === PermissionsAndroid.RESULTS.GRANTED
+    //     ) {
+    //         console.log("Camera & storage permission given");
+
+    //         const options = {
+    //             storageOptions: {
+    //                 path: "images",
+    //                 mediaType: "photo",
+    //             },
+    //             includeBase64: true,
+    //             base64: true,
+    //         };
+
+    //         launchCamera(options, (res) => {
+    //             console.log("Response = ", res);
+
+    //             if (res.didCancel) {
+    //                 console.log("User cancelled image picker");
+    //             } else if (res.error) {
+    //                 console.log("ImagePicker Error: ", res.error);
+    //             } else if (res.customButton) {
+    //                 console.log("User tapped custom button: ", res.customButton);
+    //                 alert(res.customButton);
+    //             } else {
+    //                 const source = { uri: res.assets[0].base64 };
+    //                 // setDetailsToCreatorObject({
+    //                 //     image: "data:image/jpeg;base64," + source.uri,
+    //                 // });
+    //                 setSelectedImage(source.uri);
+    //                 setModalView(false);
+    //             }
+    //         });
+    //     } else {
+    //         console.log("Camera permission denied");
+    //     }
+    // };
+
+
+    const openGallery = async () => {
+        const g_images = await launchImageLibrary(options);
+        console.log(g_images);
+
+        localUri  = g_images.assets[0].uri
+        fileNamee = g_images.assets[0].fileName
+        setSelectedImage(localUri);
+
+
+        console.log('Local ', localUri);
+        console.log('FILE ', fileNamee);
+
+        if (g_images.cancelled === true) {
+            return;
+        }
+        else if (g_images != null) 
+        {
+            const data = new FormData();
+            data.append('file', localUri)
+                //fileNamee
+                //fileTypee
+                //type:c_images.assets[0].type
+
+           // )
+            console.log(data)
+            //console.log(fileNamee)
+
+            // try{
+            // fetch(
+            //     URL.UploadImageApi,
+            //     {
+            //         method: 'POST',
+                   
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data',
+            //             'Authorization': 'Bearer ' + parsed.access_Token,
+            //             'api-version': '1.0',
+                    
+            //         },
+            //         body: '../images/profile.png',
+            //     })
+            //     .then((response) => response.json())
+            //         .then((responseJson) => {
+            //             //   let responseJson = await res.json();
+            //             //   if (responseJson) {
+            //             //alert('Upload Successful');
+            //         })
+            //     }
+            //     catch (error) {
+            //         console.error(error);
+            //         //ToastAndroid.show("error", ToastAndroid.SHORT);
+            //     }
+
+            // setSelectedImage(localUri)
+        }
+        
+    }
+
+    // const uploadImage=async(data)=>{
+    //     //console.log(data);
+    //     let auth = await AsyncStorage.getItem('auth');
+    //     let parsed = JSON.parse(auth);
+    //     try {
+    //         fetch(URL.UploadImageApi, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'api-version': '1.0',
+    //                 'Content-Type': 'multipart/form-data',
+    //                 'Authorization': 'Bearer ' + parsed.access_Token,
+    //             },
+    //             body: data,
+
+    //         }).then((response) => response.json()) 
+    //         .then((responseJson) =>{
+
+    //             console.log(responseJson);
+                
+
+    //         })
+    //             .catch(error => console.log(error))
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+
+
+    // let uploadImage = async () =>{
+    //     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    //     //let filename = path.substring(path.lastIndexOf('/') + 1, path.length)
+    //        if (permissionResult.granted === false) {
+    //          alert("Permission to access camera roll is required!");
+    //          return;
+    //        }
+    //        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    //     //    launchImageLibraryAsync();
+
+    //        if (pickerResult.cancelled === true) {
+    //            return;
+    //          } 
+    //          localUri = pickerResult.uri
+    //        setSelectedImage(localUri);
+
+    //        console.log(pickerResult);
+
+    //     //    var encodedString = Base64.encode(localUri);
+
+    //     //    console.log(encodedString);
+
+    const setToastMsg = msg => {
+        ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
+    };
+    // const options={
+    //     width: 300,
+    //     height: 400,
+    //     cropping: true
+    // }
+    // launchCamera(options, (response) => { // Use launchImageLibrary to open image gallery
+    //     console.log('Response = ', response);
+
+    //     if (response.didCancel) {
+    //       console.log('User cancelled image picker');
+    //     } else if (response.error) {
+    //       console.log('ImagePicker Error: ', response.error);
+    //     } else if (response.customButton) {
+    //       console.log('User tapped custom button: ', response.customButton);
+    //     } else {
+    //       const source = { uri: response.uri };
+
+    //       // You can also display the image using data:
+    //const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+    //       console.log(source)
+    //     }
+    //   });
+    
+
+    //      }
+
+    const ProfileUdateProcess = async () => {
+
+        let auth = await AsyncStorage.getItem('auth');
+        let parsed = JSON.parse(auth);
+        //console.log(parsed.access_Token)
+
+        exp = parseInt(experiencee)
+
+        try {
+            fetch(URL.OtpApi + parsed.user_ID, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'requestid': uuid.v4(),
+                    'api-version': '1.0',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + parsed.access_Token,
+                },
+                body: JSON.stringify({
+                    "firstname": firstname,
+                    "lastname": lstname,
+                    "email": emailid,
+                    "address": {
+                        "line1": line1,
+                        "line2": line2,
+                        "line3": line3,
+                        "city": city,
+                        "state": state,
+                        "country": "India",
+                        "postalCode": postalcode
+                    },
+                    "degree": degrees,
+                    "specialization": specialization,
+                    "experience": experiencee,
+                    "mciNumber": mcinumber,
+                    "imageName": fileNamee
+                   
+                })
+
+            }).then((response) => {
+
+                navigation.navigate('Tabv')
+                // navigation.navigate('Tabv',
+                //     {
+                //         dr_name:firstname ,
+                //         dr_Specialization:specialization, 
+                //         dr_Experience:experiencee
+                //     }
+
+                // );
+
+            })
+                .catch(error => console.log(error))
+        }
+        catch (error) {
+            console.error(error);
+
+        }
+    }
+
+    return (
+        <View style={{ flex: 1 }}>
+            <ImageBackground source={require('../images/backgroundImage1.png')} resizeMode="cover"
+                style={GlobalStyle.image1}>
+                <StatusBar barStyle="dark-content" hidden={false} backgroundColor="#6fb7ed" textColor="#ffffff" translucent={true} />
+                <ScrollView>
+
+                    
+                    {/* <View style={GlobalStyle.mt20}></View> */}
+                    {/* <View style={GlobalStyle.notificationBar}>
+                        <Text style={GlobalStyle.notiiconTxt} onPress={() => navigation.navigate('Notification')}>
+                            <Ionicons
+                                name="notifications-outline"
+                                style={GlobalStyle.notiicon}></Ionicons>
+                        </Text>
+                    </View> */}
+
+                    <View style={{ marginBottom: 20 }}>
+                        <View style={styles.imgView}>
+                        
+                            <TouchableOpacity
+                                onPress={() => refRBSheet.current.open()}>
+                                {/* <Image
+                                value={resimg}
+                                 source={isImageSelected ?
+                                    {uri:myImage}
+                                 :require('../images/profile.png')
+                                
+                                }
+                                 
+                                 style={styles.imginfo}
+                                 
+                                /> */}
+                                <Image
+                            
+                                value={image}
+                                source={selectedImage ?
+                                { uri: selectedImage,
+                                headers: {
+                                            Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjBYR1MtOVZXSThUUlRBWjdDWklQOS1IRlFHVi03TU5DUzBEUlZRSlkiLCJ0eXAiOiJhdCtqd3QifQ.eyJzdWIiOiIyZTRmNWQxYi1mOGRhLTRkZGYtYWFkYS05NWEzOTQ5Njg1NDYiLCJuYW1lIjoiODA1Zjg3NjAtOWU0Mi00ZDAzLTg4MmUtZGNmOTU1OTg5OGM2IiwiVXNlclR5cGUiOiJEb2N0b3IiLCJJc1JlZ2lzdGVyZWQiOiJGYWxzZSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL21vYmlsZXBob25lIjoiODk4NDE0NzE4NyIsIm9pX3Byc3QiOiJwb3N0bWFuIiwiY2xpZW50X2lkIjoicG9zdG1hbiIsIm9pX3Rrbl9pZCI6IjBkZjhlYTcyLWEzNDYtNDE2Ny04NmM0LTQxZWExZDVkMjczNyIsImF1ZCI6WyJhdmRfbWFuYWdlbWVudCIsImF2ZF91cGxvYWQiLCJhdmRfc21zIl0sImV4cCI6MTY0NTI1NTQ0MSwiaXNzIjoiaHR0cDovL3NlY3VyaXR5LWFwaS8iLCJpYXQiOjE2NDUyNTE4NDF9.BQ6dMDr-AoP9-Y9Na6IFFS_RASzI4TqnN8CO6EwoNWfGdmVDSG56PD-Is-Kl_QgSeWlnHz9vtFkgnimHnCXkAWAUr4hDtIzcMFMKFsOLmKk9UiNWUsN5qJJulYlZp9fQetQAvDR_EgoMf0jvPrX9AcQLduq1zAfpYVnYLR9tA_mucCcHtApYmpG5MVdKh4Oc5x2JxaC3JufEjDviknq3DGs2kspeLYb9ShFMl90l_asm5QZIsJyN3QXvJit3TAknMl4uEvcEt0b8Yef9Q1r7sAlnRIDIaHmvfp1CZ-pw_IOjhssAo8uhnaiR8yZqP0taU-Js-pKSTHT5n6FkhJC3MA'
+                                        }
+                                        }:require('../images/profile.png')
+                                }
+                                style={styles.imginfo}
+                                />
+                            </TouchableOpacity>
+
+                            {/*<Image source={{ uri: 'url',
+      headers: {Authorization: 'Bearer *******'}
+ }}/>*/}
+                            {/* <ImageLoad 
+                    
+                    source={{uri:localUri}}
+                    style={styles.imginfo}
+                />
+
+                <Text onPress= {()=>uploadImage()} style={{fontSize:23,fontWeight:'600'}}>press</Text> */}
+                    <View 
+                    style={{
+                        backgroundColor:"#0cadffa8", 
+                        marginTop:-25, 
+                        alignItems:"center",
+                        alignSelf:"flex-start",
+                        width:30,
+                        paddingTop:4,
+                        height:30,
+                        borderRadius:20}}>
+                            <Ionicons name="camera-sharp" size={20}
+                            onPress={() => refRBSheet.current.open()}>
+                            </Ionicons>
+                    </View>
+                        </View>
+
+                        <View style={{alignItems:"center"}}>
+                            
+                            <RBSheet
+                                ref={refRBSheet}
+                                height={200}
+                                
+                                closeOnDragDown={true}
+                                closeOnPressMask={false}
+
+                                customStyles={{
+                                    wrapper: {
+                                        backgroundColor: "#00000061",
+
+                                    },
+                                    draggableIcon: {
+                                        backgroundColor: "#000"
+                                    },
+                                    container:{
+                                        borderTopLeftRadius:30,
+                                        borderTopRightRadius:30,
+                                        marginBottom:5,
+                                        alignItems:"center"                                  
+                                    }
+                                    
+
+                                }}
+                            >
+                                <View>
+                                <View style={GlobalStyle.t_c}>
+                                    <Text style={[GlobalStyle.txtView1, GlobalStyle.t_c]}>
+                                        Select profile photo
+                                    </Text>
+                                </View>
+                                    <View style={GlobalStyle.btmSheet}>
+                                        <View style={GlobalStyle.wd_70twoicon}>
+                                            <TouchableOpacity
+                                                onPress={() => openCamera()}>
+                                                <View style={GlobalStyle.camView}>
+
+                                                    <Image source={require('../images/camera2.png')} style={GlobalStyle.mx_wid}></Image>
+                                                        
+                                                    <Text style={GlobalStyle.popuptext}
+                                                    >Camera</Text>
+                                                </View>
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity
+                                                onPress={() => openGallery()}>
+                                                <View style={GlobalStyle.camView}>
+                                                    <Image source={require('../images/gallery.png')} style={GlobalStyle.mx_wid}></Image>
+                                                    <Text style={GlobalStyle.popuptext}
+                                                    >Gallery</Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                            </View>
+                            </RBSheet>
+
+
+
+                        </View>
+
+                    </View>
+
+                    {/* <View style={GlobalStyle.infoBg}>
+                            <Text style={GlobalStyle.addressInfo}>Personal Information</Text>
+                        </View> */}
+
+                        <View>
+                            <Button 
+                            title="XYZ"
+                            onPress={()=>Test()}></Button>
+                        </View>
+
+                    <View style={GlobalStyle.flxCenter}>
+                        <View style={{ width: '50%' }}>
+                            <TextInput
+                                //ref={myname}
+                                value={firstName}
+                                style={[GlobalStyle.input, GlobalStyle.mr05]}
+                                inputStyle={GlobalStyle.inputStyle}
+                                labelStyle={GlobalStyle.labelStyle}
+                                placeholderStyle={GlobalStyle.placeholderStyle}
+                                //textErrorStyle={GlobalStyle.textErrorStyle}
+                                label="First Name"
+                                showIcon={false}
+                                //placeholder="Placeholder"
+                                placeholderTextColor="gray"
+                                //style={{width:'50%'}}
+                                //focusColor="blue"
+                                onChangeText={firstname => {
+                                    setfname(firstname);
+                                    // if (fname != "") {
+                                    //     lname.current.focus()
+                                    // }
+                                }}
+
+                            />
+
+                        </View>
+                        <View style={{ width: '50%' }}>
+                            <TextInput
+                                value={lastname}
+                                style={[GlobalStyle.input, , GlobalStyle.ml05]}
+                                inputStyle={GlobalStyle.inputStyle}
+                                labelStyle={GlobalStyle.labelStyle}
+                                placeholderStyle={GlobalStyle.placeholderStyle}
+                                textErrorStyle={GlobalStyle.textErrorStyle}
+                                label="Last Name"
+                                showIcon={false}
+                                //placeholder="Placeholder"
+                                placeholderTextColor="gray"
+                                //focusColor="blue"
+                                onChangeText={lstname => {
+                                    setlname(lstname);
+                                }}
+                            />
+                        </View>
+                    </View>
+                    <View>
+
+                        <TextInput
+                            value={degree}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Degree"
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={degree => {
+                                setdegree(degree);
+                            }}
+                        />
+
+
+                        <TextInput
+                            value={specializationRes}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Specialization"
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={specialization => {
+                                setspecialization(specialization);
+                            }}
+                        />
+
+                        <TextInput
+                            value={experiencedm}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Experience"
+                            keyboardType={"number-pad"}
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={experiencee => {
+                                setexperience(experiencee);
+                            }}
+                        />
+
+                        <View style={GlobalStyle.flxCenter}>
+                            <View style={{ width: '40%' }}>
+                                <TextInput
+                                    value={mciNumber}
+                                    style={[GlobalStyle.input, GlobalStyle.mr05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="MCI Number"
+                                    keyboardType={"number-pad"}
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={mcinumber => {
+                                        setmcinumber(mcinumber);
+                                    }}
+                                />
+                            </View>
+
+                            <View style={{ width: '60%' }}>
+                                <TextInput
+                                    value={mciNumber}
+                                    style={[GlobalStyle.input, , GlobalStyle.ml05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="MCI"
+                                    keyboardType={"number-pad"}
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={mcinumber => {
+                                        setmcinumber(mcinumber);
+                                    }}
+                                />
+
+
+                            </View>
+
+
+                        </View>
+                        <View style={GlobalStyle.flxCenter}>
+
+                            <View style={{ width: '40%' }}>
+                                <TextInput
+                                    value={phone}
+                                    editable={false} selectTextOnFocus={false}
+                                    style={[GlobalStyle.input, GlobalStyle.mr05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="Mobile Number"
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={emailid => {
+                                        setemailid(emailid);
+                                    }}
+                                />
+                            </View>
+                            <View style={{ width: '60%' }}>
+                                <TextInput
+                                    value={email}
+                                    style={[GlobalStyle.input, GlobalStyle.ml05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="Email ID"
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={emailid => {
+                                        setemailid(emailid);
+                                    }}
+                                />
+                            </View>
+                        </View>
+                        <View style={GlobalStyle.infoBg}>
+                            <Text style={GlobalStyle.addressInfo}>Address Information</Text>
+                        </View>
+
+
+
+                        {/* <TextInput
+                            value={resaddresstype}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Address Type"
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={addtype => {
+                                setaddtype(addtype);
+                            }}
+                        /> */}
+
+
+
+
+
+                        <TextInput
+                            value={lineone}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Line1"
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={line1 => {
+                                setline1(line1);
+                            }}
+                        />
+                        <TextInput
+                            value={linetwo}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Line2"
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={line2 => {
+                                setline2(line2);
+                            }}
+                        />
+                        <TextInput
+                            value={linethree}
+                            style={GlobalStyle.input}
+                            inputStyle={GlobalStyle.inputStyle}
+                            labelStyle={GlobalStyle.labelStyle}
+                            placeholderStyle={GlobalStyle.placeholderStyle}
+                            textErrorStyle={GlobalStyle.textErrorStyle}
+                            label="Line3"
+                            showIcon={false}
+                            //placeholder="Placeholder"
+                            placeholderTextColor="gray"
+                            //focusColor="blue"
+                            onChangeText={line3 => {
+                                setline3(line3);
+                            }}
+                        />
+
+                        <View style={{
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                            flexDirection: 'row',
+                        }}>
+                            <View style={{ width: '50%' }}>
+                                <TextInput
+                                    value={postcode}
+                                    style={[GlobalStyle.input,  GlobalStyle.mr05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="Postal Code"
+                                    keyboardType={"number-pad"}
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={postalcode => {
+                                        setpostalcode(postalcode);
+                                    }}
+                                />
+                            </View>
+                            <View style={{ width: '50%' }}>
+                                <TextInput
+                                    value={cityname}
+                                    //editable={false} selectTextOnFocus={false}
+                                    style={[GlobalStyle.input, GlobalStyle.ml05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="City"
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={city => {
+                                        setcity(city);
+                                    }}
+                                /></View>
+                        </View>
+
+                        <View style={{
+                            display: 'flex',
+                            justifyContent: 'space-around',
+                            flexDirection: 'row',
+                        }}>
+                            <View style={{ width: '50%' }}>
+                                <TextInput
+                                    value={statename}
+                                    //editable={false} selectTextOnFocus={false}
+                                    style={[GlobalStyle.input, , GlobalStyle.mr05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    textErrorStyle={GlobalStyle.textErrorStyle}
+                                    label="State"
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    placeholderTextColor="gray"
+                                    //focusColor="blue"
+                                    onChangeText={state => {
+                                        setstate(state);
+                                    }}
+                                />
+                            </View>
+                            <View style={{ width: '50%' }}>
+                                <TextInput
+                                    value="India"
+                                    editable={false} selectTextOnFocus={false}
+                                    style={[GlobalStyle.input, GlobalStyle.ml05]}
+                                    inputStyle={GlobalStyle.inputStyle}
+                                    labelStyle={GlobalStyle.labelStyle}
+                                    placeholderStyle={GlobalStyle.placeholderStyle}
+                                    label="Country"
+                                    showIcon={false}
+                                    //placeholder="Placeholder"
+                                    //placeholderTextColor="black"
+                                    //focusColor="blue"
+                                    onChangeText={value => {
+                                        setcountry(value);
+                                    }}
+                                />
+                            </View>
+                            
+                        </View>
+
+
+
+
+                    </View>
+                    {/* <View style={{ flexDirection: 'row' }}>
+                <CheckBox
+                    disabled={false}
+                    value={toggleCheckBox}
+                    onValueChange={(newValue) => setToggleCheckBox(newValue)}
+                />
+                    <Text style={{marginTop: 5}}> this is checkbox</Text>
+                </View> */}
+                    <View style={{ alignItems: 'center', justifyContent: 'center', marginVertical: 30 }}>
+                        <TouchableOpacity style={GlobalStyle.appButtonContainer}
+                            onPress={() => {if(isImageSelected==true){
+                                    saveImageToApi();
+                            }
+                            else{
+                                ToastAndroid.show("Please Select Image", ToastAndroid.SHORT);
+                            }
+                            }}>
+                            <Text style={GlobalStyle.appButtonText}
+                            >SUBMIT</Text>
+
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity style={GlobalStyle.appButtonContainer}
+                            onPress={() => ProfileUdateProcess()}>
+                            <Text style={GlobalStyle.appButtonText}
+                            >SUBMIT</Text>
+
+                        </TouchableOpacity> */}
+                    </View>
+
+
+                </ScrollView>
+            </ImageBackground>
+
+       
+    
+        
+      
+
+        </View>
+
+
+    )
+}
+const styles = StyleSheet.create(
+    {
+        imgView: {
+            justifyContent: 'center',
+            alignSelf: 'center',
+            marginTop: 15,
+           // backgroundColor:'pink'
+
+
+        },
+        imginfo: {
+            width: 100,
+            height: 100,
+            borderRadius: 50,
+            alignItems: 'center',
+            //backgroundColor:'yellow'
+        },
+    })
+
+export default Registration

@@ -154,15 +154,23 @@ Route::get('/proposer_Approv/{id}',[App\Http\Controllers\ProposerController::cla
 Route::get('/proposer_Rejected/{id}',[App\Http\Controllers\ProposerController::class,'Rejectedproposermember'])->name('proposerreject_member');
 Route::get('/proposer_Reject/{id}',[App\Http\Controllers\ProposerController::class,'Rejectedproposermember2'])->name('proposerreject_member2');
 
-//Course Details ---- Added by prsant 07/06/2022 ----
-Route::get('/addcourse',[App\Http\Controllers\CourseSyllabusController::class,'viewCourse'])->name('viewcourse');
-Route::post('/createcourse',[App\Http\Controllers\CourseSyllabusController::class,'createCourse'])->name('createcourse');
-Route::post('/update-courses',[App\Http\Controllers\CourseSyllabusController::class,'update_Courses']);
-Route::get('delete-courses/{id}',[App\Http\Controllers\CourseSyllabusController::class,'dlt_Courses'])->name('delete-course');
-
-
    
+//AddExampages ------Added by Sunil 06/06-2022 ----
+Route::get('/adddownloadpages',[App\Http\Controllers\AddExamPageController::class,'createexampage'])->name('createexampage');
+Route::post('/create_download_Ins',[App\Http\Controllers\AddExamPageController::class,'createexampagesPOSTINS'])->name('createexampagesPOSTINS');
+Route::post('/create_download_Updt',[App\Http\Controllers\AddExamPageController::class,'createdownloadPOSTUDT'])->name('createdownloadPOSTUDT');
+Route::get('/create_download_dlt/{id}', [App\Http\Controllers\AddExamPageController::class, 'createdownloadPOSTDLT'])->name('createdownloadPOSTDLT');
 
+//studentapplyshow ------Added by Sunil 07/06-2022 ----
+Route::get('/studentapplications',[App\Http\Controllers\StudentapplyController::class,'showstudentapplications'])->name('showstudentapplications');
+Route::get('/studentapplications_Accept/{id}',[App\Http\Controllers\StudentapplyController::class,'Acceptstudentapplications'])->name('Acceptstudentapplications');
+Route::get('/studentapplications_Reject/{id}',[App\Http\Controllers\StudentapplyController::class,'Rejectstudentapplications'])->name('Rejectstudentapplications');
+
+//payment offline Approve
+Route::post('/offlinepayment_Accept',[App\Http\Controllers\StudentapplyController::class,'Acceptofflinepayment'])->name('Acceptofflinepayment');
+
+//Refund To Student
+Route::get('/refund_tostudent/{id}',[App\Http\Controllers\StudentapplyController::class,'refundtostudent'])->name('refundtostudent');
 
    
 
@@ -186,6 +194,8 @@ Route::get('delete-courses/{id}',[App\Http\Controllers\CourseSyllabusController:
 
 });
 
+Route::get('/student-membership',[App\Http\Controllers\StudentMembershipController::class,'studentmembershipinsert'])->name('studentmembershipinsert');
+Route::post('/student_membership_insert',[App\Http\Controllers\StudentMembershipController::class,'studentmembershipinsert_data'])->name('studentmembershipinsert_data');
 
 
 
