@@ -51,4 +51,19 @@ class CountryController extends Controller
         notify()->success('Country deleted sucessfully!');
         return redirect('/addcountry');
     }
+    public function all(Request $request){
+
+        $post=new Country;
+        $post->vch_countrycode=$request->countrycodetxt;
+        $post->vch_countryname=$request->countrynametxt;
+        $post->vch_status=$request->countrystatusddl;
+        $post->save();
+
+        return response()->json([
+            "status"=>200,
+            "message"=>"insert Succefull",
+            "data"=>$post
+        ]);
+
+    }
 }

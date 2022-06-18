@@ -42,7 +42,6 @@ class AuthenticatedSessionController extends Controller
        
     }
 
-    //prasant email
    
     
 

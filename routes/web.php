@@ -7,7 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Barryvdh\DomPDF\Facade as PDF;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,7 +147,9 @@ Route::post('/create_branchgallery_Updt',[App\Http\Controllers\BranchGalleryCont
 //Membership ------Added by prasant 03/06-2022 ----
 Route::get('/membership',[App\Http\Controllers\MembershipController::class,'index'])->name('member_view');
 Route::get('/membership_Approved/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember'])->name('Approvedmember');
+Route::get('/membership_Approved_insert_user/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember_user'])->name('Approvedmember_user');
 Route::get('/membership_Rejected/{id}',[App\Http\Controllers\MembershipController::class,'Rejectedmember'])->name('Rejectedmember');
+Route::post('/membership_add',[App\Http\Controllers\MembershipController::class,'membershipinsert_data'])->name('Insertdmember');
      
      //Proposer ------Added by prasant 06/06-2022 ----
 Route::get('/proposer',[App\Http\Controllers\ProposerController::class,'index'])->name('proposer_view');
@@ -171,7 +175,16 @@ Route::post('/offlinepayment_Accept',[App\Http\Controllers\StudentapplyControlle
 
 //Refund To Student
 Route::get('/refund_tostudent/{id}',[App\Http\Controllers\StudentapplyController::class,'refundtostudent'])->name('refundtostudent');
+// Frontend
 
+Route::get('/membership-form',[App\Http\Controllers\MembershipController::class,'membershipform'])->name('viewform');
+
+
+   
+
+//mail send
+Route::get('generate-pdf', [App\Http\Controllers\MembershipController::class, 'generatePDF']);
+Route::get('temp', [App\Http\Controllers\MembershipController::class, 'temp']);
    
 
 
