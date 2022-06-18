@@ -119,7 +119,27 @@
                     </a>
                 </li>
                 @endcan
-                
+                @can('Admin View Examdownload Page')
+                <li>
+                    <a href="{{url('/approvebranchevent')}}" class="">
+                        <div class="parent-icon"><i class='bx bx-home'></i>
+                        </div>
+                        <div class="menu-title">Admin View Events</div>
+                    </a>
+                </li>
+                @endcan
+                <li>
+                    <a href="{{url('/adddownloadpages')}}">
+                        <div class="parent-icon"><i class='bx bx-home'></i></div>
+                        <div class="menu-title">Add Exam Page</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/studentapplications')}}">
+                        <div class="parent-icon"><i class='bx bx-home'></i></div>
+                        <div class="menu-title">Student Application</div>
+                    </a>
+                </li>
                 <li>
                     <a href="{{url('/membership')}}" class="">
                         <div class="parent-icon"><i class='bx bx-home'></i>
@@ -132,13 +152,6 @@
                         <div class="parent-icon"><i class='bx bx-home'></i>
                         </div>
                         <div class="menu-title">Proposer</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('/addcourse')}}" class="">
-                        <div class="parent-icon"><i class='bx bx-home'></i>
-                        </div>
-                        <div class="menu-title">Course Syllabus</div>
                     </a>
                 </li>
              

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AddBranchEvent;
 use Auth;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Crypt;
 
 class BranchEventController extends Controller
@@ -17,9 +16,7 @@ class BranchEventController extends Controller
     }
     public function createbrancheventPOSTINS(Request $request)
     {
-
-        
-        $session_id = FacadesAuth::user()->id;
+        $session_id = Auth::user()->id;
         //dd($session_id);
         $post=new AddBranchEvent;
         $post->Branch_ID=$session_id;
@@ -39,7 +36,7 @@ class BranchEventController extends Controller
     }
     public function createbrancheventPOSTUDT(Request $request)
     {
-        $session_id = FacadesAuth::user()->id;
+        $session_id = Auth::user()->id;
 
         $file = $request->file('UDTuploadimagefileUpload');
         $extenstion = $file->getClientOriginalExtension();

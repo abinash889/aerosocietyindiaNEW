@@ -66,8 +66,6 @@
 										</td>
                                         @elseif($memberships->INT1_pro_status==1)
                                         <td><span class="badge bg-success">Approved</span></td>
-                                        @elseif($memberships->INT1_pro_status==15)
-                                        <td><span class="badge bg-success">Rejected</span></td>
 										@endif
 										
 										
@@ -86,10 +84,8 @@
 											<a href="{{url('/proposer_Approv', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve2</a>
 											<a href="{{url('/proposer_Reject', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
 										</td>
-                                        @elseif($memberships->INT2_pro_status==1)
+                                        @elseif($memberships->INT1_pro_status==1)
                                         <td><span class="badge bg-success">Approved</span></td>
-                                        @elseif($memberships->INT2_pro_status==15)
-                                        <td><span class="badge bg-success">Rejected</span></td>
 										@endif
 										
 										

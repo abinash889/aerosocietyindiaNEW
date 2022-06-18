@@ -154,7 +154,7 @@
 									</div>
 									<div class="col-md-12">
 										<label for="inputLastName" class="form-label">Event Details</label>
-										<textarea class="form-control" name="UDTeventdetailstxt" rows="5" id="description1{{$eventfetch->id}}">
+										<textarea class="form-control" name="UDTeventdetailstxt" rows="5" id="description1">
 										{{$eventfetch->vch_eventdetails}}
 										</textarea>
 									</div>
@@ -178,13 +178,10 @@
 	@section("script")
 	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
 	<script src="assets/js/index3.js"></script>
-	@foreach($result as $eventfetch)
     <script>
         CKEDITOR.replace('description', {})
-        CKEDITOR.replace('description1{{$eventfetch->id}}', {})
-
+        CKEDITOR.replace('description1', {})
     </script>
-	@endforeach
 	<script>
 		new PerfectScrollbar('.best-selling-products');
 		new PerfectScrollbar('.recent-reviews');
