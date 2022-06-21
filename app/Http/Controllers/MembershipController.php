@@ -96,13 +96,14 @@ class MembershipController extends Controller
         // $random=rand(111111,999999);
         $hashedPassword = Hash::make($password);
         $member_user->name = $post->vch_firstname;
-        $member_user->gender = $post->vch_gender;
         $member_user->password = $hashedPassword;
         $mem_pwd = $member_user->password;
         $member_user->vch_usertype = 'member';
         $member_user->vch_membership_no = "G-".$post->id;
         $member_user->email = $post->vch_emailid;
         $mem_email= $member_user->email;
+
+        
     //    dd($member_user->name,
     //    $member_user->gender,
     //    $member_user->password,
@@ -110,7 +111,8 @@ class MembershipController extends Controller
           $member_user->save();
         // dd($new_member_approved_id);
         $last_id=$member_user->id;
-        // dd($last_id);
+
+        
         $post->int_grading_level =$mbr_id;
         $post->INT_user_id =$last_id;
         $post->vch_membership_no ="G-".$post->id;;
@@ -121,19 +123,28 @@ class MembershipController extends Controller
         $post->DT_updatedon = now();
         $post->update();
 
+        $last_fname=$post->vch_firstname;
+        $last_mname=$post->vch_middlename;
+        $last_lname=$post->vch_lastname;
+        $last_collagename=json_decode($post->collage)[0];
+        $last_memberID=$post->vch_membership_no;
+        $last_dateofissue=$post->DT_updatedon;
+
+        //dd($last_memberID);
+
         $insertPaymentTable=new PaymentTransaction;
         $insertPaymentTable->INT_USER_id= $last_id;
         $insertPaymentTable->INT_paymentmode=$post->INT_paymentmode;
         $insertPaymentTable->INT_Payment_type=$post->INT_Payment_type;
         $insertPaymentTable->vch_transactionID=$post->vch_transactionID;
-        $insertPaymentTable->vch_fee=$post->vch_amount;
+        $insertPaymentTable->vch_fee=$post->vch_fee;
         $insertPaymentTable->INT_paymentstatus=$post->Int_payment_status;
         $insertPaymentTable->save();
 
 
 
 
-        $this->generatePDF( $mem_code ,$mem_email,$password,'abinash889@gmail.com');
+        $this->generatePDF( $mem_email, $last_fname, $last_mname, $last_lname, $last_collagename,$last_memberID, $last_dateofissue);
 
 
         notify()->success('Member approved Successfully');
@@ -142,12 +153,13 @@ class MembershipController extends Controller
        
     }
 
-    public function generatePDF($mem_code ,$mem_email,$password){
+    // public function generatePDF($mem_code ,$mem_email,$password){
+    public function generatePDF($mem_email, $last_fname, $last_mname, $last_lname, $last_collagename, $last_memberID, $last_dateofissue){
         // $data["email"]=$request->get("kprasant635@gmail.com");
         // $data["client_name"]=$request->get("prasant");
         // $data["subject"]=$request->get("testing");
 
-        $data = [ 'mem_code' => $mem_code , 'email' => $mem_email, 'pwd' => $password];
+        $data = ['email'=>$mem_email, 'f_name' => $last_fname, 'm_name' => $last_mname, 'l_name' => $last_lname, 'c_name'=>$last_collagename, 'membercode'=> $last_memberID, 'dateissue'=>$last_dateofissue];
 
         $pdf = FacadePdf::loadView('mail.student_id',$data);
  
@@ -158,8 +170,8 @@ class MembershipController extends Controller
             // FacadesMail::send('mail.otp', $data, function ($messages) use ($user) {
             //     $messages->to($user['to']);
             //  ->subject("member code")
-             ->attachData($pdf->output(), "invoice.pdf");
-             $message->subject('Membership Details');
+             ->attachData($pdf->output(), "membershipcard.pdf");
+             $message->subject('Membership Card');
             });
             // FacadesMail::send('emails.activation', $data, function($message) use ($email, $subject) {
             //     $message->to($email)->subject($subject);
@@ -248,19 +260,22 @@ class MembershipController extends Controller
 
         $count2=count($request->data1);
      
-         for($j=0;$j<$count2;$j++)
+        for($j=0;$j<$count2;$j++)
         {
 
-        $cqualificationtxt1[]=$request->data1[$j]['cqualificationtxtt1'];
-        $collagetxt1[]=$request->data1[$j]['collagetxt1'];
-        $addresstxt1[]=$request->data1[$j]['addresstxt1'];
-        $universitytxt1[]=$request->data1[$j]['universitytxt1'];
-        $yaerofpassingtxt1[]=$request->data1[$j]['yaerofpassingtxt1'];
-        $specializationtxt1 []=$request->data1[$j]['specializationtxt1'];
-       
+        $organisationtxt[]=$request->data1[$j]['organisationtxt'];
+        $orga_fromtxt[]=$request->data1[$j]['orga_fromtxt'];
+        $orga_totxt[]=$request->data1[$j]['orga_totxt'];
+        $orga_desig[]=$request->data1[$j]['orga_desig'];
+        $orga_jobdesc[]=$request->data1[$j]['orga_jobdesc'];
         }
         
-        
+        $countawards=count($request->awards);
+     
+        for($k=0;$k<$countawards;$k++)
+        {
+            $VARawardsname[]=$request->awards[$k]['awardsname'];
+        }
 
        
 
@@ -346,12 +361,13 @@ class MembershipController extends Controller
         $insertData->specialization=json_encode($specializationtxt);
 
 
-        $insertData->vch_academicinformation1=json_encode($cqualificationtxt1);
-        $insertData->collage1=json_encode($collagetxt1);
-        $insertData->address1=json_encode($addresstxt1);
-        $insertData->university1=json_encode($universitytxt1);
-        $insertData->yearofpassing1=json_encode($yaerofpassingtxt1);
-        $insertData->specialization1=json_encode($specializationtxt1);
+        $insertData->vch_organisationname=json_encode($organisationtxt);
+        $insertData->vch_fromdate=json_encode($orga_fromtxt);
+        $insertData->vch_todate=json_encode($orga_totxt);
+        $insertData->vch_designation=json_encode($orga_desig);
+        $insertData->vch_jobdescription=json_encode($orga_jobdesc);
+
+        $insertData->vch_awardsname=json_encode($VARawardsname);
 
 
 
@@ -368,6 +384,18 @@ class MembershipController extends Controller
         return redirect()->back();
     }
 
+    //Accept Offline payment for Member
+    public function Acceptofflinepayment(Request $request)
+    {
+        $updateData=Membership::where('id',$request->id)->update([
+            'Int_payment_status'=>1,
+            'INT_PaymentOffline__type'=>$request->paymenttypetxt,
+            'vch_transactionID'=>$request->chequeddnotxt,
+            'vch_fee'=>$request->amounttxt
+        ]);
+        notify()->success('Offline Payment update Successfully');
+        return redirect()->back();
+    }
 
     public function temp()
     {

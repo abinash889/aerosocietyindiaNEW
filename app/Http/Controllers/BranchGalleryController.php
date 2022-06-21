@@ -31,7 +31,7 @@ class BranchGalleryController extends Controller
         $post->vch_title=$request->gallerytitletxt;
         $post->vch_image=json_encode($images);
         $post->save();
-        notify()->success('Your images are under approval. Once its approved, Its automatically visible to all');
+        notify()->success('Your images are under approval. Once its approved, It will automatically visible to all');
         return redirect('/addbranchgallery');
     } 
     public function createbranchgalleryPOSTUDT(Request $request)

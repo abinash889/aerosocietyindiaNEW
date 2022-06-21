@@ -66,6 +66,38 @@ class ProposerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function Rejectedproposermember($id)
+    {
+        $rejc_id=Crypt::decrypt($id);
+        $post = Membership::find($rejc_id);
+        
+        // $reject_id=$post->INT1_pro_status;
+       
+        $post->INT1_pro_status = 15;
+        $post->DT_updatedon = now();
+        $post->update();
+
+        
+
+        notify()->success('Member Rejected Successfully');
+        return redirect()->back();
+    }
+    public function Rejectedproposermember2($id)
+    {
+        $rejc_id=Crypt::decrypt($id);
+        $post = Membership::find($rejc_id);
+        
+        // $reject_id=$post->INT1_pro_status;
+       
+        $post->INT2_pro_status = 15;
+        $post->DT_updatedon = now();
+        $post->update();
+
+        
+
+        notify()->success('Member Rejected Successfully');
+        return redirect()->back();
+    }
     public function store(Request $request)
     {
         //

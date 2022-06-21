@@ -153,6 +153,10 @@
             margin-right: 11px;
             width: 14.28%;
         }
+        /* .wd_16{
+            margin-right: 11px;
+            width: 15.66%;
+        } */
         .wd_7{
             width: 7.28%;
             margin-right: 0px;
@@ -193,7 +197,7 @@
         <div class="container m_t m_b">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="fnt_sz">Student Membership</h1>
+                    <h1 class="fnt_sz">Graduate Membership</h1>
                     <h3 class="fnt_sz2">personal information</h3>
                     <div class="row">
                         <form class="col-12" method="post" action="{{url('membership_add')}}" enctype="multipart/form-data">
@@ -432,244 +436,144 @@
                           
                             <div class="row brd_top">
                                 <div style="text-align: center;width: 100%;">
-                            <p >ACADEMIC INFORMATION*</p>
-                            </div>
+                                    <p >ACADEMIC INFORMATION*</p>
+                                    </div>
                                 <div class="table-responsive">
-                                <div class="wd_100 o_h mb_15 d_none">
-                                    <div class="wd_12 fl_lf "><strong>Qualification</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>College</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>Address</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>University</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>Year Of Passing</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>Specialization</strong></div>
-                                    <div class="wd_7 fl_lf"><strong>Action</strong></div>
-                                </div>
-                                <div class="repeater wd_100">
+                                    <div class="wd_100 o_h mb_15 d_none">
+                                        <div class="wd_12 fl_lf "><strong>Qualification</strong></div>
+                                        <div class="wd_12 fl_lf"><strong>College</strong></div>
+                                        <div class="wd_12 fl_lf"><strong>Address</strong></div>
+                                        <div class="wd_12 fl_lf"><strong>University</strong></div>
+                                        <div class="wd_12 fl_lf"><strong>Year Of Passing</strong></div>
+                                        <div class="wd_12 fl_lf"><strong>Specialization</strong></div>
+                                        <div class="wd_7 fl_lf"><strong>Action</strong></div>
+                                    </div>
+                                    <div class="repeater wd_100">
 
-                                    <div data-repeater-list="data">
-                                        <div data-repeater-item class="o_h mb_15">
-                                            <div class="wd_12 fl_lf  mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
-                                                <select id="" class="form-control" data-role="select-dropdown" name="cqualificationtxtt">
-                                                    <option selected="">Select</option>
-                                                    <option value="b.tech">b.tech</option>
-                                                    <option value="mca">mca</option>
-                                                </select>
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="collagetxt">
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Address</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="addresstxt">
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>University</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="universitytxt">
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Year Of Passing</b>:</label>
-                                                <select name="yaerofpassingtxt" class="form-control" data-role="select-dropdown">
-                                                    <option selected="">Select</option>
-                                                    <option value="2017">2017</option>
-                                                    <option value="2018">2018</option>
-                                                    <option value="2019">2019</option>
-                                                    <option value="2020">2020</option>
-                                                </select>
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                <input type="text" class="form-control" placeholder="Fee" name="specializationtxt">
-                                            </div>
-                                            <div class="wd_7 fl_lf col-6">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
-                                                <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
+                                        <div data-repeater-list="data">
+                                            <div data-repeater-item class="o_h mb_15">
+                                                <div class="wd_12 fl_lf  mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
+                                                    <select id="" class="form-control" data-role="select-dropdown" name="cqualificationtxtt">
+                                                        <option selected="">Select</option>
+                                                        <option value="b.tech">b.tech</option>
+                                                        <option value="mca">mca</option>
+                                                    </select>
+                                                </div>
+                                                <div class="wd_12 fl_lf mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="" name="collagetxt">
+                                                </div>
+                                                <div class="wd_12 fl_lf mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Address</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="" name="addresstxt">
+                                                </div>
+                                                <div class="wd_12 fl_lf mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>University</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="" name="universitytxt">
+                                                </div>
+                                                <div class="wd_12 fl_lf mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Year Of Passing</b>:</label>
+                                                    <select name="yaerofpassingtxt" class="form-control" data-role="select-dropdown">
+                                                        <option selected="">Select</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2020">2020</option>
+                                                    </select>
+                                                </div>
+                                                <div class="wd_12 fl_lf mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="Fee" name="specializationtxt">
+                                                </div>
+                                                <div class="wd_7 fl_lf col-6">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
+                                                    <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
-                                </div>   
-                            <!-- <div class="table-responsive">
-                                <table class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Qualification</th>
-                                      <th>College</th>
-                                      <th>Address</th>
-                                      <th>University</th>
-                                      <th>Year Of Passing</th>
-                                      <th>Specialization</th>
-                                      <th>Action</th>
-                                      
-                                    </tr>
-                                  </thead>
-                                  <div class="repeater">
-                                    <div data-repeater-list="data">
-                                        <div data-repeater-item>
-                                            <div class="row">
-                                  <tbody>
-
-
-                                    <tr>
-                                      <td>1</td>
-                                      <td><select id="demo_overview" class="form-control" data-role="select-dropdown">
-                                        <option selected="">Select</option>
-                                        <option value="b.tech">b.tech</option>
-                                        <option value="mca">mca</option>
-                                    </select></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                      <td><select id="demo_overview" class="form-control" data-role="select-dropdown">
-                                        <option selected="">Select</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                    </select></td>
-                                      <td><input type="text" class="form-control" placeholder="Fee" id=""></td>
-                                      <td> 
-                                        <button type="button" data-repeater-delete class="btn btn-danger"><i class="ft-x"></i> Delete</button>
-                                    </td>
-                                      
-                                    </tr>
-                                  </tbody>
-                                  </div>
-                                  </div>
-                                  </div>
-
-                                  <button type="button" data-repeater-create id="repeater-button" class="btn btn-info">
-                                    <i class="ft-plus"></i> Add more
-                                </button>
-                                  </div>
-                                </table>
-                              </div> -->
-                            </div>
+                                        <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
+                                    </div>   
+                                </div>
                             </div>
 
 
 
                             <div class="row brd_top">
                                 <div style="text-align: center;width: 100%;">
-                            <p >PROFESSIONAL INFORMATION*</p>
-                            </div>
-                                <div class="table-responsive">
-                                <div class="wd_100 o_h mb_15 d_none">
-                                    <div class="wd_12 fl_lf "><strong>Qualification</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>College</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>Address</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>University</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>Year Of Passing</strong></div>
-                                    <div class="wd_12 fl_lf"><strong>Specialization</strong></div>
-                                    <div class="wd_7 fl_lf"><strong>Action</strong></div>
+                                    <p >PROFESSIONAL INFORMATION*</p>
                                 </div>
-                                <div class="repeater wd_100">
+                                <div class="">
+                                    <div class="row o_h mb_15 d_none">
+                                        <div class="col-md-2 "><strong>Organisation</strong></div>
+                                        <div class="col-md-2"><strong>From</strong></div>
+                                        <div class="col-md-2"><strong>To</strong></div>
+                                        <div class="col-md-2"><strong>Designation</strong></div>
+                                        <div class="col-md-2"><strong>Job Description</strong></div>
+                                        <div class="col-md-2"><strong>Action</strong></div>
+                                    </div>
+                                    <div class="repeater wd_100">
 
-                                    <div data-repeater-list="data1">
-                                        <div data-repeater-item class="o_h mb_15">
-                                            <div class="wd_12 fl_lf  mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
-                                                <select id="" class="form-control" data-role="select-dropdown" name="cqualificationtxtt1">
-                                                    <option selected="">Select</option>
-                                                    <option value="b.tech">b.tech</option>
-                                                    <option value="mca">mca</option>
-                                                </select>
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="collagetxt1">
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Address</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="addresstxt1">
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>University</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="universitytxt1">
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Year Of Passing</b>:</label>
-                                                <select name="yaerofpassingtxt1" class="form-control" data-role="select-dropdown">
-                                                    <option selected="">Select</option>
-                                                    <option value="2017">2017</option>
-                                                    <option value="2018">2018</option>
-                                                    <option value="2019">2019</option>
-                                                    <option value="2020">2020</option>
-                                                </select>
-                                            </div>
-                                            <div class="wd_12 fl_lf mb_33">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                <input type="text" class="form-control" placeholder="Fee" name="specializationtxt1">
-                                            </div>
-                                            <div class="wd_7 fl_lf col-6">
-                                                <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
-                                                <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
+                                        <div data-repeater-list="data1">
+                                            <div data-repeater-item class="row mb_15">
+                                                <div class="col-md-2  mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Organisation</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="" name="organisationtxt">
+                                                </div>
+                                                <div class="col-md-2 mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>From</b>:</label>
+                                                    <input type="date" class="form-control" placeholder="" name="orga_fromtxt">
+                                                </div>
+                                                <div class="col-md-2 mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>To</b>:</label>
+                                                    <input type="date" class="form-control" placeholder="" name="orga_totxt">
+                                                </div>
+                                                <div class="col-md-2 mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Designation</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="" name="orga_desig">
+                                                </div>
+                                                <div class="col-md-2 mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Job Description</b>:</label>
+                                                    <textarea name="orga_jobdesc" class="form-control" rows="2" resize="none"></textarea>
+                                                </div>
+                                                <div class="col-md-2 col-6">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
+                                                    <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
+                                                </div>
                                             </div>
                                         </div>
+                                        <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
+                                    </div>   
+                                </div>
+                            </div>
+
+                            <div class="row brd_top">
+                                    <div style="text-align: center;width: 100%;">
+                                        <p >Awards</p>
                                     </div>
-                                    <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
-                                </div>   
-                            <!-- <div class="table-responsive">
-                                <table class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>#</th>
-                                      <th>Qualification</th>
-                                      <th>College</th>
-                                      <th>Address</th>
-                                      <th>University</th>
-                                      <th>Year Of Passing</th>
-                                      <th>Specialization</th>
-                                      <th>Action</th>
-                                      
-                                    </tr>
-                                  </thead>
-                                  <div class="repeater">
-                                    <div data-repeater-list="data">
-                                        <div data-repeater-item>
-                                            <div class="row">
-                                  <tbody>
+                                <div class="wd_100">
+                                    <div class="row mb_15 d_none">
+                                        <div class="col-md-7"><strong>Awards</strong></div>
+                                        <div class="col-md-5"><strong>Action</strong></div>
+                                    </div>
+                                    <div class="repeater wd_100">
 
-
-                                    <tr>
-                                      <td>1</td>
-                                      <td><select id="demo_overview" class="form-control" data-role="select-dropdown">
-                                        <option selected="">Select</option>
-                                        <option value="b.tech">b.tech</option>
-                                        <option value="mca">mca</option>
-                                    </select></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                      <td><select id="demo_overview" class="form-control" data-role="select-dropdown">
-                                        <option selected="">Select</option>
-                                        <option value="2017">2017</option>
-                                        <option value="2018">2018</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                    </select></td>
-                                      <td><input type="text" class="form-control" placeholder="Fee" id=""></td>
-                                      <td> 
-                                        <button type="button" data-repeater-delete class="btn btn-danger"><i class="ft-x"></i> Delete</button>
-                                    </td>
-                                      
-                                    </tr>
-                                  </tbody>
-                                  </div>
-                                  </div>
-                                  </div>
-
-                                  <button type="button" data-repeater-create id="repeater-button" class="btn btn-info">
-                                    <i class="ft-plus"></i> Add more
-                                </button>
-                                  </div>
-                                </table>
-                              </div> -->
+                                        <div data-repeater-list="awards">
+                                            <div data-repeater-item class="row mb_15">
+                                                <div class="col-md-7  mb_33">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Award</b>:</label>
+                                                    <input type="text" class="form-control" placeholder="" name="awardsname">
+                                                </div>
+                                                <div class="col-md-5 col-6">
+                                                    <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
+                                                    <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
+                                    </div>
+                                </div> 
                             </div>
-                            </div>
-
 
                             <div class="row brd_top">
                            
@@ -774,7 +678,7 @@
                                                 be
                                                 attached to the branch located in :</b></label>
                                         <div class="col-sm-7">
-                                            <select id="branchddl" class="form-control" data-role="select-dropdown">
+                                            <select name="branchddl" class="form-control" data-role="select-dropdown">
                                             <option value="" selected="" disabled="">Select Branch</option>
                                                 @foreach($result as $fetchbranch)
                                                 

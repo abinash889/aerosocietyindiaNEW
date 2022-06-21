@@ -173,6 +173,9 @@ Route::get('/studentapplications_Reject/{id}',[App\Http\Controllers\Studentapply
 //payment offline Approve
 Route::post('/offlinepayment_Accept',[App\Http\Controllers\StudentapplyController::class,'Acceptofflinepayment'])->name('Acceptofflinepayment');
 
+//payment offline Approve Member
+Route::post('/memberofflinepayment_Accept',[App\Http\Controllers\MembershipController::class,'Acceptofflinepayment'])->name('Acceptofflinepayment');
+
 //Refund To Student
 Route::get('/refund_tostudent/{id}',[App\Http\Controllers\StudentapplyController::class,'refundtostudent'])->name('refundtostudent');
 // Frontend

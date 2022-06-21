@@ -33,112 +33,184 @@
 					</div>
             	@endif
 				<div class="row row-cols-12">
-				<div class="card">
-					<div class="card-body">
-						<div class="table-responsive">
-							<table id="example2" class="table table-striped table-bordered tbl">
-								
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>User Code</th>
-										<th>Name</th>
-										
-										<th>Email</th>
-										<th>Approve/Reject Status</th>
+					<div class="card">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="example2" class="table table-striped table-bordered tbl">
+									
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Name</th>
+											<th>Email</th>
 
-										<th>Action / Status</th>
-									</tr>
-								</thead>
-								<tbody>
-								
-								@foreach($membership as $key=>$memberships)
-									<tr>
-										<td>{{$key+1}}</td>
-										<td>{{$memberships->vch_usercode}}</td>
-										<td>{{$memberships->vch_firstname}}</td>
-										
-										<td>{{$memberships->vch_emailid}}</td>
+											<th>Payment Mode</th>
+											<th>Payment Status</th>
 
-										@if($memberships->INT1_pro_status!==1 || $memberships->INT2_pro_status!==1)
-											<td>Proposer <span class="badge bg-success">Pending</span></td>
+											<th>Approve/Reject Status</th>
+
+											<th>Action / Status</th>
+										</tr>
+									</thead>
+									<tbody>
+									
+									@foreach($membership as $key=>$memberships)
+										<tr>
+											<td>{{$key+1}}</td>
+											<td>{{$memberships->vch_firstname}}</td>
+											
+											<td>{{$memberships->vch_emailid}}</td>
+
+											<td>
+												@if($memberships->INT_Payment_type ==1)
+												<span class="bg-secondary fw_500 text-white badge">Online</span>
+												@endif
+												@if($memberships->INT_Payment_type ==0  && $memberships->Int_payment_status=="")
+												<span class="bg-dark fw_500 text-black badge">Offline</span><br/>
+												<a href="#" data-bs-toggle="modal" data-bs-target="#acceptofflinepaymentModal{{$memberships->id}}" class="bg-info fw_500 text-black badge">Click to Update</a>
+												@endif
+												@if($memberships->INT_Payment_type ==0 && $memberships->Int_payment_status==1)
+												<span class="bg-dark fw_500 text-black badge">Offline</span>
+												@endif
+											</td>
+											<td>
+												@if($memberships->Int_payment_status ==1)
+													<span class="bg-success text-white fw_500 badge">Paid</span>
+												@endif
+												@if($memberships->Int_payment_status ==0)
+												<span class="bg-warning text-white fw_500 badge">Unpaid</span>
+												@endif
+											</td>
+											<td>
+											@if($memberships->INT1_pro_status==15 && $memberships->INT2_pro_status==0)
+											<span>Proposer1 <span class="badge bg-success">Rejected</span></span>
+											@elseif($memberships->INT1_pro_status==0 && $memberships->INT2_pro_status==15)
+											<span>Proposer2 <span class="badge bg-success">Rejected</span></span>
+											@elseif($memberships->INT1_pro_status==15 && $memberships->INT2_pro_status==1)
+											<span>Proposer1 <span class="badge bg-success">Rejected</span></span>
+											@elseif($memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==15)
+											<span>Proposer2 <span class="badge bg-success">Rejected</span></span>
+
+										@elseif($memberships->INT1_pro_status!==1 || $memberships->INT2_pro_status!==1)
+											<span>Proposer <span class="badge bg-success">Pending</span></span>
 											@elseif($memberships->Int_approve_status==1 && $memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==1)
-											<td>Proposer <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==2)
-											<td>Proposer <span class="badge bg-danger">Rejected</span></td>
-											@elseif($memberships->Int_approve_status==3)
-											<td>Level 1 <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==4)
-											<td>Level 1 <span class="badge bg-danger">Rejected</span></td>
-											@elseif($memberships->Int_approve_status==5)
-											<td>Level 2 <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==6)
-											<td>Level 2 <span class="badge bg-danger">Rejected</span></td>
-											@elseif($memberships->Int_approve_status==7)
-											<td>Level 3 <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==8)
-											<td>Level 3 <span class="badge bg-danger">Rejected</span></td>
-											@elseif($memberships->Int_approve_status==9)
-											<td>Level 4 <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==10)
-											<td>Level 4 <span class="badge bg-danger">Rejected</span></td>
-											@elseif($memberships->Int_approve_status==11)
-											<td>Level 5 <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==12)
-											<td>Level 5 <span class="badge bg-danger">Rejected</span></td>
-											@elseif($memberships->Int_approve_status==13)
-											<td>Level 6 <span class="badge bg-success">Accepted</span></td>
-											@elseif($memberships->Int_approve_status==14)
-											<td>Level 6 <span class="badge bg-danger">Rejected</span></td>
-										@endif
+											<span>Proposer <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==2)
+												<span>Proposer <span class="badge bg-danger">Rejected</span></span>
+												@elseif($memberships->Int_approve_status==3)
+												<span>Level 1 <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==4)
+												<span>Level 1 <span class="badge bg-danger">Rejected</span></span>
+												@elseif($memberships->Int_approve_status==5)
+												<span>Level 2 <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==6)
+												<span>Level 2 <span class="badge bg-danger">Rejected</span></span>
+												@elseif($memberships->Int_approve_status==7)
+												<span>Level 3 <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==8)
+												<span>Level 3 <span class="badge bg-danger">Rejected</span></span>
+												@elseif($memberships->Int_approve_status==9)
+												<span>Level 4 <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==10)
+												<span>Level 4 <span class="badge bg-danger">Rejected</span></span>
+												@elseif($memberships->Int_approve_status==11)
+												<span>Level 5 <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==12)
+												<span>Level 5 <span class="badge bg-danger">Rejected</span></span>
+												@elseif($memberships->Int_approve_status==13)
+												<span>Level 6 <span class="badge bg-success">Accepted</span></span>
+												@elseif($memberships->Int_approve_status==14)
+												<span>Level 6 <span class="badge bg-danger">Rejected</span></span>
+											@endif
+											</td>	
+											<td>
+											@php 
+												$array =[2,4,6,8,10,12,14,11];
+											@endphp
 
-										@php 
-											$array =[2,4,6,8,10,12,14,11];
-										@endphp
-
-										@if($memberships->Int_approve_status==11 && $memberships->int_grading_level==Auth::id())	
-									
-
+											@if($memberships->Int_approve_status==11 && $memberships->int_grading_level==Auth::id())	
 										
-																		
-										<td>
-										@php $approv_id=Crypt::encrypt($memberships->id); @endphp
-										@php $reject_id=Crypt::encrypt($memberships->id); @endphp
-											<a href="{{url('/membership_Approved_insert_user', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve</a>
-											<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
+
+											
+																			
+											<!-- <td> -->
+											@php $approv_id=Crypt::encrypt($memberships->id); @endphp
+											@php $reject_id=Crypt::encrypt($memberships->id); @endphp
+												<a href="{{url('/membership_Approved_insert_user', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve1</a>
+												<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
+											<!-- </td> -->
+											
+
+											@elseif(!in_array($memberships->Int_approve_status, $array))
+											@if($memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==1)
+
+											@if( $memberships->int_grading_level==Auth::id() && $memberships->Int_payment_status==1)	
+																			
+											<!-- <td> -->
+											@php $approv_id=Crypt::encrypt($memberships->id); @endphp
+											@php $reject_id=Crypt::encrypt($memberships->id); @endphp
+												<a href="{{url('/membership_Approved', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve2</a>
+												<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
+											<!-- </td> -->
+											
+										
+											@elseif(in_array($memberships->Int_approve_status, $array))
+											<span>Refund Initiated</span>
+											@endif
+
+											@endif
+
+											@endif
 										</td>
 										
-
-										@elseif(!in_array($memberships->Int_approve_status, $array))
-										@if($memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==1)
-
-										@if( $memberships->int_grading_level==Auth::id())	
-																		
-										<td>
-										@php $approv_id=Crypt::encrypt($memberships->id); @endphp
-										@php $reject_id=Crypt::encrypt($memberships->id); @endphp
-											<a href="{{url('/membership_Approved', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve</a>
-											<a href="{{url('/membership_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
-										</td>
-										
-									
-										@elseif(in_array($memberships->Int_approve_status, $array))
-										<td>Refund Initiated</td>
-										@endif
-										@endif
-										@endif
-										
-									
-										
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
+										</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
+
+				@foreach($membership as $memberships)
+                <div class="modal" id="acceptofflinepaymentModal{{$memberships->id}}">
+					<div class="modal-dialog">
+						<div class="modal-content">
+						<div class="modal-header pd_11">
+							<h4 class="modal-title">Add payment details</h4>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-3" action="{{url('/memberofflinepayment_Accept')}}" method="post" enctype="multipart/form-data">
+								@csrf
+                                <input type="hidden" name="id" value="{{$memberships->id}}">
+                                <div class="col-md-12">
+									<label for="inputState" class="form-label">Payment type</label>
+									<select name="paymenttypetxt" class="form-select" id="ddlpaymenttype">
+										<option value="-1">Choose..</option>
+										<option value="0">Cheque</option>
+										<option value="1">DD</option>
+                                    </select>
+								</div>
+								<div class="col-md-12">
+									<label class="form-label" id="chq1">Cheque no</label>
+									<label class="form-label" id="chq" style="display: none">Cheque no</label>
+									<label class="form-label" id="dd" style="display: none">DD no</label>
+									<input type="text" class="form-control"  name="chequeddnotxt">
+								</div>
+								<div class="col-md-6">
+									<label for="inputLastName" class="form-label">Amount</label>
+									<input type="text" class="form-control" name="amounttxt">
+								</div>
+								<div class="col-12">
+									<button type="submit" class="btn btn-primary px-5">Submit</button>
+								</div>
+							</form>
+						</div>
+						</div>
+					</div>
 				</div>
-			
+                @endforeach
 			
 			</div>
 		</div>

@@ -31,7 +31,7 @@ class BranchEventController extends Controller
         $post->vch_image = $filename; 
 
         $post->save();
-        notify()->success('Your event details is under approval. Once its approved, Its automatically visible to all');
+        notify()->success('Your event details is under approval. Once its approved, It will automatically visible to all');
         return redirect('/addbranchevent');
     }
     public function createbrancheventPOSTUDT(Request $request)

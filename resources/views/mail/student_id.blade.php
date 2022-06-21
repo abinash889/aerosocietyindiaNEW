@@ -28,7 +28,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-						
+						{{$f_name}} {{$m_name}} {{$l_name}}
 						</p>
 					</td>
 				</tr>
@@ -38,7 +38,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-                      
+							{{$c_name}}
 						</p>
 					</td>
 				</tr>
@@ -48,7 +48,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-                       
+							{{$membercode}}
 						</p>
 					</td>
 				</tr>
@@ -58,7 +58,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-                       
+							{!! date("F j, Y", strtotime($dateissue)) !!}
 						</p>
 					</td>
 				</tr>
@@ -67,7 +67,7 @@
 						
 					</td>
 					<td style="padding-right: 21px;text-align:right;">
-						<img src="sign.jpg" style="max-width: 101px;margin-top: -31px;">
+						<!-- <img src="sign.jpg" style="max-width: 101px;margin-top: -31px;"> -->
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif;font-size: 11px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
 							
 							YATINDRA KUMAR

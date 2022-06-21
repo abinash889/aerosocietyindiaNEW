@@ -13,6 +13,6 @@ class AddBranchEvent extends Model
 
     public function branchname()
     {
-        return $this->belongsTo(Users::class, 'Branch_ID');
+        return $this->belongsTo(User::class, 'Branch_ID');
     }
 }

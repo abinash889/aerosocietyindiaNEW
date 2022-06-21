@@ -10,6 +10,12 @@ use App\Models\Studentmemberdoc;
 use Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+
+use Illuminate\Support\Facades\Mail as FacadesMail;
+ 
+use PDF;
 
 class StudentapplyController extends Controller
 {
@@ -55,6 +61,7 @@ class StudentapplyController extends Controller
         // 'vch_dateofissue'=>$getdata->vch_dateofissue, 
         
         $getStudentdata=Studentapply::all(); 
+        //dd($getStudentdata);
         $memb_id=count($getStudentdata);
         $countmember_id=count($getStudentdata)+1;
         $countme_id="SM-". $countmember_id;
@@ -69,6 +76,19 @@ class StudentapplyController extends Controller
           
         ]);
 
+
+        $getdata1=Studentapply::where('id', $acpt_id)->first();
+        //dd($getdata1);
+        //dd($getdata1->vch_membershipno);
+        //Data for pdf
+        $pdf_membercode=$getdata1->vch_membershipno;
+        $pdf_email=$getdata1->vch_emailid;
+        $pdf_fullname=$getdata1->vch_fname .' '. $getdata1->vch_mname .' '. $getdata1->vch_lname;
+        $pdf_collagename=json_decode($getdata1->collage)[0];
+        $pdf_dateofissue=$getdata1->DT_updatedon;
+
+        //dd($pdf_membercode);
+
         //----Start-----Insert In Payment Table//
         $insertPaymentTable=new PaymentTransaction;
         $insertPaymentTable->INT_USER_id= $last_id;
@@ -79,26 +99,55 @@ class StudentapplyController extends Controller
         $insertPaymentTable->INT_paymentstatus=$getdata->Int_payment_status;
         $insertPaymentTable->save();
 
-        //----End-----Insert In Payment Table//
         
-        // $insertmemberdocTable=new Studentmemberdoc;
-        // $insertPaymentTable->INT_USER_id= $last_id;
-
-        // $file = $request->file('uploadimagefileUpload');
-        // $extenstion = $file->getClientOriginalExtension();
-        // $filename = time().'.'.$extenstion;
-        // $file->move('Upload_DBImage/', $filename);
-        // $post->vch_image = $filename; 
 
         
         //dd(count($getStudentdata));
-
+        $this->generatePDF($pdf_email, $pdf_membercode, $pdf_fullname, $pdf_collagename, $pdf_dateofissue);
+        
 
 
         notify()->success('Student approved Successfully');
-        //return redirect('/studentapplications');
-        return view('admin.pdf',compact('getdata'));
+        return redirect('/studentapplications');
+        //return view('admin.pdf',compact('getdata'));
     }
+    public function generatePDF($pdf_email, $pdf_membercode, $pdf_fullname, $pdf_collagename, $pdf_dateofissue){
+        // $data["email"]=$request->get("kprasant635@gmail.com");
+        // $data["client_name"]=$request->get("prasant");
+        // $data["subject"]=$request->get("testing");
+
+        $data = [ 'email'=>$pdf_email, 'member_code' => $pdf_membercode , 'full_name' => $pdf_fullname, 'c_name' => $pdf_collagename, 'dateof_issue' => $pdf_dateofissue];
+
+        $pdf = FacadePdf::loadView('admin.pdf',$data);
+ 
+        try{
+            $user['to']=$data["email"];
+            FacadesMail::send('mail.test', $data, function($message)use($pdf,$user) {
+            $message->to( $user['to'])
+            // FacadesMail::send('mail.otp', $data, function ($messages) use ($user) {
+            //     $messages->to($user['to']);
+            //  ->subject("member code")
+             ->attachData($pdf->output(), "studentcard.pdf");
+             $message->subject('Student Card');
+            });
+            // FacadesMail::send('emails.activation', $data, function($message) use ($email, $subject) {
+            //     $message->to($email)->subject($subject);
+            // });
+        }catch(JWTException $exception){
+            $this->serverstatuscode = "0";
+            $this->serverstatusdes = $exception->getMessage();
+        }
+        if (FacadesMail::failures()) {
+             $this->statusdesc  =   "Error sending mail";
+             $this->statuscode  =   "0";
+ 
+        }else{
+ 
+           $this->statusdesc  =   "Message sent Succesfully";
+           $this->statuscode  =   "1";
+        }
+        return response()->json(compact('this'));
+ }
     public function Acceptofflinepayment(Request $request)
     {
         $updateData=Studentapply::where('id',$request->id)->update([

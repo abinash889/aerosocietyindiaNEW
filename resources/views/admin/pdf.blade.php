@@ -28,7 +28,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-							{{$getdata->vch_fname}} {{$getdata->vch_mname}} {{$getdata->vch_lname}}
+							{{$full_name}}
 						</p>
 					</td>
 				</tr>
@@ -38,7 +38,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-                        {{json_decode($getdata->collage)[0]}}
+                        {{$c_name}}
 						</p>
 					</td>
 				</tr>
@@ -48,7 +48,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-                        {{$getdata->vch_membershipno}}
+                        {{$member_code}}
 						</p>
 					</td>
 				</tr>
@@ -58,7 +58,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: verdana; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-                        {!! date("F j, Y, g:i A", strtotime($getdata->vch_dateofissue)) !!}
+                        {!! date("F j, Y", strtotime($dateof_issue)) !!}
 						</p>
 					</td>
 				</tr>

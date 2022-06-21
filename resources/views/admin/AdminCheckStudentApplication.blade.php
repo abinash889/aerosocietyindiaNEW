@@ -33,95 +33,95 @@
 					</div>
             	@endif
 				<div class="row row-cols-12">
-				<div class="card">
-					<div class="card-body">
-						<div class="table-responsive">
-							<table id="example2" class="table table-striped table-bordered tbl">
-								
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>USER ID</th>
-										<th>Application ID</th>
-										<th>First Name</th>
-                                        <th>Payment Mode</th>
-                                        <th>Payment Status</th>
-										<th>Fee</th>
-										<th>Branch Name</th>
-										<th>Action / Status</th>
-                                        <th>Refund Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach($result as $key=>$fetchstudent)
-									<tr>
-										<td>{{$key+1}}</td>
-										<td>
-                                            {{$fetchstudent->INT_User_id}}
-                                        </td>
-                                        <td>
-                                            {{$fetchstudent->INT_Application_id}}
-                                        </td>
-										<td>{{$fetchstudent->vch_fname}}</td>
-										<td>
-                                            @if($fetchstudent->INT_paymentmode ==0)
-                                            <span class="bg-secondary fw_500 text-white badge">Online</span>
-                                            @endif
-                                            @if($fetchstudent->INT_paymentmode ==1  && $fetchstudent->Int_payment_status==0)
-                                            <span class="bg-dark fw_500 text-black badge">Offline</span>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#acceptofflinepaymentModal{{$fetchstudent->id}}" class="bg-info fw_500 text-black badge">Click to Update</a>
-                                            @endif
-                                            @if($fetchstudent->INT_paymentmode ==1 && $fetchstudent->Int_payment_status==1)
-                                            <span class="bg-dark fw_500 text-black badge">Offline</span>
-                                            @endif
-                                        </td>
-										<td>
-                                            @if($fetchstudent->Int_payment_status ==1)
-                                                <span class="bg-success text-white fw_500 badge">Paid</span>
-                                            @endif
-                                            @if($fetchstudent->Int_payment_status ==0)
-                                            <span class="bg-warning text-white fw_500 badge">Unpaid</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{$fetchstudent->vch_fee}}
-                                        </td>
-                                        <td>
-                                            {{$fetchstudent->int_branch_id}}
-                                        </td>
-										<td>
-                                            @php $accept_id=Crypt::encrypt($fetchstudent->id); @endphp
-                                            @php $reject_id=Crypt::encrypt($fetchstudent->id); @endphp
-                                         
-                                            @if($fetchstudent->INT_approve_status==0  && $fetchstudent->Int_payment_status==1)
-											<a href="{{url('/studentapplications_Accept',$accept_id)}}" class="bg-success text-white pd_db_r1">Accept</a>
+					<div class="card">
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="example2" class="table table-striped table-bordered tbl">
+									
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>USER ID</th>
+											<th>Application ID</th>
+											<th>First Name</th>
+											<th>Payment Mode</th>
+											<th>Payment Status</th>
+											<th>Fee</th>
+											<th>Branch Name</th>
+											<th>Action / Status</th>
+											<th>Refund Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach($result as $key=>$fetchstudent)
+										<tr>
+											<td>{{$key+1}}</td>
+											<td>
+												{{$fetchstudent->INT_User_id}}
+											</td>
+											<td>
+												{{$fetchstudent->INT_Application_id}}
+											</td>
+											<td>{{$fetchstudent->vch_fname}}</td>
+											<td>
+												@if($fetchstudent->INT_paymentmode ==0)
+												<span class="bg-secondary fw_500 text-white badge">Online</span>
+												@endif
+												@if($fetchstudent->INT_paymentmode ==1  && $fetchstudent->Int_payment_status==0)
+												<span class="bg-dark fw_500 text-black badge">Offline</span>
+												<a href="#" data-bs-toggle="modal" data-bs-target="#acceptofflinepaymentModal{{$fetchstudent->id}}" class="bg-info fw_500 text-black badge">Click to Update</a>
+												@endif
+												@if($fetchstudent->INT_paymentmode ==1 && $fetchstudent->Int_payment_status==1)
+												<span class="bg-dark fw_500 text-black badge">Offline</span>
+												@endif
+											</td>
+											<td>
+												@if($fetchstudent->Int_payment_status ==1)
+													<span class="bg-success text-white fw_500 badge">Paid</span>
+												@endif
+												@if($fetchstudent->Int_payment_status ==0)
+												<span class="bg-warning text-white fw_500 badge">Unpaid</span>
+												@endif
+											</td>
+											<td>
+												{{$fetchstudent->vch_fee}}
+											</td>
+											<td>
+												{{$fetchstudent->int_branch_id}}
+											</td>
+											<td>
+												@php $accept_id=Crypt::encrypt($fetchstudent->id); @endphp
+												@php $reject_id=Crypt::encrypt($fetchstudent->id); @endphp
 											
-											<a href="{{url('/studentapplications_Reject',$reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
-                                            @endif
-                                           
-                                            @if($fetchstudent->INT_approve_status==1 && $fetchstudent->Int_payment_status==1)
-                                                <span class="bg-success text-white pd_db_r1">Accepted</span>
-											@endif
-                                            @if($fetchstudent->INT_approve_status==2 && $fetchstudent->Int_payment_status==1)
-                                                <span class="bg-warning text-white pd_db_r1">Rejected</span>
-											@endif
-										</td>
-                                        <td>
-                                            @php $refund_id=Crypt::encrypt($fetchstudent->id); @endphp
-                                            @if($fetchstudent->INT_approve_status==2  && $fetchstudent->INT_refund_status=="")
-											<a href="{{url('/refund_tostudent',$refund_id)}}"><u>Click to refund</u></a>
-											@endif
-                                            @if($fetchstudent->INT_approve_status==2  && $fetchstudent->INT_refund_status==1)
-											<span class="bg-success text-white pd_db_r1">Refunded</span>
-											@endif
-                                        </td>
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
+												@if($fetchstudent->INT_approve_status==0  && $fetchstudent->Int_payment_status==1)
+												<a href="{{url('/studentapplications_Accept',$accept_id)}}" class="bg-success text-white pd_db_r1">Accept</a>
+												
+												<a href="{{url('/studentapplications_Reject',$reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
+												@endif
+											
+												@if($fetchstudent->INT_approve_status==1 && $fetchstudent->Int_payment_status==1)
+													<span class="bg-success text-white pd_db_r1">Accepted</span>
+												@endif
+												@if($fetchstudent->INT_approve_status==2 && $fetchstudent->Int_payment_status==1)
+													<span class="bg-warning text-white pd_db_r1">Rejected</span>
+												@endif
+											</td>
+											<td>
+												@php $refund_id=Crypt::encrypt($fetchstudent->id); @endphp
+												@if($fetchstudent->INT_approve_status==2  && $fetchstudent->INT_refund_status=="")
+												<a href="{{url('/refund_tostudent',$refund_id)}}"><u>Click to refund</u></a>
+												@endif
+												@if($fetchstudent->INT_approve_status==2  && $fetchstudent->INT_refund_status==1)
+												<span class="bg-success text-white pd_db_r1">Refunded</span>
+												@endif
+											</td>
+										</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-				</div>
 				</div>
 				@foreach($result as $fetchstudent)
                 <div class="modal" id="acceptofflinepaymentModal{{$fetchstudent->id}}">

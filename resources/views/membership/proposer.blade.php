@@ -56,7 +56,8 @@
 										<td>{{$memberships->vch_usercode}}</td>
 										<td>{{$memberships->vch_firstname}}</td>
 										<td>{{$memberships->vch_emailid}}</td>
-                                        @if($memberships->INT1_pro_status==0)
+
+                                        @if($memberships->INT1_pro_status==0  && $memberships->Int_payment_status==1)
 										<td>
 										@php $approv_id=Crypt::encrypt($memberships->id); @endphp
 										@php $reject_id=Crypt::encrypt($memberships->id); @endphp
@@ -66,6 +67,8 @@
 										</td>
                                         @elseif($memberships->INT1_pro_status==1)
                                         <td><span class="badge bg-success">Approved</span></td>
+										@elseif($memberships->INT1_pro_status==15)
+                                        <td><span class="badge bg-warning">Rejected</span></td>
 										@endif
 										
 										
@@ -76,7 +79,7 @@
 										<td>{{$memberships->vch_usercode}}</td>
 										<td>{{$memberships->vch_firstname}}</td>
 										<td>{{$memberships->vch_emailid}}</td>
-                                        @if($memberships->INT2_pro_status==0)
+                                        @if($memberships->INT2_pro_status==0   && $memberships->Int_payment_status==1)
 										<td>
 										@php $approv_id=Crypt::encrypt($memberships->id); @endphp
 										@php $reject_id=Crypt::encrypt($memberships->id); @endphp
@@ -84,8 +87,10 @@
 											<a href="{{url('/proposer_Approv', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve2</a>
 											<a href="{{url('/proposer_Reject', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
 										</td>
-                                        @elseif($memberships->INT1_pro_status==1)
+                                        @elseif($memberships->INT2_pro_status==1)
                                         <td><span class="badge bg-success">Approved</span></td>
+										@elseif($memberships->INT2_pro_status==15)
+                                        <td><span class="badge bg-warning">Rejected</span></td>
 										@endif
 										
 										
@@ -98,10 +103,6 @@
 					</div>
 				</div>
 				</div>
-				
-			
-				
-               
 			</div>
 		</div>
 		@endsection
