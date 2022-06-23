@@ -28,10 +28,68 @@ class MembershipController extends Controller
     public function index()
     {
 
-        $membership = Membership::all();
-      return view('membership.membership',compact('membership'));
+        $membership = Membership::orderBy('id','DESC')->get();
+        return view('membership.membership',compact('membership'));
     }
+    public function ViewMembershipapplications($id)
+    {
+        $MembID=Crypt::decrypt($id);
+        $fetchMember=Membership::findorfail($MembID);
 
+        $st_result[]=json_decode($fetchMember->collage);
+        $st_result[]=json_decode($fetchMember->vch_academicinformation);
+        $st_result[]=json_decode($fetchMember->yearofpassing);
+        $st_result[]=json_decode($fetchMember->specialization);  
+        $st_result[]=json_decode($fetchMember->university);
+        $st_result[]=json_decode($fetchMember->address);
+
+        $length = count($st_result[0]);
+        //dd($length);
+     
+        for ($i = 0; $i < $length; $i++) 
+        {
+            $temp = [];
+           
+            foreach ($st_result as $array) {
+                $temp[] = $array[$i];
+            }
+            $result[] = $temp;
+            //dd($result);
+        }
+
+
+        $prof_information[]=json_decode($fetchMember->vch_organisationname);
+        //dd($prof_information);
+        $prof_information[]=json_decode($fetchMember->vch_fromdate);
+        $prof_information[]=json_decode($fetchMember->vch_todate);
+        $prof_information[]=json_decode($fetchMember->vch_designation);
+        $prof_information[]=json_decode($fetchMember->vch_jobdescription);
+
+        $prof_length=count($prof_information[0]);
+        for($i=0;$i<$prof_length;$i++)
+        {
+            $tempVar = [];
+            foreach ($prof_information as $Profarray) {
+                $tempVar[] = $Profarray[$i];
+            }
+            $professionalresult[] = $tempVar;
+        }
+
+
+        $award_name[]=json_decode($fetchMember->vch_awardsname);
+        //dd($prof_information);
+
+        $award_length=count($award_name[0]);
+        for($i=0;$i<$award_length;$i++)
+        {
+            $tempAwardsVar = [];
+            foreach ($award_name as $Awardarray) {
+                $tempAwardsVar[] = $Awardarray[$i];
+            }
+            $awardsresult[] = $tempAwardsVar;
+        }
+        return view('admin.AdminMemberApplicationView',compact('fetchMember','result','professionalresult','awardsresult'));
+    }
   
 
     /**

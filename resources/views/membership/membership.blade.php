@@ -57,7 +57,10 @@
 									@foreach($membership as $key=>$memberships)
 										<tr>
 											<td>{{$key+1}}</td>
-											<td>{{$memberships->vch_firstname}}</td>
+											<td>
+												@php $MembershipID=Crypt::encrypt($memberships->id); @endphp
+												<a href="{{url('/membershipapplications_view',$MembershipID)}}">{{$memberships->vch_firstname}}</a>
+											</td>
 											
 											<td>{{$memberships->vch_emailid}}</td>
 

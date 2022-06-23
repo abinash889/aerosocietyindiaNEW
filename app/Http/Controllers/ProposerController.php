@@ -17,7 +17,7 @@ class ProposerController extends Controller
      */
     public function index()
     {
-        $membership = Membership::all();
+        $membership = Membership::orderBy('id','DESC')->get();
         return view('membership.proposer',compact('membership'));
     }
 

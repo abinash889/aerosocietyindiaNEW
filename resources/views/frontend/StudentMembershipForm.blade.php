@@ -227,14 +227,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-3"><b>Last Name
+                                        <label for="applicant_name" class="control-label col-sm-3"><b>Sur Name
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="last_name" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-3"><b>Phone No
+                                        <label for="applicant_name" class="control-label col-sm-6"><b>Primary Phone No
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <div class="input-group">
@@ -253,7 +253,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-5"><b>Member Of Any
+                                        <label for="applicant_name" class="control-label col-sm-7"><b>Member Of Any
                                                 Other
                                                 Society
                                                 :</b></label>
@@ -342,7 +342,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-3"><b>Phone No-2
+                                        <label for="applicant_name" class="control-label col-sm-6"><b>Secondary Phone No
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <div class="input-group">
@@ -476,7 +476,7 @@
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                <input type="text" class="form-control" placeholder="Fee" name="specializationtxt">
+                                                <input type="text" class="form-control" placeholder="Specialization" name="specializationtxt">
                                             </div>
                                             <div class="wd_7 fl_lf col-6">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
@@ -601,7 +601,7 @@
                                                 be
                                                 attached to the branch located in :</b></label>
                                         <div class="col-sm-7">
-                                            <select id="branchddl" class="form-control" data-role="select-dropdown">
+                                            <select name="branchddl" class="form-control" data-role="select-dropdown">
                                             <option value="" selected="" disabled="">Select Branch</option>
                                                 @foreach($result as $fetchbranch)
                                                 

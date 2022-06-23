@@ -231,14 +231,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-3"><b>Last Name
+                                        <label for="applicant_name" class="control-label col-sm-3"><b>Sur Name
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="last_name" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-3"><b>Phone No
+                                        <label for="applicant_name" class="control-label col-sm-6"><b>Primary Phone No
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <div class="input-group">
@@ -257,7 +257,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-5"><b>Member Of Any
+                                        <label for="applicant_name" class="control-label col-sm-7"><b>Member Of Any
                                                 Other
                                                 Society
                                                 :</b></label>
@@ -346,7 +346,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="applicant_name" class="control-label col-sm-3"><b>Phone No-2
+                                        <label for="applicant_name" class="control-label col-sm-6"><b>Secondary Phone No
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <div class="input-group">
@@ -583,7 +583,7 @@
                                         <label for="inputCity" class="control-label col-sm-5"><b>Grade
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <select id="membershiptxt" class="form-control" data-role="select-dropdown"
+                                            <select name="membershiptxt" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
                                                 <option value="1">Graduate</option>
@@ -602,11 +602,11 @@
                                         <select id="membershiptxt" name="pro_name1" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Student 1 Year</option>
-                                                <option value="2">Student 2 Year</option>
-                                                <option value="3">Student 3 Year</option>
-                                                <option value="4">Student 4 Year</option>
-                                                <option value="5">Student 5 Year</option>
+                                                <option value="1">proposer name 1</option>
+                                                <option value="2">proposer name 2</option>
+                                                <option value="3">proposer name 3</option>
+                                                <option value="4">proposer name 4</option>
+                                                <option value="5">proposer name 5</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-7" style="margin-top: 10px;">
@@ -624,11 +624,11 @@
                                         <select id="membershiptxt1" name="pro_name2" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Student 1 Year</option>
-                                                <option value="2">Student 2 Year</option>
-                                                <option value="3">Student 3 Year</option>
-                                                <option value="4">Student 4 Year</option>
-                                                <option value="5">Student 5 Year</option>
+                                                <option value="1">proposer name 1</option>
+                                                <option value="2">proposer name 2</option>
+                                                <option value="3">proposer name 3</option>
+                                                <option value="4">proposer name 4</option>
+                                                <option value="5">proposer name 5</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-7" style="margin-top: 10px;">
@@ -648,16 +648,14 @@
                                             <select name="uploaddoc1txt" class="form-control mb_15" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Authentication Doc</option>
-                                                <option value="2">PAN</option>
-                                                <option value="3">Passport</option>
+                                                <option value="1">PAN</option>
+                                                <option value="2">Passport</option>
                                             </select>
                                             <select name="uploaddoc2txt" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Authentication Doc</option>
-                                                <option value="2">PAN</option>
-                                                <option value="3">Passport</option>
+                                                <option value="1">PAN</option>
+                                                <option value="2">Passport</option>
                                             </select>
 
                                         </div>

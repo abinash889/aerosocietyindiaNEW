@@ -62,7 +62,7 @@
 										<!-- <td>DT_Eventdate</td> -->
 										<td  width=17%>{!! html_entity_decode($eventfetch->vch_eventdetails) !!}</td>
 										<td>
-											<img src="{{url('Upload_DBImage/'.$eventfetch->vch_image)}}" class="img-fluid">
+											<img src="{{url('Upload_DBImage/'.$eventfetch->vch_image)}}" class="img-fluid" style="max-width: 123px;float:left;margin-right:12px;">
 										</td>
 										<td>
 										@php

@@ -25,6 +25,38 @@ class StudentapplyController extends Controller
         return view('admin.AdminCheckStudentApplication',compact('result'));
         
     }
+    public function Viewtudentapplications($id)
+    { 
+        
+        $StudID=Crypt::decrypt($id);
+        $fetchStudent=Studentapply::findorfail($StudID);
+       // dd(json_decode($fetchStudent->collage));
+        //$fetchStudent=Studentapply::where('id',$StudID)->first();
+       // dd($Studentresult[0]->VCH_Application_id);
+       $st_result[]=json_decode($fetchStudent->collage);
+       $st_result[]=json_decode($fetchStudent->vch_academicinformation);
+       $st_result[]=json_decode($fetchStudent->yaerofpassing);
+       $st_result[]=json_decode($fetchStudent->specialization);  
+       $st_result[]=json_decode($fetchStudent->university);
+       $st_result[]=json_decode($fetchStudent->address);
+       
+       
+       //dd($st_result);
+       $length = count($st_result[0]);
+        //dd($length);
+     
+        for ($i = 0; $i < $length; $i++) {
+            $temp = [];
+           
+            foreach ($st_result as $array) {
+                $temp[] = $array[$i];
+            }
+
+            $result[] = $temp;
+            //dd($result);
+        }
+        return view('admin.AdminStudentapplicationView',compact('fetchStudent','result'));
+    }
     public function Acceptstudentapplications(Request $request, $id)
     {
        

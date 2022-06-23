@@ -10,4 +10,9 @@ class Studentapply extends Model
     use HasFactory;
     public $timestamps=false;
     public $table="tbl_studentapply";
+
+    public function branchbelongs()
+    {
+        return $this->belongsTo(AddBranch::class,'int_branch_id');
+    }
 }

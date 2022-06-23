@@ -150,7 +150,8 @@ Route::get('/membership_Approved/{id}',[App\Http\Controllers\MembershipControlle
 Route::get('/membership_Approved_insert_user/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember_user'])->name('Approvedmember_user');
 Route::get('/membership_Rejected/{id}',[App\Http\Controllers\MembershipController::class,'Rejectedmember'])->name('Rejectedmember');
 Route::post('/membership_add',[App\Http\Controllers\MembershipController::class,'membershipinsert_data'])->name('Insertdmember');
-     
+Route::get('/membershipapplications_view/{id}',[App\Http\Controllers\MembershipController::class,'ViewMembershipapplications'])->name('ViewMembershipapplications');
+
      //Proposer ------Added by prasant 06/06-2022 ----
 Route::get('/proposer',[App\Http\Controllers\ProposerController::class,'index'])->name('proposer_view');
 Route::get('/proposer_Approved/{id}',[App\Http\Controllers\ProposerController::class,'Approvedproposermember'])->name('proposeraccept_member');
@@ -169,6 +170,7 @@ Route::get('/create_download_dlt/{id}', [App\Http\Controllers\AddExamPageControl
 Route::get('/studentapplications',[App\Http\Controllers\StudentapplyController::class,'showstudentapplications'])->name('showstudentapplications');
 Route::get('/studentapplications_Accept/{id}',[App\Http\Controllers\StudentapplyController::class,'Acceptstudentapplications'])->name('Acceptstudentapplications');
 Route::get('/studentapplications_Reject/{id}',[App\Http\Controllers\StudentapplyController::class,'Rejectstudentapplications'])->name('Rejectstudentapplications');
+Route::get('/studentapplications_view/{id}',[App\Http\Controllers\StudentapplyController::class,'Viewtudentapplications'])->name('Viewtudentapplications');
 
 //payment offline Approve
 Route::post('/offlinepayment_Accept',[App\Http\Controllers\StudentapplyController::class,'Acceptofflinepayment'])->name('Acceptofflinepayment');

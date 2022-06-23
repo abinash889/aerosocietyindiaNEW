@@ -41,7 +41,6 @@
 									<thead>
 										<tr>
 											<th>#</th>
-											<th>USER ID</th>
 											<th>Application ID</th>
 											<th>First Name</th>
 											<th>Payment Mode</th>
@@ -57,12 +56,12 @@
 										<tr>
 											<td>{{$key+1}}</td>
 											<td>
-												{{$fetchstudent->INT_User_id}}
+												{{$fetchstudent->VCH_Application_id}}
 											</td>
 											<td>
-												{{$fetchstudent->INT_Application_id}}
+												@php $studentID=Crypt::encrypt($fetchstudent->id);  @endphp
+												<a href="{{url('/studentapplications_view',$studentID)}}">{{$fetchstudent->vch_fname}}</a>
 											</td>
-											<td>{{$fetchstudent->vch_fname}}</td>
 											<td>
 												@if($fetchstudent->INT_paymentmode ==0)
 												<span class="bg-secondary fw_500 text-white badge">Online</span>

@@ -66,7 +66,7 @@
                                             @php
                                                 for($i=0;$i<$count;$i++){
                                             @endphp
-                                                <img src="{{url('Upload_DBImage/'.json_decode($fetchgallery->vch_image)[$i])}}" class="img-fluid bdr_io">
+                                                <img src="{{url('Upload_DBImage/'.json_decode($fetchgallery->vch_image)[$i])}}" class="img-fluid bdr_io"  style="max-width: 123px;float:left;margin-right:12px;">
                                             @php 
                                                 }
                                             @endphp

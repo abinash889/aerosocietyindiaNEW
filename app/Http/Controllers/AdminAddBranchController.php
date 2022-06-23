@@ -25,7 +25,7 @@ class AdminAddBranchController extends Controller
         //$post->branch_password=Hash::make(substr($request->branchnametxt,0,2).$random);
         $post->branch_password=substr($request->branchnametxt,0,2).$random;
         $post->vch_status=$request->branchstatusddl;
-
+        
         $post->save();
 
         $post1= new User;
@@ -33,6 +33,7 @@ class AdminAddBranchController extends Controller
         $post1->name=$request->branchnametxt;
         $post1->email=$request->branchusernametxt;
         $post1->password=substr($request->branchnametxt,0,2).$random;
+        //dd($post1);
         // ::create([
         //     'name' => $data['name'],
         //     'email' => $data['email'],

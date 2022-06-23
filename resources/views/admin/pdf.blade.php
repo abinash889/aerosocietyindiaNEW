@@ -67,7 +67,7 @@
 						
 					</td>
 					<td style="padding-right: 21px;text-align:right;">
-						<img src="sign.jpg" style="max-width: 101px;margin-top: -31px;">
+						<!-- <img src="sign.jpg" style="max-width: 101px;margin-top: -31px;"> -->
 						<p style="font-weight: 600;font-family: verdana;font-size: 11px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
 							
 							YATINDRA KUMAR

@@ -206,7 +206,13 @@ font-size: 19px;
 
 }
 
-
+.inline_details li{
+	display: inline-block;
+	margin-right: 14px;
+  }
+  .mb_10{
+	  margin-bottom: 10px;
+  }
 .logo-icon {
 
 
