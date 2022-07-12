@@ -458,7 +458,9 @@
                                                         <option selected="">Select</option>
                                                         <option value="b.tech">b.tech</option>
                                                         <option value="mca">mca</option>
+                                                        <option value="others">Others</option>
                                                     </select>
+                                                <input type="text" class="form-control" name="otherqualification" placeholder="Enter Qualification" style="display:none" />
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
@@ -604,9 +606,9 @@
                                                 <option selected="">Select</option>
                                                 <option value="1">proposer name 1</option>
                                                 <option value="2">proposer name 2</option>
-                                                <option value="3">proposer name 3</option>
+                                                <!-- <option value="3">proposer name 3</option>
                                                 <option value="4">proposer name 4</option>
-                                                <option value="5">proposer name 5</option>
+                                                <option value="5">proposer name 5</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-7" style="margin-top: 10px;">
@@ -626,9 +628,9 @@
                                                 <option selected="">Select</option>
                                                 <option value="1">proposer name 1</option>
                                                 <option value="2">proposer name 2</option>
-                                                <option value="3">proposer name 3</option>
+                                                <!-- <option value="3">proposer name 3</option>
                                                 <option value="4">proposer name 4</option>
-                                                <option value="5">proposer name 5</option>
+                                                <option value="5">proposer name 5</option> -->
                                             </select>
                                         </div>
                                         <div class="col-sm-7" style="margin-top: 10px;">
@@ -793,13 +795,25 @@
 
     
     <script>
-        $(document).ready(function () {
+        // $(document).ready(function () {
+        //     $('.repeater').repeater({
+        //         repeaters: [{
+        //             selector: '.inner-repeater'
+        //         }]
+        //     });
+        // });
+        $(document).ready(function() {
             $('.repeater').repeater({
                 repeaters: [{
-                    selector: '.inner-repeater'
+                selector: '.inner-repeater'
                 }]
             });
-        });
+            $("[data-repeater-list]").on("change", "[name*=cqualificationtxtt]", function() {
+                $(this).closest("div")
+                .find("[name*=otherqualification]")
+                .toggle(this.value==="others");
+            })
+            });
     </script>
 
 

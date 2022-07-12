@@ -14,7 +14,7 @@ class FeestructureController extends Controller
     {
 
         $currency = Currency::all();
-        $feestructure = Feestructure::all();
+        $feestructure = Feestructure::orderBy('id','DESC')->get();
 
         return view('admin.AdminFeestructure',compact('currency','feestructure'));
     }

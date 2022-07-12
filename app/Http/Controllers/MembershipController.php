@@ -307,7 +307,17 @@ class MembershipController extends Controller
         for($i=0;$i<$count;$i++)
         {
 
-        $cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
+            if(($request->data)[$i]['cqualificationtxtt']=='others'){
+
+            $cqualificationtxt[]=($request->data)[$i]['otherqualification'];
+            }
+            else{
+    
+            $cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
+            
+            }
+
+        //$cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
         $collagetxt[]=$request->data[$i]['collagetxt'];
         $addresstxt[]=$request->data[$i]['addresstxt'];
         $universitytxt[]=$request->data[$i]['universitytxt'];

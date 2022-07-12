@@ -79,8 +79,11 @@
                                 <div class="row mb_10">
                                     @foreach($result as $results)
                                     <div class="col-lg-4">
-                                        <p class="mb_10"><strong>Collage Name: </strong> {{$results[0]}}</p>
-                                        <p class="mb_10"><strong>Degree: </strong> {{$results[1]}}</p>
+                                        <p class="mb_10"><strong>Collage Name: </strong> {{$results[0] }}</p>
+                                        <p class="mb_10"><strong>Degree: </strong>
+                                       {{$results[1]}}
+                                       
+                                        </p>
                                         <p class="mb_10"><strong>Year of passing: </strong> {{$results[2]}}</p>
                                         <p class="mb_10"><strong>Specialization: </strong> {{$results[3]}}</p>
                                         <p class="mb_10"><strong>University: </strong> {{$results[4]}}</p>

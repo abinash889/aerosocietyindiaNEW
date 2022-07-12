@@ -9,7 +9,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
+//class User extends Authenticatable implements JWTSubject
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,HasRoles;
@@ -67,4 +69,12 @@ class User extends Authenticatable
 
         return $this->belongsTo(user::class,'level_2');
     }
+    // public function getJWTIdentifier()
+    // {
+    //     return $this->getKey();
+    // }
+    // public function getJWTCustomClaims()
+    // {
+    //     return [];
+    // }
 }

@@ -7,11 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
        
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
+
     <title>aeroform</title>
     <style>
         .d_inl {
@@ -446,11 +453,13 @@
                                         <div data-repeater-item class="o_h mb_15">
                                             <div class="wd_12 fl_lf  mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
-                                                <select id="" class="form-control" data-role="select-dropdown" name="cqualificationtxtt">
+                                                <select class="form-control" data-role="select-dropdown" name="cqualificationtxtt">  <!-- onchange='CheckColors(this.value);' -->
                                                     <option selected="">Select</option>
                                                     <option value="b.tech">b.tech</option>
                                                     <option value="mca">mca</option>
+                                                    <option value="others">Others</option>
                                                 </select>
+                                                <input type="text" class="form-control" name="otherqualification" placeholder="Enter Qualification" style="display:none" />
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
@@ -675,16 +684,36 @@
 
     
     <script>
-        $(document).ready(function () {
+        // $(document).ready(function () {
+        //     $('.repeater').repeater({
+        //         repeaters: [{
+        //             selector: '.inner-repeater'
+        //         }]
+        //     });
+        // });
+        $(document).ready(function() {
             $('.repeater').repeater({
                 repeaters: [{
-                    selector: '.inner-repeater'
+                selector: '.inner-repeater'
                 }]
             });
-        });
+            $("[data-repeater-list]").on("change", "[name*=cqualificationtxtt]", function() {
+                $(this).closest("div")
+                .find("[name*=otherqualification]")
+                .toggle(this.value==="others");
+            })
+            });
     </script>
-
-
+    <script type="text/javascript">
+        // function CheckColors(val){
+        //     var element=document.getElementById('color');
+        //     if(val=='pick a color'||val=='others')
+        //     element.style.display='block';
+        //     else  
+        //     element.style.display='none';
+        // }
+    </script>
+    
 
         
 

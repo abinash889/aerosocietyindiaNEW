@@ -144,7 +144,7 @@
                     <a href="{{url('/membership')}}" class="">
                         <div class="parent-icon"><i class='bx bx-home'></i>
                         </div>
-                        <div class="menu-title">Grading Committee</div>
+                        <div class="menu-title">Membership</div>
                     </a>
                 </li>
                 <li>

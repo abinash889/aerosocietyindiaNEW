@@ -147,17 +147,17 @@
                                     <div class="col-lg-3 mb_10">
                                         <p class="mb_10">
                                             <strong>Payment Mode:</strong>
-                                            @if($fetchMember->INT_paymentmode==0)
+                                            @if($fetchMember->INT_paymentmode==1)
                                                 <span class="bg-dark fw_500 text-black badge">Online</span>
-                                            @else($fetchMember->INT_paymentmode==1)
+                                            @else($fetchMember->INT_paymentmode==0)
                                                 <span class="bg-dark fw_500 text-black badge">Offline</span>
                                             @endif
                                         </p>
                                         <p class="mb_10">
                                             <strong>Payment Type:</strong>
-                                            @if($fetchMember->INT_Payment_type==0)
+                                            @if($fetchMember->INT_PaymentOffline__type==0)
                                                 <span>Cheque</span>
-                                            @else($fetchMember->INT_Payment_type==1)
+                                            @else($fetchMember->INT_PaymentOffline__type==1)
                                                 <span>DD</span>
                                             @endif
                                         </p>

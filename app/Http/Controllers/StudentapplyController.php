@@ -35,6 +35,9 @@ class StudentapplyController extends Controller
        // dd($Studentresult[0]->VCH_Application_id);
        $st_result[]=json_decode($fetchStudent->collage);
        $st_result[]=json_decode($fetchStudent->vch_academicinformation);
+    //    if(!$fetchStudent->vch_otheracademicinformation==null){
+    //     $st_result[]=json_decode($fetchStudent->vch_otheracademicinformation);
+    //    }
        $st_result[]=json_decode($fetchStudent->yaerofpassing);
        $st_result[]=json_decode($fetchStudent->specialization);  
        $st_result[]=json_decode($fetchStudent->university);
@@ -53,7 +56,7 @@ class StudentapplyController extends Controller
             }
 
             $result[] = $temp;
-            //dd($result);
+           //dd($result);
         }
         return view('admin.AdminStudentapplicationView',compact('fetchStudent','result'));
     }

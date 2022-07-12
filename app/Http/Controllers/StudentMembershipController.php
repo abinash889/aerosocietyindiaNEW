@@ -17,17 +17,29 @@ class StudentMembershipController extends Controller
     public function studentmembershipinsert_data(Request $request)
     {
 
+//dd($request->all());
+
        // dd(json_encode($request->data['cqualificationtxtt']));
-        //dd($request->data);
+        //dd(($request->data)[0]['cqualificationtxtt']);
 
        
+        
         $count=count($request->data);
        
 
         for($i=0;$i<$count;$i++)
         {
 
+        if(($request->data)[$i]['cqualificationtxtt']=='others'){
+
+        $cqualificationtxt[]=($request->data)[$i]['otherqualification'];
+        }
+        else{
+
         $cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
+       
+        }
+
         $collagetxt[]=$request->data[$i]['collagetxt'];
         $addresstxt[]=$request->data[$i]['addresstxt'];
         $universitytxt[]=$request->data[$i]['universitytxt'];
@@ -36,7 +48,7 @@ class StudentMembershipController extends Controller
        
         }
         
-
+//dd($cqualificationtxt,$collagetxt);
        
 
 
@@ -96,6 +108,7 @@ class StudentMembershipController extends Controller
 
 
         $insertData->vch_academicinformation=json_encode($cqualificationtxt);
+       // $insertData->vch_otheracademicinformation=json_encode($otherqualificationtxt);//Textbox show when others select 
         $insertData->collage=json_encode($collagetxt);
         $insertData->address=json_encode($addresstxt);
         $insertData->university=json_encode($universitytxt);

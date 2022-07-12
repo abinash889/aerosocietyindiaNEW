@@ -17,7 +17,7 @@
 							</div>
 							<div class="ms-auto">
 								<div class="btn-group">
-									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal"><i class="bx bx-plus"></i> Add Currencyrate</button>
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal"><i class="bx bx-plus"></i> Add Fee Structure</button>
 								</div>
 							</div>
 						</div>
@@ -45,7 +45,25 @@
                                 @foreach ($feestructure as $key=>$memberfetch)
 									<tr>
                                         <td>{{$key+1}}</td>
-										<td>{{$memberfetch->vch_membercategory}}</td>
+										<td>
+											@if($memberfetch->vch_membercategory==1)
+												Fellows/Members/Companions
+											@elseif($memberfetch->vch_membercategory==2)
+												Associate Members
+											@elseif($memberfetch->vch_membercategory==3)
+												Graduates/Associates
+											@elseif($memberfetch->vch_membercategory==4)
+												Student 1 Year
+											@elseif($memberfetch->vch_membercategory==5)
+												Student 2 Year
+											@elseif($memberfetch->vch_membercategory==6)
+												Student 3 Year
+											@elseif($memberfetch->vch_membercategory==7)
+												Student 4 Year
+											@elseif($memberfetch->vch_membercategory==8)
+												Student 5 Year
+											@endif
+										</td>
 										<td>{{$memberfetch->currency->vch_currencycode}}</td>
 										<td>{{$memberfetch->vch_membershipamount}}</td>
 										<td>{{$memberfetch->vch_status}}</td>
@@ -90,10 +108,14 @@
 									<label for="inputState" class="form-label">Member Category<span class="st_cl">*</span></label>
 									<select name="membershipcate" class="form-select" required>
 										<option selected disabled value="">Choose...</option>
-                                       
-										<option value="A">A</option>
-										<option value="B">B</option>
-										<option value="C">C</option>
+										<option value="1">Fellows/Members/Companions</option>
+										<option value="2">Associate Members</option>
+										<option value="3">Graduates/Associates</option>
+										<option value="4">Student 1 Year</option>
+										<option value="5">Student 2 Year</option>
+										<option value="6">Student 3 Year</option>
+										<option value="7">Student 4 Year</option>
+										<option value="8">Student 5 Year</option>
 									</select>
                                     <div class="invalid-feedback">Please select a valid Member Category.</div>
 								</div>
