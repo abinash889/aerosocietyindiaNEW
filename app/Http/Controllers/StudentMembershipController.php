@@ -54,30 +54,31 @@ class StudentMembershipController extends Controller
 
         $insertData=new Studentapply;
 
+        $randomNOFUP=rand(111111,999999);
         $file = $request->file('filenameuploadphoto');
         $extenstion = $file->getClientOriginalExtension();
-        $filename = time().'.'.$extenstion;
+        $filename = $randomNOFUP.'.'.$extenstion;
         $file->move('Upload_DBImage/', $filename);
         $insertData->vch_profile_photo = $filename; 
 
-
+        $randomNOF1=rand(111111,999999);
         $file1 = $request->file('fileupload1');
         $extenstion1 = $file1->getClientOriginalExtension();
-        $filename1 = time().'.'.$extenstion1;
+        $filename1 = $randomNOF1.'.'.$extenstion1;
         $file1->move('Upload_DBImage/', $filename1);
         $insertData->vch_document1file = $filename1; 
 
-
+        $randomNOF2=rand(111111,999999);
         $file2 = $request->file('fileupload2');
         $extenstion2 = $file2->getClientOriginalExtension();
-        $filename2 = time().'.'.$extenstion2;
+        $filename2 = $randomNOF2.'.'.$extenstion2;
         $file2->move('Upload_DBImage/', $filename2);
         $insertData->vch_document2file = $filename2; 
 
-
+        $randomNOSFU=rand(111111,999999);
         $file3 = $request->file('signaturefileupload');
         $extenstion3 = $file3->getClientOriginalExtension();
-        $filename3 = time().'.'.$extenstion3;
+        $filename3 = $randomNOSFU.'.'.$extenstion3;
         $file3->move('Upload_DBImage/', $filename3);
         $insertData->vch_sign = $filename3; 
         

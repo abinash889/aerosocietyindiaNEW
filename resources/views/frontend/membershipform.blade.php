@@ -14,6 +14,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
     <title>aeroform</title>
     <style>
+        .mt_42_m{
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
         .d_inl {
             display: -webkit-inline-box;
         }   
@@ -486,7 +490,7 @@
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                    <input type="text" class="form-control" placeholder="Fee" name="specializationtxt">
+                                                    <input type="text" class="form-control" placeholder="Specialization" name="specializationtxt">
                                                 </div>
                                                 <div class="wd_7 fl_lf col-6">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
@@ -580,11 +584,11 @@
                             <div class="row brd_top">
                            
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                 <div class="form-group">
                                         <label for="inputCity" class="control-label col-sm-5"><b>Grade
                                                 :</b></label>
-                                        <div class="col-sm-7">
+                                        <div class="col-sm-4">
                                             <select name="membershiptxt" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
@@ -594,14 +598,35 @@
 
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-7">
-                                            <label for="applicant_name" class="control-label "><b>Proposer 1:
+                                    <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <label for="applicant_name" class="control-label "><b>Proposer 1::</b></label>
+                                                    <select id="membershiptxt" name="pro_name1" class="form-control">
+                                                        <option selected="">Select</option>
+                                                        <option value="1">proposer name 1</option>
+                                                        <option value="2">proposer name 2</option>
+                                                    </select>
+                                                </div>
+                                                <div style="margin-top:14px;">
+                                                    <input type="text" name="pro_email1" id="properser_email" placeholder="Properser Email" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="applicant_name" class="control-label "><b>Membership No: 1:
                                                     :</b></label>
+                                                    <input type="text" name="pro_number1" id="properser_email" placeholder="Membership Number1" class="form-control">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-7">
-                                        <select id="membershiptxt" name="pro_name1" class="form-control" data-role="select-dropdown"
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <label for="applicant_name" class="control-label "><b>Proposer 2::</b></label>
+                                                    <select id="membershiptxt1" name="pro_name2" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
                                                 <option value="1">proposer name 1</option>
@@ -610,176 +635,106 @@
                                                 <option value="4">proposer name 4</option>
                                                 <option value="5">proposer name 5</option> -->
                                             </select>
-                                        </div>
-                                        <div class="col-sm-7" style="margin-top: 10px;">
-                                        <input type="text" name="pro_email1" id="properser_email"
+                                                </div>
+                                                <div style="margin-top:14px;">
+                                                <input type="text" name="pro_email2" id="properser_email"
                                                 placeholder="Properser Email" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-7">
-                                            <label for="applicant_name" class="control-label "><b>Proposer 2:
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="applicant_name" class="control-label "><b>Membership No: 2:
                                                     :</b></label>
-                                        </div>
-                                        <div class="col-sm-7">
-                                        <select id="membershiptxt1" name="pro_name2" class="form-control" data-role="select-dropdown"
-                                                placeholder="select">
-                                                <option selected="">Select</option>
-                                                <option value="1">proposer name 1</option>
-                                                <option value="2">proposer name 2</option>
-                                                <!-- <option value="3">proposer name 3</option>
-                                                <option value="4">proposer name 4</option>
-                                                <option value="5">proposer name 5</option> -->
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-7" style="margin-top: 10px;">
-                                        <input type="text" name="pro_email2" id="properser_email"
-                                                placeholder="Properser Email" class="form-control">
+                                                    <input type="text" name="pro_number2" id="properser_email"
+                                                placeholder="Membership Number2" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
-
-
-
-
-                                  
-                                    <div class="form-group">
-                                        <label for="inputCity" class="control-label col-sm-5"><b>Upload Document
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <div>
+                                                    <label for="applicant_name" class="control-label "><b>Upload Document:</b></label>
+                                                    <select name="uploaddoc1txt" class="form-control mb_15" data-role="select-dropdown"
+                                                        placeholder="select">
+                                                        <option selected="">Select</option>
+                                                        <option value="1">PAN</option>
+                                                        <option value="2">Passport</option>
+                                                    </select>
+                                                    <select name="uploaddoc2txt" class="form-control" data-role="select-dropdown"
+                                                        placeholder="select">
+                                                        <option selected="">Select</option>
+                                                        <option value="1">PAN</option>
+                                                        <option value="2">Passport</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                            <input type="file" class="form-control hg_45 mt_42_m"
+                                                name="fileupload1">
+                                                <input type="file" class="form-control hg_45"
+                                                name="fileupload2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <label><b>Signature :</b></label>
+                                                <p class="p_txt">Please upload.png, .jpg, .jpeg files only</p>
+                                                <input type="file" class="form-control hg_45"  name="signaturefileupload">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <label><b>Payment Mode
                                                 :</b></label>
-                                        <div class="col-sm-7">
-                                            <select name="uploaddoc1txt" class="form-control mb_15" data-role="select-dropdown"
-                                                placeholder="select">
-                                                <option selected="">Select</option>
-                                                <option value="1">PAN</option>
-                                                <option value="2">Passport</option>
-                                            </select>
-                                            <select name="uploaddoc2txt" class="form-control" data-role="select-dropdown"
-                                                placeholder="select">
-                                                <option selected="">Select</option>
-                                                <option value="1">PAN</option>
-                                                <option value="2">Passport</option>
-                                            </select>
-
+                                                <select class="form-control" name="paymenttypeddl" data-role="select-dropdown">
+                                                    <option selected="">Select</option>
+                                                    <option value="1">Online</option>
+                                                    <option value="0">Offline</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group p_l">
-                                        <label for="inputCity" class="control-label col-sm-3"><b>Signature :</b></label>
-                                        <p class="p_txt">Please upload.png, .jpg, .jpeg files only</p>
-                                        <div class="col-sm-7 p_l">
-
-                                            <input type="file" class="form-control hg_45"
-                                                name="signaturefileupload">
-
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <label><b>Fee
+                                                :</b></label>
+                                                <input type="number" class="form-control" placeholder="Fee" name="feetxt">
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="inputCity" class="control-label p_l "><b>If elected, I would like to
+                                    <div class="form-group col-md-12">
+                                        <div class="row m-0">
+                                            <div class="col-md-6">
+                                                <label><b>If elected, I would like to
                                                 be
-                                                attached to the branch located in :</b></label>
-                                        <div class="col-sm-7">
-                                            <select name="branchddl" class="form-control" data-role="select-dropdown">
+                                                attached to the branch located in :
+                                                :</b></label>
+                                                <select name="branchddl" class="form-control" data-role="select-dropdown">
                                             <option value="" selected="" disabled="">Select Branch</option>
                                                 @foreach($result as $fetchbranch)
                                                 
                                                 <option value="{{$fetchbranch->id}}">{{$fetchbranch->vch_branchname}}</option>
                                                 @endforeach
                                             </select>
-
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputCity" class="control-label col-sm-5"><b>Payment Mode
-                                                :</b></label>
-                                        <div class="col-sm-7">
-                                            <select class="form-control" name="paymenttypeddl" data-role="select-dropdown">
-                                                <option selected="">Select</option>
-                                                <option value="1">Online</option>
-                                                <option value="0">Offline</option>
-                                            </select>
-
-
-                                        </div>
-                                    </div>
+                                    <div class="form-group col-md-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value=""
                                             id="flexCheckDefault" />
                                         <label class="form-check-label" for="flexCheckDefault"><b>I agree
-                                                to,</b></label>
-                                        <a href="#" class="f_r"> Term & Condition</a>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                <div class="form-group">
-                                        <div class="col-sm-7">
-                                            <label for="applicant_name" class="control-label "><b>Membership No: 1:
-                                                    :</b></label>
-                                        </div>
-                                        <div class="col-sm-7" style="margin-bottom: 10px;">
-                                        <input type="text" name="pro_number1" id="properser_email"
-                                                placeholder="Membership Number1" class="form-control">
-                                        </div>
-                                        <!-- <div class="col-sm-7">
-                                        <select id="membershiptxt" class="form-control" data-role="select-dropdown"
-                                                placeholder="select">
-                                                <option selected="0">Pending</option>
-                                                <option value="1">Approved</option>
-                                                <option value="2">Reject</option>
-                                            </select>
-                                        </div> -->
+                                                to,</b><a href="#" class="f_r"> Term & Condition</a></label>
                                         
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-7">
-                                            <label for="applicant_name" class="control-label "><b>Membership No: 2:
-                                                    :</b></label>
-                                        </div>
-
-                                        <div class="col-sm-7" style="margin-bottom: 10px;">
-                                        <input type="text" name="pro_number2" id="properser_email"
-                                                placeholder="Membership Number2" class="form-control">
-                                        </div>
-                                        <!-- <div class="col-sm-7">
-                                        <select id="membershiptxt" class="form-control" data-role="select-dropdown"
-                                                placeholder="select">
-                                                <option selected="0">Pending</option>
-                                                <option value="1">Approved</option>
-                                                <option value="2">Reject</option>
-                                                
-                                            </select>
-                                        </div> -->
-                                        
                                     </div>
-
-
-                                    <div class="form-group">
-                                        <label for="inputZip" class="control-label col-sm-3"><b>fee :</b></label>
-                                        <div class="col-sm-7">
-
-                                            <input type="number" class="form-control" placeholder="Fee" name="feetxt">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group p_l">
-
-                                        <div class="col-sm-7 p_l">
-                                            <input type="file" class="form-control hg_45"
-                                                name="fileupload1">
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group p_l">
-
-                                        <div class="col-sm-7 p_l">
-                                            <input type="file" class="form-control hg_45"
-                                                name="fileupload2">
-
-                                        </div>
-                                    </div>
-
-
                                 </div>
+                                
                                 <div class="col-12"> <button class="btn-1"><span> SUBMIT </span></button></div>
 
                             </div>

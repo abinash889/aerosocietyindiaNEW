@@ -55,7 +55,17 @@
 									<tbody>
 									
 									@foreach($membership as $key=>$memberships)
+									
+									@php
+									
+									$grading=App\Models\Gradingcommittee::where('INT_user_id',Auth::id())->get('INT_level');
+
+									if($memberships->int_grading_level >= $grading[0]->INT_level){
+									@endphp
+									
+										
 										<tr>
+
 											<td>{{$key+1}}</td>
 											<td>
 												@php $MembershipID=Crypt::encrypt($memberships->id); @endphp
@@ -131,6 +141,10 @@
 												$array =[2,4,6,8,10,12,14,11];
 											@endphp
 
+											@php 
+												$arraylast =[1,3,5,7,9,10];
+											@endphp
+
 											@if($memberships->Int_approve_status==11 && $memberships->int_grading_level==Auth::id())	
 										
 
@@ -147,7 +161,7 @@
 											@elseif(!in_array($memberships->Int_approve_status, $array))
 											@if($memberships->INT1_pro_status==1 && $memberships->INT2_pro_status==1)
 
-											@if( $memberships->int_grading_level==Auth::id() && $memberships->Int_payment_status==1)	
+											@if(in_array($memberships->Int_approve_status, $arraylast) && $memberships->int_grading_level==Auth::id())	
 																			
 											<!-- <td> -->
 											@php $approv_id=Crypt::encrypt($memberships->id); @endphp
@@ -167,6 +181,9 @@
 										</td>
 										
 										</tr>
+									@php 
+									}
+									@endphp
 										@endforeach
 									</tbody>
 								</table>

@@ -116,7 +116,7 @@
                                 <div class="row mb_10">
                                     <div class="col-lg-3 mb_10">
                                         <p class="mb_10"><strong><u>Proposer 1</u></strong></p>
-                                        <p class="mb_10"><strong>Name: </strong>{{$fetchMember->INT_pro1_userid}}</p>
+                                        <p class="mb_10"><strong>Name: </strong>{{$fetchMember->propersorbelongs->name}}</p>
                                         <p class="mb_10"><strong>Membsrship No: </strong>{{$fetchMember->vch_1propersormembernom}}</p>
                                         <p class="mb_10"><strong>Email-Id: </strong>{{$fetchMember->vch_1emailid}}</p>
                                         <p class="mb_10"><strong>Status: </strong>
@@ -182,7 +182,7 @@
                                             @endif
                                         </p>
                                         <p class="mb_10"><strong>Membership Fee:</strong> {{$fetchMember->vch_fee}}</p>
-                                        <p class="mb_10"><strong>Preffered Branch:</strong> {{$fetchMember->int_branch_id}}</p>
+                                        <p class="mb_10"><strong>Preffered Branch:</strong> {{$fetchMember->branchMbelongs->vch_branchname}}</p>
                                     </div>
                                     <div class="col-lg-12 mb_10">
                                         <p><strong>DOCUMENT DETAILS  <hr/></strong></p>

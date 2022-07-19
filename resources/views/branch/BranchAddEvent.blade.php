@@ -43,6 +43,10 @@
 										<th>#</th>
 										<th>Event Name</th>
 										<th>Event Date</th>
+										<th>Registration<br> Start Date</th>
+										<th>Registration<br> End Date</th>
+										<th>Registration<br> Fee</th>
+										<th>Total Member</th>
 										<th width=17%>Event Details</th>
 										<th>Event Image</th>
 										<th>Action / Status</th>
@@ -59,6 +63,10 @@
 										<td>{{$key+1}}</td>
 										<td>{{$eventfetch->vch_eventname}}</td>
 										<td>{!! date("d-F-Y", strtotime($eventfetch->DT_Eventdate)) !!}</td>
+										<td>{!! date("d-F-Y", strtotime($eventfetch->Reg_startdate)) !!}</td>
+										<td>{!! date("d-F-Y", strtotime($eventfetch->Reg_enddate)) !!}</td>
+										<td>{{$eventfetch->Reg_fees}}</td>
+										<td>{{$eventfetch->Total_memb_attend}}</td>
 										<!-- <td>DT_Eventdate</td> -->
 										<td  width=17%>{!! html_entity_decode($eventfetch->vch_eventdetails) !!}</td>
 										<td>
@@ -115,6 +123,22 @@
 								<div class="col-md-6">
 									<label for="inputFirstName" class="form-label">Event Date</label>
 									<input type="date" class="form-control" name="eventdatetxt">
+								</div>
+								<div class="col-md-6">
+									<label for="inputFirstName" class="form-label">Registration Start Date</label>
+									<input type="date" class="form-control" name="eventstartdatetxt">
+								</div>
+								<div class="col-md-6">
+									<label for="inputFirstName" class="form-label">Registration End Date</label>
+									<input type="date" class="form-control" name="eventsenddatetxt">
+								</div>
+								<div class="col-md-6">
+									<label for="inputFirstName" class="form-label">Registration Fees</label>
+									<input type="text" class="form-control" name="registrationfeetxt">
+								</div>
+								<div class="col-md-6">
+									<label for="inputFirstName" class="form-label">Total Member Attend</label>
+									<input type="text" class="form-control" name="memberattendtxt">
 								</div>
 								<div class="col-md-12">
 									<label for="inputLastName" class="form-label">Event Details</label>

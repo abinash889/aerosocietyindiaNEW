@@ -161,6 +161,7 @@ class MembershipController extends Controller
         $member_user->email = $post->vch_emailid;
         $mem_email= $member_user->email;
 
+        $BranchMailName=$post->int_branch_id;
         
     //    dd($member_user->name,
     //    $member_user->gender,
@@ -171,7 +172,8 @@ class MembershipController extends Controller
         $last_id=$member_user->id;
 
         
-        $post->int_grading_level =$mbr_id;
+        
+        // $post->int_grading_level =$mbr_id;
         $post->INT_user_id =$last_id;
         $post->vch_membership_no ="G-".$post->id;;
         $mem_code = $post->vch_membership_no;
@@ -199,10 +201,13 @@ class MembershipController extends Controller
         $insertPaymentTable->INT_paymentstatus=$post->Int_payment_status;
         $insertPaymentTable->save();
 
+        $transIDForMail=$insertPaymentTable->vch_transactionID;
+        $transPriceForMail=$insertPaymentTable->vch_fee;
 
 
 
-        $this->generatePDF( $mem_email, $last_fname, $last_mname, $last_lname, $last_collagename,$last_memberID, $last_dateofissue);
+
+        $this->generatePDF( $mem_email, $last_fname, $last_mname, $last_lname, $last_collagename,$last_memberID, $last_dateofissue,$transIDForMail,$transPriceForMail,$BranchMailName);
 
 
         notify()->success('Member approved Successfully');
@@ -212,14 +217,14 @@ class MembershipController extends Controller
     }
 
     // public function generatePDF($mem_code ,$mem_email,$password){
-    public function generatePDF($mem_email, $last_fname, $last_mname, $last_lname, $last_collagename, $last_memberID, $last_dateofissue){
+    public function generatePDF($mem_email, $last_fname, $last_mname, $last_lname, $last_collagename, $last_memberID, $last_dateofissue,$transIDForMail,$transPriceForMail,$BranchMailName){
         // $data["email"]=$request->get("kprasant635@gmail.com");
         // $data["client_name"]=$request->get("prasant");
         // $data["subject"]=$request->get("testing");
 
-        $data = ['email'=>$mem_email, 'f_name' => $last_fname, 'm_name' => $last_mname, 'l_name' => $last_lname, 'c_name'=>$last_collagename, 'membercode'=> $last_memberID, 'dateissue'=>$last_dateofissue];
+        $data = ['email'=>$mem_email, 'f_name' => $last_fname, 'm_name' => $last_mname, 'l_name' => $last_lname, 'c_name'=>$last_collagename, 'membercode'=> $last_memberID, 'dateissue'=>$last_dateofissue,'transID'=>$transIDForMail,'Price'=>$transPriceForMail,'Branchname'=>$BranchMailName];
 
-        $pdf = FacadePdf::loadView('mail.student_id',$data);
+        $pdf = FacadePdf::loadView('mail.pdf',$data);
  
         try{
             $user['to']=$data["email"];
@@ -228,8 +233,8 @@ class MembershipController extends Controller
             // FacadesMail::send('mail.otp', $data, function ($messages) use ($user) {
             //     $messages->to($user['to']);
             //  ->subject("member code")
-             ->attachData($pdf->output(), "membershipcard.pdf");
-             $message->subject('Membership Card');
+             ->attachData($pdf->output(), "Welcomecard.pdf");
+             $message->subject('Membership welcome paper');
             });
             // FacadesMail::send('emails.activation', $data, function($message) use ($email, $subject) {
             //     $message->to($email)->subject($subject);
@@ -350,30 +355,31 @@ class MembershipController extends Controller
 
         $insertData=new Membership;
 
+        $randomNOFNU=rand(111111,999999);
         $file = $request->file('filenameuploadphoto');
         $extenstion = $file->getClientOriginalExtension();
-        $filename = time().'.'.$extenstion;
+        $filename = $randomNOFNU.'.'.$extenstion;
         $file->move('Upload_DBImage/', $filename);
         $insertData->vch_profile_photo = $filename; 
 
-
+        $randomNOFU1=rand(111111,999999);
         $file1 = $request->file('fileupload1');
         $extenstion1 = $file1->getClientOriginalExtension();
-        $filename1 = time().'.'.$extenstion1;
+        $filename1 = $randomNOFU1.'.'.$extenstion1;
         $file1->move('Upload_DBImage/', $filename1);
         $insertData->vch_document1file = $filename1; 
 
-
+        $randomNOFU2=rand(111111,999999);
         $file2 = $request->file('fileupload2');
         $extenstion2 = $file2->getClientOriginalExtension();
-        $filename2 = time().'.'.$extenstion2;
+        $filename2 = $randomNOFU2.'.'.$extenstion2;
         $file2->move('Upload_DBImage/', $filename2);
         $insertData->vch_document2file = $filename2; 
 
-
+        $randomNOFU3=rand(111111,999999);
         $file3 = $request->file('signaturefileupload');
         $extenstion3 = $file3->getClientOriginalExtension();
-        $filename3 = time().'.'.$extenstion3;
+        $filename3 = $randomNOFU3.'.'.$extenstion3;
         $file3->move('Upload_DBImage/', $filename3);
         $insertData->vch_sign = $filename3; 
         
@@ -410,7 +416,7 @@ class MembershipController extends Controller
         $insertData->INT_pro2_userid=$request->pro_name2;
         $insertData->vch_2propersormembernom=$request->pro_number2;
         $insertData->vch_2emailid=$request->pro_email2;
-        $insertData->INT_Payment_type=$request->paymenttypeddl;
+        $insertData->INT_PaymentOffline__type=$request->paymenttypeddl;
 
 
 

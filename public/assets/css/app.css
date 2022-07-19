@@ -5851,3 +5851,13 @@ input::placeholder {
     margin: 4px;
     display: inline-block;
 }
+.btx_crs{
+	position: absolute;
+    right: 12px;
+    top: 5px;
+    font-size: 11px;
+    border-radius: 50px;
+}
+.mb_23{
+	margin-bottom: 23px;
+}

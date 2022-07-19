@@ -43,7 +43,11 @@
 										<th>#</th>
 										<th>Branch Name</th>
 										<th>Event Name</th>
-										<th>Date</th>
+										<th>Event Date</th>
+										<th>Registration<br/> Start Date</th>
+										<th>Registration<br/> End Date</th>
+										<th>Registration<br/> Fee</th>
+										<th>Total Member</th>
 										<th>Event Details</th>
 										<th>Event Image</th>
 										<th>Action</th>
@@ -56,6 +60,10 @@
 										<td>{{$approvalevent->branchname->name}}</td>
 										<td>{{$approvalevent->vch_eventname}}</td>
 										<td>{!! date("d-F-Y", strtotime($approvalevent->DT_Eventdate)) !!}</td>
+										<td>{!! date("d-F-Y", strtotime($approvalevent->Reg_startdate)) !!}</td>
+										<td>{!! date("d-F-Y", strtotime($approvalevent->Reg_enddate	)) !!}</td>
+										<td>{{$approvalevent->Reg_fees}}</td>
+										<td>{{$approvalevent->Total_memb_attend}}</td>
 										<td>{!! html_entity_decode($approvalevent->vch_eventdetails) !!}</td>
 										<td>
 											<img src="{{url('Upload_DBImage/'.$approvalevent->vch_image)}}" class="img-fluid">

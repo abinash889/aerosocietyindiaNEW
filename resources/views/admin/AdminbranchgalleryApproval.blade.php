@@ -1,6 +1,67 @@
 @extends("layouts.app")
 
 		@section("wrapper")
+		<style>
+			.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+		</style>
 		<div class="page-wrapper">
 			<div class="page-content">
 				<div class="row row-cols-12">
@@ -39,7 +100,6 @@
                                         <th>Branch Name</th>
 										<th>Title</th>
 										<th>Gallery Image</th>
-										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -52,39 +112,40 @@
                                             @php
                                                 $count=count(json_decode($approvalallery->vch_image))
                                             @endphp
+											<div class="row">
+												<form method="post" action="{{url('/imageaccptbyAdmin')}}" class="row">
+													<div class="col-md-10">
+													<div class="row">
+													@csrf
+													
                                             @php
                                                 for($i=0;$i<$count;$i++){
+											
+										
+													
+													
                                             @endphp
-                                                <img src="{{url('Upload_DBImage/'.json_decode($approvalallery->vch_image)[$i])}}" class="img-fluid bdr_io"  style="max-width: 123px;float:left;margin-right:12px;">
+											
+											<!-- dd($bhu,$array_apstus); -->
+												<div class="col-md-2">
+													<img src="{{url('Upload_DBImage/'.json_decode($approvalallery->vch_image)[$i])}}" class="img-fluid bdr_io"  style="height: 80px;margin-right: 12px;width: 80px;">
+													<label class="switch">
+														<input type="hidden" name="image_id" value="{{$approvalallery->id}}">
+														<input type="checkbox" name="acceptimg[]" value="{{$i}}">
+														<span class="slider round"></span>
+													</label>
+												</div>
+												
                                             @php 
                                                 }
                                             @endphp
-										</td>
-										<td>	
-											@php $approv_id=Crypt::encrypt($approvalallery->id); @endphp
-											@php $reject_id=Crypt::encrypt($approvalallery->id); @endphp
-											@php
-												if($approvalallery->INT_approvestatus ==0){
-											@endphp
-												<a href="{{url('/create_approvebranchgallery_Approved', $approv_id)}}" class="bg-success text-white pd_db_r1">Approve</a>
-												<a href="{{url('/create_approvebranchgallery_Rejected', $reject_id)}}" class="bg-warning text-white pd_db_r1">Reject</a>
-											@php
-												}
-											@endphp
-											@php
-												if($approvalallery->INT_approvestatus ==1){
-											@endphp
-												<span class="bg-success text-white pd_db_r1 fw_400">Approved</span>
-											@php
-												}
-											@endphp
-											@php
-												if($approvalallery->INT_approvestatus==2){
-											@endphp
-												<span class="bg-danger text-white pd_db_r1 fw_400">Rejected</span>
-											@php 
-												}
-											@endphp
+											</div>
+											</div>
+											<div  class="col-md-2">
+												<input type="submit" class="bg-success text-white pd_db_r1" value="Submit">
+											</div>
+											</form>
+											</div>
 										</td>
 									</tr>
 									@endforeach

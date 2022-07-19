@@ -23,6 +23,10 @@ class BranchEventController extends Controller
         $post->vch_eventname=$request->eventnametxt;
         $post->DT_Eventdate=$request->eventdatetxt;
         $post->vch_eventdetails=$request->eventdetailstxt;
+        $post->Reg_startdate=$request->eventstartdatetxt;
+        $post->Reg_enddate=$request->eventsenddatetxt;
+        $post->Reg_fees=$request->registrationfeetxt;
+        $post->Total_memb_attend=$request->memberattendtxt;
 
         $file = $request->file('uploadimagefileUpload');
         $extenstion = $file->getClientOriginalExtension();

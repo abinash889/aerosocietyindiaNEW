@@ -60,16 +60,23 @@
 										<td>{{$key+1}}</td>
 										<td>{{$fetchgallery->vch_title}}</td>
 										<td>
+											<div class="row">
                                             @php
                                                 $count=count(json_decode($fetchgallery->vch_image))
                                             @endphp
                                             @php
                                                 for($i=0;$i<$count;$i++){
+													
                                             @endphp
-                                                <img src="{{url('Upload_DBImage/'.json_decode($fetchgallery->vch_image)[$i])}}" class="img-fluid bdr_io"  style="max-width: 123px;float:left;margin-right:12px;">
+                                                <div class="col-md-2">
+													<img src="{{url('Upload_DBImage/'.json_decode($fetchgallery->vch_image)[$i])}}" class="img-fluid bdr_io"  style="max-width: 123px;">
+													
+												</div>
                                             @php 
+												
                                                 }
                                             @endphp
+											</div>
 										</td>
 										<td>
                                         @php

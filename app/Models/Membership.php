@@ -15,4 +15,9 @@ class Membership extends Model
     {
         return $this->belongsTo(AddBranch::class,'int_branch_id');
     }
+    public function propersorbelongs()
+    {
+        return $this->belongsTo(User::class,'id');
+    }
+
 }

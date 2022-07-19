@@ -555,24 +555,28 @@
                             </div>
 
                             <div class="row brd_top">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputCity" class="control-label col-sm-5"><b>Membership
-                                                :</b></label>
-                                        <div class="col-sm-7">
-                                            <select name="membershiptxt" class="form-control" data-role="select-dropdown"
-                                                placeholder="select">
-                                                <option selected="">Select</option>
-                                                <option value="1">Student 1 Year</option>
-                                                <option value="2">Student 2 Year</option>
-                                                <option value="3">Student 3 Year</option>
-                                                <option value="4">Student 4 Year</option>
-                                                <option value="5">Student 5 Year</option>
-                                            </select>
-
-
+                                <div class="form-group col-md-12">
+                                    <div class="row m-0">
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="applicant_name" class="control-label "><b>Membership</b></label>
+                                                <select name="membershiptxt" class="form-control">
+                                                    <option selected="">Select</option>
+                                                    <option value="1">Student 1 Year</option>
+                                                    <option value="2">Student 2 Year</option>
+                                                    <option value="3">Student 3 Year</option>
+                                                    <option value="4">Student 4 Year</option>
+                                                    <option value="5">Student 5 Year</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="applicant_name" class="control-label "><b>Fee</b></label>
+                                            <input type="number" class="form-control" placeholder="Fee" name="feetxt">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="inputCity" class="control-label col-sm-5"><b>Upload Document
                                                 :</b></label>
@@ -642,13 +646,6 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="inputZip" class="control-label col-sm-3"><b>fee :</b></label>
-                                        <div class="col-sm-7">
-
-                                            <input type="number" class="form-control" placeholder="Fee" name="feetxt">
-                                        </div>
-                                    </div>
 
                                     <div class="form-group p_l">
 

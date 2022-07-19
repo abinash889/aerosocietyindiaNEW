@@ -184,6 +184,8 @@ Route::get('/refund_tostudent/{id}',[App\Http\Controllers\StudentapplyController
 
 Route::get('/membership-form',[App\Http\Controllers\MembershipController::class,'membershipform'])->name('viewform');
 
+//image accept
+Route::post('/imageaccptbyAdmin',[App\Http\Controllers\BranchGalleryController::class,'AcceptImageByAdmin'])->name('AcceptImageByAdmin');
 
    
 
@@ -214,6 +216,8 @@ Route::get('temp', [App\Http\Controllers\MembershipController::class, 'temp']);
 
 Route::get('/student-membership',[App\Http\Controllers\StudentMembershipController::class,'studentmembershipinsert'])->name('studentmembershipinsert');
 Route::post('/student_membership_insert',[App\Http\Controllers\StudentMembershipController::class,'studentmembershipinsert_data'])->name('studentmembershipinsert_data');
+Route::get('/event-registration',[App\Http\Controllers\EventregistrationController::class,'eventregistration'])->name('eventregistration');
+
 
 
 
