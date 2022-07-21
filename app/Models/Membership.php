@@ -19,5 +19,9 @@ class Membership extends Model
     {
         return $this->belongsTo(User::class,'id');
     }
+    // public function Countrybelongs()
+    // {
+    //     return $this->belongsTo(Country::class,'id');
+    // }
 
 }

@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends("layouts.app")
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-       
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
-    <title>aeroform</title>
-    <style>
+<style>
+    .form-group{
+        margin-bottom:15px;
+    }
         .mt_42_m{
-            margin-top: 32px;
+            margin-top: 22px;
             margin-bottom: 12px;
         }
         .d_inl {
@@ -174,9 +164,6 @@
         .mb_15{
             margin-bottom: 15px;
         }
-        .hg_45{
-            height: 45px;
-        }
         @media (max-width:991px){
             .d_none{display: none;}
             .mb_33{
@@ -194,18 +181,30 @@
             
         }
 </style>
-</head>
-
-<body>
-    <section>
-        <div class="container m_t m_b">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="fnt_sz">Graduate Membership</h1>
-                    <h3 class="fnt_sz2">personal information</h3>
-                    <div class="row">
-                        <form class="col-12" method="post" action="{{url('membership_add')}}" enctype="multipart/form-data">
+		@section("wrapper")
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="row row-cols-12">
+					<div class="card pd_15">
+						<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+							<div class="">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb mb-0 p-0">
+										<li class="breadcrumb-item active" aria-current="page">
+                                            <a href="{{url('/membership')}}"><i class="bx bx-left-arrow" aria-hidden="true"></i> Back to Membership List</a>
+                                        </li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-cols-12">
+                    <div class="card">
+                        <div class="card-body">
+                        <form class="col-12" method="post" action="{{url('/memberUDTby_Admin')}}" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id" value="{{$fetchMember->id}}"/>
                             <div class="row">
                                 <div class="col-10">
 
@@ -215,7 +214,7 @@
                                                     Photo</b>
                                                 :</label>
                                             <div class="col-md-4">
-                                                <input type="file" class="form-control hg_45" name="filenameuploadphoto" required>
+                                                <input type="file" class="form-control hg_45" name="filenameuploadphoto">
                                                
                                             </div>
                                         </div>
@@ -231,14 +230,14 @@
                                                     :</b></label>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="text" name="applicant_name" class="form-control" required>
+                                            <input type="text" name="applicant_name" class="form-control" value="{{$fetchMember->vch_firstname}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="applicant_name" class="control-label col-sm-3"><b>Sur Name
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <input type="text" name="last_name" class="form-control" required>
+                                            <input type="text" name="last_name" class="form-control" value="{{$fetchMember->vch_lastname}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -247,19 +246,23 @@
                                         <div class="col-sm-7">
                                             <div class="input-group">
                                                 <span class="input-group-addon">+91</span>
-                                                <input type="text" class="form-control" required name="mobiletxt" maxlength="10">
+                                                <input type="text" class="form-control" required name="mobiletxt" value="{{$fetchMember->vch_phone1}}" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="date_of_birth" class="control-label col-sm-5"><b>Date of Birth
                                                 :</b></label>
-                                        <div class="row p_l">
+                                        <div class="row">
                                             <div class="col-sm-7">
-                                            <input type="date" class="form-control" required name="dobtxt">
+                                            <input type="date" class="form-control" required value="{{$fetchMember->vch_dob}}" name="dobtxt">
                                             </div>
                                         </div>
                                     </div>
+                                   
+
+
+                                    
                                     <div class="form-group">
                                         <label for="applicant_name" class="control-label col-sm-7"><b>Member Of Any
                                                 Other
@@ -267,15 +270,25 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="memberofanysecoetytxt" id="applicant_name"
-                                                placeholder="E.g.:British Aeronautical Society" class="form-control" required>
+                                                placeholder="E.g.:British Aeronautical Society" class="form-control" value="{{$fetchMember->vch_membersociety}}" required>
                                         </div>
                                     </div><br><br>
+
+                                   
+                                    
+                                    @php
+                                    $contact_address=explode(',',$fetchMember->vch_contactaddress)
+                                    @endphp
+
+                                   
+
+
                                     <div class="form-group">
                                         <label for="present_address" class="control-label col-sm-5"><b>Contact Address
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="caddresslinetxt" id="applicant_name"
-                                                placeholder="Line 1" class="form-control" required>
+                                                placeholder="Line 1" class="form-control" value="{{$contact_address[0]}}"  required>
 
                                         </div>
                                     </div>
@@ -285,14 +298,15 @@
                                         <div class="col-sm-7">
                                             <select name="ccountrytxt" class="form-control" required data-role="select-dropdown">
                                                 <option value="" selected="" disabled="">Select</option>
-                                                
                                                 @foreach($country as $countrys)
                                                 
-                                                <option value="{{$countrys->id}}">{{$countrys->vch_countryname}}</option>
+                                                <option value="{{$countrys->id}}" {{($countrys->id==$contact_address[1])?'selected' : ''}}>{{$countrys->vch_countryname}}</option>
 
                                                 @endforeach
+                                                
                                             </select>
 
+                                         
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -301,11 +315,13 @@
                                         <div class="col-sm-7">
                                             <select name="cstatetxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
+
                                                 @foreach($state as $states)
                                                 
-                                                <option value="{{$states->id}}">{{$states->vch_statename}}</option>
+                                                <option value="{{$states->id}}" {{($states->id==$contact_address[2])?'selected' : ''}}>{{$states->vch_statename}}</option>
 
                                                 @endforeach
+                                                
                                             </select>
 
 
@@ -316,11 +332,13 @@
                                         <div class="col-sm-7">
                                             <select name="ccitytxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
+
                                                 @foreach($city as $citys)
                                                 
-                                                <option value="{{$citys->id}}">{{$citys->vch_cityname}}</option>
+                                                <option value="{{$citys->id}}" {{($citys->id==$contact_address[3])?'selected' : ''}}>{{$citys->vch_cityname}}</option>
 
                                                 @endforeach
+                                                
                                             </select>
 
 
@@ -331,7 +349,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="text" class="form-control" required placeholder="Zip" name="cpostalcodetxt">
+                                            <input type="text" class="form-control" required placeholder="Zip" name="cpostalcodetxt" value="{{$contact_address[4]}}">
                                         </div>
                                     </div>
                                     
@@ -343,7 +361,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="middle_name"
-                                                class="form-control" required>
+                                                class="form-control" value="{{$fetchMember->vch_middlename}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -353,8 +371,8 @@
 
                                             <select name="genderddl" id="gender" class="form-control" required>
                                                 <option value="" selected="" disabled="">Select</option>
-                                                <option value="male">MALE</option>
-                                                <option value="female">FEMALE</option>
+                                                <option value="male" {{($fetchMember->vch_gender == "male")? 'selected' : ''}}>MALE</option>
+                                                <option value="female" {{($fetchMember->vch_gender == "female")? 'selected' : ''}}>FEMALE</option>
                                             </select>
 
                                         </div>
@@ -365,7 +383,7 @@
                                         <div class="col-sm-7">
                                             <div class="input-group">
                                                 <span class="input-group-addon">+91</span>
-                                                <input type="text" class="form-control" required name="mobile2txt" maxlength="10">
+                                                <input type="text" class="form-control" required name="mobile2txt" value="{{$fetchMember->vch_phone2}}" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
@@ -374,10 +392,16 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="email" class="form-control" required placeholder="Enter email"
+                                            <input type="email" class="form-control" required value="{{$fetchMember->vch_emailid}}" placeholder="Enter email"
                                                 name="emailtxt">
                                         </div>
                                     </div><br><br><br><br><br><br>
+
+
+                                    
+                                    @php
+                                    $permanent_address=explode(',',$fetchMember->vch_permanentaddress)
+                                    @endphp
 
                                     <div class="form-group">
                                         <div>
@@ -391,7 +415,7 @@
                                             </div>
                                         <div class="col-sm-7">
                                             <input type="text" name="plinetxt" 
-                                                placeholder="Line 1" class="form-control" required>
+                                                placeholder="Line 1" class="form-control"  value="{{$permanent_address[0]}}" required>
 
                                         </div>
                                     </div>
@@ -402,12 +426,16 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <select name="pcountrytxt" class="form-control" required data-role="select-dropdown">
-                                                <option value="" selected="" disabled="">Select</option>
-                                                @foreach($country as $countrys)
+                                            <option selected="">Select</option>
+                                               
+                                                @foreach($country as $countrys1)
                                                 
-                                                <option value="{{$countrys->id}}">{{$countrys->vch_countryname}}</option>
+                                                <option value="{{$countrys1->id}}" {{($countrys1->id==$permanent_address[1])?'selected' : ''}}>{{$countrys1->vch_countryname}}</option>
 
                                                 @endforeach
+
+                                                
+
                                             </select>
 
                                         </div>
@@ -418,9 +446,10 @@
                                         <div class="col-sm-7">
                                             <select name="pstatetxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
+                                               
                                                 @foreach($state as $states)
                                                 
-                                                <option value="{{$states->id}}">{{$states->vch_statename}}</option>
+                                                <option value="{{$states->id}}" {{($states->id==$permanent_address[2])?'selected' : ''}}>{{$states->vch_statename}}</option>
 
                                                 @endforeach
                                             </select>
@@ -435,7 +464,7 @@
                                                 <option selected="">Select</option>
                                                 @foreach($city as $citys)
                                                 
-                                                <option value="{{$citys->id}}">{{$citys->vch_cityname}}</option>
+                                                <option value="{{$citys->id}}" {{($citys->id==$permanent_address[3])?'selected' : ''}}>{{$citys->vch_cityname}}</option>
 
                                                 @endforeach
                                             </select>
@@ -448,7 +477,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="text" class="form-control" required placeholder="Zip" name="ppostalcodetxt"
+                                            <input type="text" class="form-control" required placeholder="Zip" name="ppostalcodetxt" value="{{$permanent_address[4]}}"
                                                 >
                                         </div>
                                     </div>
@@ -474,33 +503,35 @@
                                     <div class="repeater wd_100">
 
                                         <div data-repeater-list="data">
+                                        @foreach($result as $results)
                                             <div data-repeater-item class="o_h mb_15">
+                                            
                                                 <div class="wd_12 fl_lf  mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
                                                     <select id="" class="form-control" required data-role="select-dropdown" name="cqualificationtxtt">
-                                                        <option selected="">Select</option>
+                                                        <option selected="">{{$results[0]}}</option>
                                                         <option value="b.tech">b.tech</option>
                                                         <option value="mca">mca</option>
                                                         <option value="others">Others</option>
                                                     </select>
-                                                <input type="text" class="form-control" name="otherqualification" placeholder="Enter Qualification" style="display:none" />
+                                                <input type="text" class="form-control" name="otherqualification"  placeholder="Enter Qualification" style="display:none" />
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="" name="collagetxt">
+                                                    <input type="text" class="form-control" required placeholder="" name="collagetxt" value="{{$results[1]}}">
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Address</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="" name="addresstxt">
+                                                    <input type="text" class="form-control" required placeholder="" name="addresstxt" value="{{$results[2]}}">
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>University</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="" name="universitytxt">
+                                                    <input type="text" class="form-control" required placeholder="" name="universitytxt" value="{{$results[3]}}">
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Year Of Passing</b>:</label>
                                                     <select name="yaerofpassingtxt" class="form-control" required data-role="select-dropdown">
-                                                        <option selected="">Select</option>
+                                                        <option selected="">{{$results[4]}}</option>
                                                         <option value="2017">2017</option>
                                                         <option value="2018">2018</option>
                                                         <option value="2019">2019</option>
@@ -509,13 +540,15 @@
                                                 </div>
                                                 <div class="wd_12 fl_lf mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="Specialization" name="specializationtxt">
+                                                    <input type="text" class="form-control" required placeholder="Specialization" value="{{$results[5]}}" name="specializationtxt">
                                                 </div>
-                                                <div class="wd_7 fl_lf col-6">
+                                                <div class="wd_7 fl_lf">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
                                                     <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
                                                 </div>
+                                                
                                             </div>
+                                            @endforeach
                                         </div>
                                         <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
                                     </div>   
@@ -538,34 +571,39 @@
                                         <div class="col-md-2"><strong>Action</strong></div>
                                     </div>
                                     <div class="repeater wd_100">
-
                                         <div data-repeater-list="data1">
+                                        @foreach($professionalresult as $resultsprofessional)
                                             <div data-repeater-item class="row mb_15">
+                                            
                                                 <div class="col-md-2  mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Organisation</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="" name="organisationtxt">
+                                                    <input type="text" class="form-control" required placeholder="" value="{{$resultsprofessional[0]}}" name="organisationtxt">
                                                 </div>
                                                 <div class="col-md-2 mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>From</b>:</label>
-                                                    <input type="date" class="form-control" required placeholder="" name="orga_fromtxt">
+                                                    <input type="date" class="form-control" required placeholder="" value="{{$resultsprofessional[1]}}" name="orga_fromtxt">
                                                 </div>
                                                 <div class="col-md-2 mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>To</b>:</label>
-                                                    <input type="date" class="form-control" required placeholder="" name="orga_totxt">
+                                                    <input type="date" class="form-control" required placeholder="" value="{{$resultsprofessional[2]}}" name="orga_totxt">
                                                 </div>
                                                 <div class="col-md-2 mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Designation</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="" name="orga_desig">
+                                                    <input type="text" class="form-control" required placeholder="" value="{{$resultsprofessional[3]}}" name="orga_desig">
                                                 </div>
                                                 <div class="col-md-2 mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Job Description</b>:</label>
-                                                    <textarea name="orga_jobdesc" class="form-control" required rows="2" resize="none"></textarea>
+                                                    <textarea name="orga_jobdesc" class="form-control" required rows="2" resize="none">
+                                                        {{$resultsprofessional[4]}}
+                                                    </textarea>
                                                 </div>
                                                 <div class="col-md-2 col-6">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
                                                     <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
                                                 </div>
+                                            
                                             </div>
+                                            @endforeach
                                         </div>
                                         <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
                                     </div>   
@@ -584,16 +622,20 @@
                                     <div class="repeater wd_100">
 
                                         <div data-repeater-list="awards">
+                                        @foreach($awardsresult as $resultsawardsl)
                                             <div data-repeater-item class="row mb_15">
+                                            
                                                 <div class="col-md-7  mb_33">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Award</b>:</label>
-                                                    <input type="text" class="form-control" required placeholder="" name="awardsname">
+                                                    <input type="text" class="form-control" required value="{{$resultsawardsl[0]}}" placeholder="" name="awardsname">
                                                 </div>
+                                               
                                                 <div class="col-md-5 col-6">
                                                     <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
                                                     <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
                                                 </div>
                                             </div>
+                                            @endforeach
                                         </div>
                                         <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
                                     </div>
@@ -611,45 +653,44 @@
                                             <select name="membershiptxt" class="form-control" required data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Graduate</option>
+                                                <option value="1"  {{($fetchMember->int_memberid == "1")? 'selected' : ''}}>Graduate</option>
                                             </select>
 
 
                                         </div>
                                     </div>
                                     <div class="row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
                                             <div class="col-md-6">
                                                 <div>
                                                     <label for="applicant_name" class="control-label "><b>Proposer 1::</b></label>
                                                     <select id="membershiptxt" name="pro_name1" class="form-control" required>
                                                         <option selected="">Select</option>
-                                                        <option value="1">proposer name 1</option>
-                                                        <option value="2">proposer name 2</option>
+                                                        <option value="1" {{($fetchMember->INT_pro1_userid =="1")? 'selected' :'' }}>proposer name 1</option>
+                                                        <option value="2" {{($fetchMember->INT_pro1_userid =="2")? 'selected' :'' }}>proposer name 2</option>
                                                     </select>
                                                 </div>
                                                 <div style="margin-top:14px;">
-                                                    <input type="text" name="pro_email1" id="properser_email" placeholder="Properser Email" class="form-control" required>
+                                                    <input type="text" name="pro_email1" id="properser_email" placeholder="Properser Email" class="form-control" value="{{$fetchMember->vch_1emailid}}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="applicant_name" class="control-label "><b>Membership No: 1:
                                                     :</b></label>
-                                                    <input type="text" name="pro_number1" id="properser_email" placeholder="Membership Number1" class="form-control" required>
+                                                    <input type="text" name="pro_number1" id="properser_email" placeholder="Membership Number1" class="form-control" value="{{$fetchMember->vch_1propersormembernom}}" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
                                             <div class="col-md-6">
                                                 <div>
                                                     <label for="applicant_name" class="control-label "><b>Proposer 2::</b></label>
-                                                    <select id="membershiptxt1" name="pro_name2" class="form-control" required data-role="select-dropdown"
-                                                placeholder="select">
+                                                    <select id="membershiptxt1" name="pro_name2" class="form-control" required>
                                                 <option selected="">Select</option>
-                                                <option value="1">proposer name 1</option>
-                                                <option value="2">proposer name 2</option>
+                                                <option value="1" {{($fetchMember->INT_pro2_userid =="1")? 'selected' :'' }}>proposer name 1</option>
+                                                <option value="2" {{($fetchMember->INT_pro2_userid =="2")? 'selected' :'' }}>proposer name 2</option>
                                                 <!-- <option value="3">proposer name 3</option>
                                                 <option value="4">proposer name 4</option>
                                                 <option value="5">proposer name 5</option> -->
@@ -657,18 +698,18 @@
                                                 </div>
                                                 <div style="margin-top:14px;">
                                                 <input type="text" name="pro_email2" id="properser_email"
-                                                placeholder="Properser Email" class="form-control" required>
+                                                placeholder="Properser Email" class="form-control" value="{{$fetchMember->vch_2emailid}}" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="applicant_name" class="control-label "><b>Membership No: 2:
                                                     :</b></label>
                                                     <input type="text" name="pro_number2" id="properser_email"
-                                                placeholder="Membership Number2" class="form-control" required>
+                                                placeholder="Membership Number2" class="form-control" value="{{$fetchMember->vch_2propersormembernom}}" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
                                             <div class="col-md-6">
                                                 <div>
@@ -676,58 +717,59 @@
                                                     <select name="uploaddoc1txt" class="form-control mb_15" required data-role="select-dropdown"
                                                         placeholder="select">
                                                         <option selected="">Select</option>
-                                                        <option value="1">PAN</option>
-                                                        <option value="2">Passport</option>
+                                                        <option value="1" {{($fetchMember->vch_document1name=="1")?'selected' :''}}>PAN</option>
+                                                        <option value="2" {{($fetchMember->vch_document1name=="2")?'selected' :''}}>Passport</option>
                                                     </select>
                                                     <select name="uploaddoc2txt" class="form-control" required data-role="select-dropdown"
                                                         placeholder="select">
                                                         <option selected="">Select</option>
-                                                        <option value="1">PAN</option>
-                                                        <option value="2">Passport</option>
+                                                        <option value="1" {{($fetchMember->vch_document2name=="1")?'selected' :''}}>PAN</option>
+                                                        <option value="2" {{($fetchMember->vch_document2name=="2")?'selected' :''}}>Passport</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                             <input type="file" class="form-control hg_45 mt_42_m"
-                                                name="fileupload1" required>
+                                                name="fileupload1">
                                                 <input type="file" class="form-control hg_45"
-                                                name="fileupload2" required>
+                                                name="fileupload2">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
                                             <div class="col-md-6">
                                                 <label><b>Signature :</b></label>
                                                 <p class="p_txt">Please upload.png, .jpg, .jpeg files only</p>
-                                                <input type="file" class="form-control hg_45"  name="signaturefileupload" required>
+                                                <input type="file" class="form-control hg_45"  name="signaturefileupload">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
                                             <div class="col-md-6">
                                                 <label><b>Payment Mode
                                                 :</b></label>
                                                 <select class="form-control" required name="paymenttypeddl" data-role="select-dropdown">
-                                                    <option selected="">Select</option>
-                                                    <option value="1">Online</option>
-                                                    <option value="0">Offline</option>
+                                                   
+                                                    <option value="1" {{($fetchMember->INT_paymentmode=="1")?'selected' :''}}>Online</option>
+                                                    <option value="0" {{($fetchMember->INT_paymentmode=="0")?'selected' :''}}>Offline</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
                                             <div class="col-md-6">
                                                 <label><b>Fee
                                                 :</b></label>
-                                                <input type="number" class="form-control" required placeholder="Fee" name="feetxt">
+                                                <input type="number" class="form-control" value="{{$fetchMember->vch_fee}}" required placeholder="Fee" name="feetxt">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 p-0">
                                         <div class="row m-0">
+                                          
                                             <div class="col-md-6">
                                                 <label><b>If elected, I would like to
                                                 be
@@ -735,10 +777,13 @@
                                                 :</b></label>
                                                 <select name="branchddl" class="form-control" required data-role="select-dropdown">
                                             <option value="" selected="" disabled="">Select Branch</option>
-                                                @foreach($result as $fetchbranch)
+                                                @foreach($branchresult as $fetchbranch)
                                                 
-                                                <option value="{{$fetchbranch->id}}">{{$fetchbranch->vch_branchname}}</option>
+                                                
+
+                                                <option value="{{$fetchbranch->id}}" {{($fetchbranch->id==$fetchMember->int_branch_id)?'selected' : ''}}>{{$fetchbranch->vch_branchname}}</option>
                                                 @endforeach
+                                                
                                             </select>
                                             </div>
                                         </div>
@@ -758,24 +803,16 @@
 
                             </div>
                         </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-
-    
-    <script>
-        // $(document).ready(function () {
-        //     $('.repeater').repeater({
-        //         repeaters: [{
-        //             selector: '.inner-repeater'
-        //         }]
-        //     });
-        // });
+				</div>
+			</div>
+		</div>
+        
+		@endsection
+        @section("script")
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+        <script>
         $(document).ready(function() {
             $('.repeater').repeater({
                 repeaters: [{
@@ -789,11 +826,4 @@
             })
             });
     </script>
-
-
-
-        
-
-</body>
-
-</html>   
+    @endsection

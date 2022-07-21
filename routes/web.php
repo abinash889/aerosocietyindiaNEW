@@ -150,7 +150,10 @@ Route::get('/membership_Approved/{id}',[App\Http\Controllers\MembershipControlle
 Route::get('/membership_Approved_insert_user/{id}',[App\Http\Controllers\MembershipController::class,'Approvedmember_user'])->name('Approvedmember_user');
 Route::get('/membership_Rejected/{id}',[App\Http\Controllers\MembershipController::class,'Rejectedmember'])->name('Rejectedmember');
 Route::post('/membership_add',[App\Http\Controllers\MembershipController::class,'membershipinsert_data'])->name('Insertdmember');
-Route::get('/membershipapplications_view/{id}',[App\Http\Controllers\MembershipController::class,'ViewMembershipapplications'])->name('ViewMembershipapplications');
+Route::get('/membershipapplications_view/{id}',[App\Http\Controllers\MembershipController::class,'ViewMembershipapplications'])->name('ViewMembershipapplications'); //Not Required 
+Route::get('/membership_edit_by_admin/{id}',[App\Http\Controllers\MembershipController::class,'AdminEditMembershipapplicationsForm'])->name('AdminEditMembershipapplicationsForm');
+Route::post('/memberUDTby_Admin',[App\Http\Controllers\MembershipController::class,'memberdataupdate_byAdmin'])->name('memberdataupdate_byAdmin');
+
 
      //Proposer ------Added by prasant 06/06-2022 ----
 Route::get('/proposer',[App\Http\Controllers\ProposerController::class,'index'])->name('proposer_view');
@@ -170,7 +173,9 @@ Route::get('/create_download_dlt/{id}', [App\Http\Controllers\AddExamPageControl
 Route::get('/studentapplications',[App\Http\Controllers\StudentapplyController::class,'showstudentapplications'])->name('showstudentapplications');
 Route::get('/studentapplications_Accept/{id}',[App\Http\Controllers\StudentapplyController::class,'Acceptstudentapplications'])->name('Acceptstudentapplications');
 Route::get('/studentapplications_Reject/{id}',[App\Http\Controllers\StudentapplyController::class,'Rejectstudentapplications'])->name('Rejectstudentapplications');
-Route::get('/studentapplications_view/{id}',[App\Http\Controllers\StudentapplyController::class,'Viewtudentapplications'])->name('Viewtudentapplications');
+Route::get('/studentapplications_view/{id}',[App\Http\Controllers\StudentapplyController::class,'Viewtudentapplications'])->name('Viewtudentapplications'); //Not Required
+Route::get('/studentapplications_edit_by_admin/{id}',[App\Http\Controllers\StudentapplyController::class,'AdminViewStudentapplicationsForm'])->name('AdminViewStudentapplicationsForm');
+Route::post('/studentmemberUDTby_Admin',[App\Http\Controllers\StudentapplyController::class,'StudentmemberdataUpdate_byAdmin'])->name('StudentmemberdataUpdate_byAdmin');
 
 //payment offline Approve
 Route::post('/offlinepayment_Accept',[App\Http\Controllers\StudentapplyController::class,'Acceptofflinepayment'])->name('Acceptofflinepayment');

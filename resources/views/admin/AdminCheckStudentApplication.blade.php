@@ -60,7 +60,7 @@
 											</td>
 											<td>
 												@php $studentID=Crypt::encrypt($fetchstudent->id);  @endphp
-												<a href="{{url('/studentapplications_view',$studentID)}}">{{$fetchstudent->vch_fname}}</a>
+												<a href="{{url('/studentapplications_edit_by_admin',$studentID)}}">{{$fetchstudent->vch_fname}}</a>
 											</td>
 											<td>
 												@if($fetchstudent->INT_paymentmode ==0)

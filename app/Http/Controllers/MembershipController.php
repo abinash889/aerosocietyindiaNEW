@@ -6,6 +6,9 @@ use App\Models\Membership;
 use App\Models\Gradingcommittee;
 use App\Models\User;
 use App\Models\AddBranch;
+use App\Models\State;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\PaymentTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -27,21 +30,28 @@ class MembershipController extends Controller
      */
     public function index()
     {
-
+        
         $membership = Membership::orderBy('id','DESC')->get();
         return view('membership.membership',compact('membership'));
     }
-    public function ViewMembershipapplications($id)
+    public function AdminEditMembershipapplicationsForm($id)
     {
+        $branchresult = AddBranch::all();
+        $country = Country::all();
+        $state = State::all();
+        $city = City::all();
         $MembID=Crypt::decrypt($id);
         $fetchMember=Membership::findorfail($MembID);
+       // dd($fetchMember);
 
-        $st_result[]=json_decode($fetchMember->collage);
         $st_result[]=json_decode($fetchMember->vch_academicinformation);
+        $st_result[]=json_decode($fetchMember->collage);
+        $st_result[]=json_decode($fetchMember->address);
+        $st_result[]=json_decode($fetchMember->university);
         $st_result[]=json_decode($fetchMember->yearofpassing);
         $st_result[]=json_decode($fetchMember->specialization);  
-        $st_result[]=json_decode($fetchMember->university);
-        $st_result[]=json_decode($fetchMember->address);
+     
+        
 
         $length = count($st_result[0]);
         //dd($length);
@@ -56,7 +66,6 @@ class MembershipController extends Controller
             $result[] = $temp;
             //dd($result);
         }
-
 
         $prof_information[]=json_decode($fetchMember->vch_organisationname);
         //dd($prof_information);
@@ -74,8 +83,6 @@ class MembershipController extends Controller
             }
             $professionalresult[] = $tempVar;
         }
-
-
         $award_name[]=json_decode($fetchMember->vch_awardsname);
         //dd($prof_information);
 
@@ -88,8 +95,159 @@ class MembershipController extends Controller
             }
             $awardsresult[] = $tempAwardsVar;
         }
-        return view('admin.AdminMemberApplicationView',compact('fetchMember','result','professionalresult','awardsresult'));
+
+        return view('admin.AdminEditMemberApplicationData',compact('fetchMember','branchresult','country','state','city','professionalresult','awardsresult','result'));
     }
+    public function memberdataupdate_byAdmin(Request $request)
+    {
+        $count=count($request->data);
+        for($i=0;$i<$count;$i++)
+        {
+
+            if(($request->data)[$i]['cqualificationtxtt']=='others'){
+
+            $cqualificationtxt[]=($request->data)[$i]['otherqualification'];
+            }
+            else{
+    
+            $cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
+            
+            }
+
+        //$cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
+        $collagetxt[]=$request->data[$i]['collagetxt'];
+        $addresstxt[]=$request->data[$i]['addresstxt'];
+        $universitytxt[]=$request->data[$i]['universitytxt'];
+        $yaerofpassingtxt[]=$request->data[$i]['yaerofpassingtxt'];
+        $specializationtxt []=$request->data[$i]['specializationtxt'];
+       
+        }
+
+        $count2=count($request->data1);
+     
+        for($j=0;$j<$count2;$j++)
+        {
+
+        $organisationtxt[]=$request->data1[$j]['organisationtxt'];
+        $orga_fromtxt[]=$request->data1[$j]['orga_fromtxt'];
+        $orga_totxt[]=$request->data1[$j]['orga_totxt'];
+        $orga_desig[]=$request->data1[$j]['orga_desig'];
+        $orga_jobdesc[]=$request->data1[$j]['orga_jobdesc'];
+        }
+        
+        $countawards=count($request->awards);
+     
+        for($k=0;$k<$countawards;$k++)
+        {
+            $VARawardsname[]=$request->awards[$k]['awardsname'];
+        }
+
+        $post=Membership::where('id',$request->id)->update([
+
+        'vch_firstname'=>$request->applicant_name,
+        'vch_middlename'=>$request->middle_name,
+        'vch_lastname'=>$request->last_name,
+        'vch_gender'=>$request->genderddl,
+        'vch_phone1'=>$request->mobiletxt,
+        'vch_phone2'=>$request->mobile2txt,
+        'vch_dob'=>$request->dobtxt,
+        'vch_emailid'=>$request->emailtxt,
+        'vch_membersociety'=>$request->memberofanysecoetytxt,
+
+        'vch_contactaddress'=>$request->caddresslinetxt.','.$request->ccountrytxt.','.$request->cstatetxt.','.$request->ccitytxt.','.$request->cpostalcodetxt,
+        'vch_permanentaddress'=>$request->plinetxt. ',' .$request->plinetxt.',' .$request->pstatetxt .',' .$request->pcitytxt.','.$request->ppostalcodetxt,
+
+        'int_branch_id'=>$request->branchddl,
+        'INT_paymentmode'=>$request->paymenttypeddl,
+
+
+
+        'INT_pro1_userid'=>$request->pro_name1,
+        'vch_1propersormembernom'=>$request->pro_number1,
+        'vch_1emailid'=>$request->pro_email1,
+
+
+        'INT_pro2_userid'=>$request->pro_name2,
+        'vch_2propersormembernom'=>$request->pro_number2,
+        'vch_2emailid'=>$request->pro_email2,
+        'int_memberid'=>$request->membershiptxt,
+        'vch_fee'=>$request->feetxt,
+
+
+        'vch_academicinformation'=>json_encode($cqualificationtxt),
+        'collage'=>json_encode($collagetxt),
+        'address'=>json_encode($addresstxt),
+        'university'=>json_encode($universitytxt),
+        'yearofpassing'=>json_encode($yaerofpassingtxt),
+        'specialization'=>json_encode($specializationtxt),
+
+
+        'vch_organisationname'=>json_encode($organisationtxt),
+        'vch_fromdate'=>json_encode($orga_fromtxt),
+        'vch_todate'=>json_encode($orga_totxt),
+        'vch_designation'=>json_encode($orga_desig),
+        'vch_jobdescription'=>json_encode($orga_jobdesc),
+
+        'vch_awardsname'=>json_encode($VARawardsname)
+        ]);
+        notify()->success('Member Updated Successfully');
+        return redirect('/membership');
+    }
+    // public function ViewMembershipapplications($id)
+    // {
+    //     $MembID=Crypt::decrypt($id);
+    //     $fetchMember=Membership::findorfail($MembID);
+
+    //     $st_result[]=json_decode($fetchMember->collage);
+    //     $st_result[]=json_decode($fetchMember->vch_academicinformation);
+    //     $st_result[]=json_decode($fetchMember->yearofpassing);
+    //     $st_result[]=json_decode($fetchMember->specialization);  
+    //     $st_result[]=json_decode($fetchMember->university);
+    //     $st_result[]=json_decode($fetchMember->address);
+
+    //     $length = count($st_result[0]);
+     
+    //     for ($i = 0; $i < $length; $i++) 
+    //     {
+    //         $temp = [];
+           
+    //         foreach ($st_result as $array) {
+    //             $temp[] = $array[$i];
+    //         }
+    //         $result[] = $temp;
+    //     }
+
+
+    //     $prof_information[]=json_decode($fetchMember->vch_organisationname);
+    //     $prof_information[]=json_decode($fetchMember->vch_fromdate);
+    //     $prof_information[]=json_decode($fetchMember->vch_todate);
+    //     $prof_information[]=json_decode($fetchMember->vch_designation);
+    //     $prof_information[]=json_decode($fetchMember->vch_jobdescription);
+
+    //     $prof_length=count($prof_information[0]);
+    //     for($i=0;$i<$prof_length;$i++)
+    //     {
+    //         $tempVar = [];
+    //         foreach ($prof_information as $Profarray) {
+    //             $tempVar[] = $Profarray[$i];
+    //         }
+    //         $professionalresult[] = $tempVar;
+    //     }
+
+
+    //     $award_name[]=json_decode($fetchMember->vch_awardsname);
+
+    //     $award_length=count($award_name[0]);
+    //     for($i=0;$i<$award_length;$i++)
+    //     {
+    //         $tempAwardsVar = [];
+    //         foreach ($award_name as $Awardarray) {
+    //             $tempAwardsVar[] = $Awardarray[$i];
+    //         }
+    //         $awardsresult[] = $tempAwardsVar;
+    //     }
+    //     return view('admin.AdminMemberApplicationView',compact('fetchMember','result','professionalresult','awardsresult'));
+    // }
   
 
     /**
@@ -163,17 +321,17 @@ class MembershipController extends Controller
 
         $BranchMailName=$post->int_branch_id;
         
-    //    dd($member_user->name,
-    //    $member_user->gender,
-    //    $member_user->password,
-    //    $member_user->email);
+        //    dd($member_user->name,
+        //    $member_user->gender,
+        //    $member_user->password,
+        //    $member_user->email);
           $member_user->save();
         // dd($new_member_approved_id);
         $last_id=$member_user->id;
 
         
         
-        // $post->int_grading_level =$mbr_id;
+            // $post->int_grading_level =$mbr_id;
         $post->INT_user_id =$last_id;
         $post->vch_membership_no ="G-".$post->id;;
         $mem_code = $post->vch_membership_no;
@@ -293,9 +451,11 @@ class MembershipController extends Controller
      */
     public function membershipform()
     {
-
+        $country = Country::all();
+        $state = State::all();
+        $city = City::all();
         $result = AddBranch::all();
-        return view('frontend.membershipform',compact('result'));
+        return view('frontend.membershipform',compact('result','country','state','city'));
     }
 
     public function membershipinsert_data(Request $request)
@@ -396,8 +556,13 @@ class MembershipController extends Controller
         $insertData->vch_dob=$request->dobtxt;
         $insertData->vch_emailid=$request->emailtxt;
         $insertData->vch_membersociety=$request->memberofanysecoetytxt;
+
         $insertData->vch_contactaddress=$request->caddresslinetxt.','.$request->ccountrytxt.','.$request->cstatetxt.','.$request->ccitytxt.','.$request->cpostalcodetxt;
-        $insertData->vch_permanentaddress=$request->plinetxt. ',' .$request->plinetxt.',' .$request->pstatetxt .',' .$request->pcitytxt.','.$request->ppostalcodetxt;
+        $insertData->vch_permanentaddress=$request->plinetxt. ',' .$request->pcountrytxt.',' .$request->pstatetxt .',' .$request->pcitytxt.','.$request->ppostalcodetxt;
+
+        // $test=[];
+        // $myarr=array_push($test,$request->caddresslinetxt,$request->ccountrytxt,$request->cstatetxt,$request->ccitytxt,$request->cpostalcodetxt);
+        // dd($myarr);
         //$insertData->vch_academicinformation=$request->
         $insertData->int_memberid=$request->membershiptxt;
         $insertData->vch_fee=$request->feetxt;

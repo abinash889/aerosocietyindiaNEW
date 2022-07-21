@@ -5,14 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AddBranch;
 use App\Models\Studentapply;
+use App\Models\State;
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Support\Facades\File;
 
 class StudentMembershipController extends Controller
 {
     public function studentmembershipinsert()
     {
+        $country = Country::all();
+        $state = State::all();
+        $city = City::all();
         $result=AddBranch::orderBy('id','DESC')->get();
-        return view("frontend.StudentMembershipForm",compact('result'));
+        return view("frontend.StudentMembershipForm",compact('result','country','state','city'));
     }
     public function studentmembershipinsert_data(Request $request)
     {
@@ -96,7 +102,7 @@ class StudentMembershipController extends Controller
         $insertData->vch_emailid=$request->emailtxt;
         $insertData->vch_membersociety=$request->memberofanysecoetytxt;
         $insertData->vch_contactaddress=$request->caddresslinetxt.','.$request->ccountrytxt.','.$request->cstatetxt.','.$request->ccitytxt.','.$request->cpostalcodetxt;
-        $insertData->vch_permanentaddress=$request->plinetxt. ',' .$request->plinetxt.',' .$request->pstatetxt .',' .$request->pcitytxt.','.$request->ppostalcodetxt;
+        $insertData->vch_permanentaddress=$request->plinetxt. ',' .$request->pcountrytxt.',' .$request->pstatetxt .',' .$request->pcitytxt.','.$request->ppostalcodetxt;
         //$insertData->vch_academicinformation=$request->
         $insertData->int_memberid=$request->membershiptxt;
         $insertData->vch_fee=$request->feetxt;

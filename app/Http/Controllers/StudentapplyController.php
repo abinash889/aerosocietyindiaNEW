@@ -7,6 +7,10 @@ use App\Models\Studentapply;
 use App\Models\User;
 use App\Models\PaymentTransaction;
 use App\Models\Studentmemberdoc;
+use App\Models\AddBranch;
+use App\Models\State;
+use App\Models\City;
+use App\Models\Country;
 use Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
@@ -23,6 +27,92 @@ class StudentapplyController extends Controller
     {
         $result=Studentapply::orderBy('id','DESC')->get();
         return view('admin.AdminCheckStudentApplication',compact('result'));
+        
+    }
+    public function AdminViewStudentapplicationsForm($id)
+    {
+        $StudID=Crypt::decrypt($id);
+        $fetchStudent=Studentapply::findorfail($StudID);
+        $branches=AddBranch::all();
+        $country = Country::all();
+        $state = State::all();
+        $city = City::all();
+
+        $st_result[]=json_decode($fetchStudent->vch_academicinformation);
+        $st_result[]=json_decode($fetchStudent->collage);
+        $st_result[]=json_decode($fetchStudent->address);
+        $st_result[]=json_decode($fetchStudent->university);
+        $st_result[]=json_decode($fetchStudent->yaerofpassing);
+        $st_result[]=json_decode($fetchStudent->specialization);  
+     
+        
+
+        $length = count($st_result[0]);
+        //dd($length);
+     
+        for ($i = 0; $i < $length; $i++) 
+        {
+            $temp = [];
+           
+            foreach ($st_result as $array) {
+                $temp[] = $array[$i];
+            }
+            $result[] = $temp;
+            //dd($result);
+        }
+        return view('admin.AdminEditStudentMemberApplicationData',compact('fetchStudent','branches','country','state','city','result'));
+    }
+    public function StudentmemberdataUpdate_byAdmin(Request $request)
+    {
+        $count=count($request->data);
+       
+
+        for($i=0;$i<$count;$i++)
+        {
+
+        if(($request->data)[$i]['cqualificationtxtt']=='others'){
+
+        $cqualificationtxt[]=($request->data)[$i]['otherqualification'];
+        }
+        else{
+
+        $cqualificationtxt[]=$request->data[$i]['cqualificationtxtt'];
+       
+        }
+
+        $collagetxt[]=$request->data[$i]['collagetxt'];
+        $addresstxt[]=$request->data[$i]['addresstxt'];
+        $universitytxt[]=$request->data[$i]['universitytxt'];
+        $yaerofpassingtxt[]=$request->data[$i]['yaerofpassingtxt'];
+        $specializationtxt []=$request->data[$i]['specializationtxt'];
+       
+        }
+        $post=Studentapply::where('id',$request->id)->update([
+            'vch_fname'=>$request->applicant_name,
+            'vch_mname'=>$request->middle_name,
+            'vch_lname'=>$request->last_name,
+            'vch_gender'=>$request->genderddl,
+            'vch_phone1'=>$request->mobiletxt,
+            'vch_phone2'=>$request->mobile2txt,
+            'vch_dob'=>$request->dobtxt,
+            'vch_emailid'=>$request->emailtxt,
+            'vch_membersociety'=>$request->memberofanysecoetytxt,
+            'vch_contactaddress'=>$request->caddresslinetxt.','.$request->ccountrytxt.','.$request->cstatetxt.','.$request->ccitytxt.','.$request->cpostalcodetxt,
+            'vch_permanentaddress'=>$request->plinetxt. ',' .$request->pcountrytxt.',' .$request->pstatetxt .',' .$request->pcitytxt.','.$request->ppostalcodetxt,
+            
+            'int_memberid'=>$request->membershiptxt,
+            'vch_fee'=>$request->feetxt,
+            'int_branch_id'=>$request->branchddl,
+            'INT_paymentmode'=>$request->paymenttypeddl,
+            'vch_academicinformation'=>json_encode($cqualificationtxt),
+            'collage'=>json_encode($collagetxt),
+            'address'=>json_encode($addresstxt),
+            'university'=>json_encode($universitytxt),
+            'yaerofpassing'=>json_encode($yaerofpassingtxt),
+            'specialization'=>json_encode($specializationtxt)
+        ]);
+        notify()->success('Student Updated Successfully');
+        return redirect('/studentapplications');
         
     }
     public function Viewtudentapplications($id)

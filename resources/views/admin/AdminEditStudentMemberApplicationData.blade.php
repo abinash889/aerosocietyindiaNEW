@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends("layouts.app")
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-       
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script> -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-
-
-    <title>aeroform</title>
-    <style>
+<style>
+    .input-group-addon {
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 38px;
+        line-height: 24px!important;
+    }
+        .form-control{
+            margin-bottom:15px;
+        }
         .d_inl {
             display: -webkit-inline-box;
         }   
@@ -173,9 +169,6 @@
         .mb_15{
             margin-bottom: 15px;
         }
-        .hg_45{
-            height: 45px;
-        }
         @media (max-width:991px){
             .d_none{display: none;}
             .mb_33{
@@ -193,23 +186,34 @@
             
         }
 </style>
-</head>
-
-<body>
-    <section>
-        <div class="container m_t m_b">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="fnt_sz">Student Membership</h1>
-                    <h3 class="fnt_sz2">personal information</h3>
-                    <div class="row">
-                        <form class="col-12" method="post" action="{{url('student_membership_insert')}}" enctype="multipart/form-data">
+		@section("wrapper")
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="row row-cols-12">
+					<div class="card pd_15">
+						<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+							<div class="">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb mb-0 p-0">
+										<li class="breadcrumb-item active" aria-current="page">
+                                        <a href="{{url('/studentapplications')}}"><i class="bx bx-left-arrow" aria-hidden="true"></i> Edit Student Membership List</a></li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-cols-12">
+                    <div class="card">
+                        <div class="card-body">
+                        <form class="col-12" method="post" action="{{url('/studentmemberUDTby_Admin')}}" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="id" value="{{$fetchStudent->id}}">
                             <div class="row">
                                 <div class="col-10">
 
                                     <div class="form-group">
-                                        <div class="row p_l">
+                                        <div class="row">
                                             <label for="applicant_name" class="control-label col-md-2"><b>Upload
                                                     Photo</b>
                                                 :</label>
@@ -230,14 +234,14 @@
                                                     :</b></label>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="text" name="applicant_name" class="form-control">
+                                            <input type="text" name="applicant_name" class="form-control" value="{{$fetchStudent->vch_fname}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="applicant_name" class="control-label col-sm-3"><b>Sur Name
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <input type="text" name="last_name" class="form-control">
+                                            <input type="text" name="last_name" class="form-control" value="{{$fetchStudent->vch_lname}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -246,16 +250,16 @@
                                         <div class="col-sm-7">
                                             <div class="input-group">
                                                 <span class="input-group-addon">+91</span>
-                                                <input type="text" class="form-control" name="mobiletxt" maxlength="10">
+                                                <input type="text" class="form-control" name="mobiletxt" maxlength="10" value="{{$fetchStudent->vch_phone1}}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="date_of_birth" class="control-label col-sm-5"><b>Date of Birth
                                                 :</b></label>
-                                        <div class="row p_l">
+                                        <div class="row">
                                             <div class="col-sm-7">
-                                            <input type="date" class="form-control" name="dobtxt">
+                                            <input type="date" class="form-control" name="dobtxt" value="{{$fetchStudent->vch_dob}}">
                                             </div>
                                         </div>
                                     </div>
@@ -266,15 +270,20 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="memberofanysecoetytxt" id="applicant_name"
-                                                placeholder="E.g.:British Aeronautical Society" class="form-control">
+                                                placeholder="E.g.:British Aeronautical Society" class="form-control" value="{{$fetchStudent->vch_membersociety}}">
                                         </div>
                                     </div><br><br>
+
+                                    @php
+                                    $contact_address=explode(',',$fetchStudent->vch_contactaddress)
+                                    @endphp
+
                                     <div class="form-group">
                                         <label for="present_address" class="control-label col-sm-5"><b>Contact Address
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="caddresslinetxt" id="applicant_name"
-                                                placeholder="Line 1" class="form-control">
+                                                placeholder="Line 1" class="form-control" value="{{$contact_address[0]}}">
 
                                         </div>
                                     </div>
@@ -286,7 +295,7 @@
                                                 <option value="" selected="" disabled="">Select</option>
                                                 @foreach($country as $countrys)
                                                 
-                                                <option value="{{$countrys->id}}">{{$countrys->vch_countryname}}</option>
+                                                <option value="{{$countrys->id}}" {{($countrys->id==$contact_address[1])?'selected' : ''}}>{{$countrys->vch_countryname}}</option>
 
                                                 @endforeach
                                             </select>
@@ -301,7 +310,7 @@
                                                 <option selected="">Select</option>
                                                 @foreach($state as $states)
                                                 
-                                                <option value="{{$states->id}}">{{$states->vch_statename}}</option>
+                                                <option value="{{$states->id}}" {{($states->id==$contact_address[2])?'selected' : ''}}>{{$states->vch_statename}}</option>
 
                                                 @endforeach
                                             </select>
@@ -316,7 +325,7 @@
                                                 <option selected="">Select</option>
                                                 @foreach($city as $citys)
                                                 
-                                                <option value="{{$citys->id}}">{{$citys->vch_cityname}}</option>
+                                                <option value="{{$citys->id}}" {{($citys->id==$contact_address[3])?'selected' : ''}}>{{$citys->vch_cityname}}</option>
 
                                                 @endforeach
                                             </select>
@@ -329,7 +338,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="text" class="form-control" placeholder="Zip" name="cpostalcodetxt">
+                                            <input type="text" class="form-control" placeholder="Zip" name="cpostalcodetxt" value="{{$contact_address[4]}}">
                                         </div>
                                     </div>
                                     
@@ -341,7 +350,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="middle_name"
-                                                class="form-control">
+                                                class="form-control" value="{{$fetchStudent->vch_mname}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -351,8 +360,8 @@
 
                                             <select name="genderddl" id="gender" class="form-control">
                                                 <option value="" selected="" disabled="">Select</option>
-                                                <option value="male">MALE</option>
-                                                <option value="female">FEMALE</option>
+                                                <option value="male" {{($fetchStudent->vch_gender == "male")? 'selected' : ''}}>MALE</option>
+                                                <option value="female" {{($fetchStudent->vch_gender == "female")? 'selected' : ''}}>FEMALE</option>
                                             </select>
 
                                         </div>
@@ -363,7 +372,7 @@
                                         <div class="col-sm-7">
                                             <div class="input-group">
                                                 <span class="input-group-addon">+91</span>
-                                                <input type="text" class="form-control" name="mobile2txt" maxlength="10">
+                                                <input type="text" class="form-control" name="mobile2txt" maxlength="10" value="{{$fetchStudent->vch_phone2}}">
                                             </div>
                                         </div>
                                     </div>
@@ -373,9 +382,14 @@
                                         <div class="col-sm-7">
 
                                             <input type="email" class="form-control" placeholder="Enter email"
-                                                name="emailtxt">
+                                                name="emailtxt" value="{{$fetchStudent->vch_emailid}}">
                                         </div>
                                     </div><br><br><br><br><br><br>
+
+                                    @php
+                                    $permanent_address=explode(',',$fetchStudent->vch_permanentaddress)
+                                    @endphp
+
 
                                     <div class="form-group">
                                         <div>
@@ -389,7 +403,7 @@
                                             </div>
                                         <div class="col-sm-7">
                                             <input type="text" name="plinetxt" 
-                                                placeholder="Line 1" class="form-control">
+                                                placeholder="Line 1" class="form-control" value="{{$permanent_address[0]}}">
 
                                         </div>
                                     </div>
@@ -401,9 +415,9 @@
                                         <div class="col-sm-7">
                                             <select name="pcountrytxt" class="form-control" data-role="select-dropdown">
                                                 <option value="" selected="" disabled="">Select</option>
-                                                @foreach($country as $countrys)
+                                                @foreach($country as $countrys1)
                                                 
-                                                <option value="{{$countrys->id}}">{{$countrys->vch_countryname}}</option>
+                                                <option value="{{$countrys1->id}}" {{($countrys1->id==$permanent_address[1])?'selected' : ''}}>{{$countrys1->vch_countryname}}</option>
 
                                                 @endforeach
                                             </select>
@@ -418,7 +432,7 @@
                                                 <option selected="">Select</option>
                                                 @foreach($state as $states)
                                                 
-                                                <option value="{{$states->id}}">{{$states->vch_statename}}</option>
+                                                <option value="{{$states->id}}" {{($states->id==$permanent_address[2])?'selected' : ''}}>{{$states->vch_statename}}</option>
 
                                                 @endforeach
                                             </select>
@@ -433,7 +447,7 @@
                                                 <option selected="">Select</option>
                                                 @foreach($city as $citys)
                                                 
-                                                <option value="{{$citys->id}}">{{$citys->vch_cityname}}</option>
+                                                <option value="{{$citys->id}}" {{($citys->id==$permanent_address[3])?'selected' : ''}}>{{$citys->vch_cityname}}</option>
 
                                                 @endforeach
                                             </select>
@@ -446,8 +460,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="text" class="form-control" placeholder="Zip" name="ppostalcodetxt"
-                                                >
+                                            <input type="text" class="form-control" placeholder="Zip" name="ppostalcodetxt" value="{{$permanent_address[4]}}">
                                         </div>
                                     </div>
 
@@ -468,11 +481,12 @@
                                 <div class="repeater wd_100">
 
                                     <div data-repeater-list="data">
+                                    @foreach($result as $fetcheducation)
                                         <div data-repeater-item class="o_h mb_15">
                                             <div class="wd_12 fl_lf  mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
                                                 <select class="form-control" data-role="select-dropdown" name="cqualificationtxtt">  <!-- onchange='CheckColors(this.value);' -->
-                                                    <option selected="">Select</option>
+                                                    <option selected="">{{$fetcheducation[0]}}</option>
                                                     <option value="b.tech">b.tech</option>
                                                     <option value="mca">mca</option>
                                                     <option value="others">Others</option>
@@ -481,20 +495,20 @@
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="collagetxt">
+                                                <input type="text" class="form-control" placeholder="" name="collagetxt" value="{{$fetcheducation[1]}}">
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Address</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="addresstxt">
+                                                <input type="text" class="form-control" placeholder="" name="addresstxt" value="{{$fetcheducation[2]}}">
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>University</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="universitytxt">
+                                                <input type="text" class="form-control" placeholder="" name="universitytxt" value="{{$fetcheducation[3]}}">
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Year Of Passing</b>:</label>
                                                 <select name="yaerofpassingtxt" class="form-control" data-role="select-dropdown">
-                                                    <option selected="">Select</option>
+                                                    <option selected="">{{$fetcheducation[4]}}</option>
                                                     <option value="2017">2017</option>
                                                     <option value="2018">2018</option>
                                                     <option value="2019">2019</option>
@@ -503,13 +517,14 @@
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                <input type="text" class="form-control" placeholder="Specialization" name="specializationtxt">
+                                                <input type="text" class="form-control" placeholder="Specialization" name="specializationtxt" value="{{$fetcheducation[5]}}">
                                             </div>
-                                            <div class="wd_7 fl_lf col-6">
+                                            <div class="wd_7 fl_lf">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
                                                 <input data-repeater-delete type="button" class="btn btn-danger" value="Delete"/>
                                             </div>
                                         </div>
+                                        @endforeach
                                     </div>
                                     <input data-repeater-create type="button" class="btn btn-success" value="Add"/>
                                 </div>   
@@ -574,23 +589,23 @@
 
                             <div class="row brd_top">
                                 <div class="form-group col-md-12">
-                                    <div class="row m-0">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div>
                                                 <label for="applicant_name" class="control-label "><b>Membership</b></label>
                                                 <select name="membershiptxt" class="form-control">
                                                     <option selected="">Select</option>
-                                                    <option value="1">Student 1 Year</option>
-                                                    <option value="2">Student 2 Year</option>
-                                                    <option value="3">Student 3 Year</option>
-                                                    <option value="4">Student 4 Year</option>
-                                                    <option value="5">Student 5 Year</option>
+                                                    <option value="1" {{($fetchStudent->int_memberid=='1')?'selected' :''}}>Student 1 Year</option>
+                                                    <option value="2" {{($fetchStudent->int_memberid=='2')?'selected' :''}}>Student 2 Year</option>
+                                                    <option value="3" {{($fetchStudent->int_memberid=='3')?'selected' :''}}>Student 3 Year</option>
+                                                    <option value="4" {{($fetchStudent->int_memberid=='4')?'selected' :''}}>Student 4 Year</option>
+                                                    <option value="5" {{($fetchStudent->int_memberid=='5')?'selected' :''}}>Student 5 Year</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="applicant_name" class="control-label "><b>Fee</b></label>
-                                            <input type="number" class="form-control" placeholder="Fee" name="feetxt">
+                                            <input type="number" class="form-control" placeholder="Fee" name="feetxt" value="{{$fetchStudent->vch_fee}}">
                                         </div>
                                     </div>
                                 </div>
@@ -602,24 +617,24 @@
                                             <select name="uploaddoc1txt" class="form-control mb_15" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Authentication Doc</option>
-                                                <option value="2">PAN</option>
-                                                <option value="3">Passport</option>
+                                                <option value="1" {{($fetchStudent->vch_document1name=="1")?'selected' :''}}>Authentication Doc</option>
+                                                <option value="2" {{($fetchStudent->vch_document1name=="2")?'selected' :''}}>PAN</option>
+                                                <option value="3" {{($fetchStudent->vch_document1name=="3")?'selected' :''}}>Passport</option>
                                             </select>
                                             <select name="uploaddoc2txt" class="form-control" data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
-                                                <option value="1">Authentication Doc</option>
-                                                <option value="2">PAN</option>
-                                                <option value="3">Passport</option>
+                                                <option value="1" {{($fetchStudent->vch_document2name=="1")?'selected' :''}}>Authentication Doc</option>
+                                                <option value="2" {{($fetchStudent->vch_document2name=="2")?'selected' :''}}>PAN</option>
+                                                <option value="3" {{($fetchStudent->vch_document2name=="3")?'selected' :''}}>Passport</option>
                                             </select>
 
                                         </div>
                                     </div>
-                                    <div class="form-group p_l">
+                                    <div class="form-group">
                                         <label for="inputCity" class="control-label col-sm-3"><b>Signature :</b></label>
                                         <p class="p_txt">Please upload.png, .jpg, .jpeg files only</p>
-                                        <div class="col-sm-7 p_l">
+                                        <div class="col-sm-7">
 
                                             <input type="file" class="form-control hg_45"
                                                 name="signaturefileupload">
@@ -628,15 +643,15 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputCity" class="control-label p_l "><b>If elected, I would like to
+                                        <label for="inputCity" class="control-label"><b>If elected, I would like to
                                                 be
                                                 attached to the branch located in :</b></label>
                                         <div class="col-sm-7">
                                             <select name="branchddl" class="form-control" data-role="select-dropdown">
                                             <option value="" selected="" disabled="">Select Branch</option>
-                                                @foreach($result as $fetchbranch)
+                                                @foreach($branches as $fetchbranch)
                                                 
-                                                <option value="{{$fetchbranch->id}}">{{$fetchbranch->vch_branchname}}</option>
+                                                <option value="{{$fetchbranch->id}}" {{($fetchbranch->id==$fetchStudent->int_branch_id)?'selected' : ''}}>{{$fetchbranch->vch_branchname}}</option>
                                                 @endforeach
                                             </select>
 
@@ -648,8 +663,8 @@
                                         <div class="col-sm-7">
                                             <select class="form-control" name="paymenttypeddl" data-role="select-dropdown">
                                                 <option selected="">Select</option>
-                                                <option value="0">Online</option>
-                                                <option value="1">Offline</option>
+                                                <option value="1" {{($fetchStudent->INT_paymentmode=="1")?'selected' :''}}>Offline</option>
+                                                <option value="0" {{($fetchStudent->INT_paymentmode=="0")?'selected' :''}}>Online</option>
                                             </select>
 
 
@@ -665,17 +680,17 @@
                                 </div>
                                 <div class="col-md-6">
 
-                                    <div class="form-group p_l">
+                                    <div class="form-group">
 
-                                        <div class="col-sm-7 p_l">
+                                        <div class="col-sm-7">
                                             <input type="file" class="form-control hg_45"
                                                 name="fileupload1">
 
                                         </div>
                                     </div>
-                                    <div class="form-group p_l">
+                                    <div class="form-group">
 
-                                        <div class="col-sm-7 p_l">
+                                        <div class="col-sm-7">
                                             <input type="file" class="form-control hg_45"
                                                 name="fileupload2">
 
@@ -688,24 +703,16 @@
 
                             </div>
                         </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-
-    
-    <script>
-        // $(document).ready(function () {
-        //     $('.repeater').repeater({
-        //         repeaters: [{
-        //             selector: '.inner-repeater'
-        //         }]
-        //     });
-        // });
+				</div>
+			</div>
+		</div>
+        
+		@endsection
+        @section("script")
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js"></script>
+        <script>
         $(document).ready(function() {
             $('.repeater').repeater({
                 repeaters: [{
@@ -719,19 +726,4 @@
             })
             });
     </script>
-    <script type="text/javascript">
-        // function CheckColors(val){
-        //     var element=document.getElementById('color');
-        //     if(val=='pick a color'||val=='others')
-        //     element.style.display='block';
-        //     else  
-        //     element.style.display='none';
-        // }
-    </script>
-    
-
-        
-
-</body>
-
-</html>   
+    @endsection

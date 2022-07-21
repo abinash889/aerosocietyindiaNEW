@@ -116,7 +116,7 @@
                                 <div class="row mb_10">
                                     <div class="col-lg-3 mb_10">
                                         <p class="mb_10"><strong><u>Proposer 1</u></strong></p>
-                                        <p class="mb_10"><strong>Name: </strong>{{$fetchMember->propersorbelongs->name}}</p>
+                                        <p class="mb_10"><strong>Name: </strong>{{optional($fetchMember->propersorbelongs)->name}}</p>
                                         <p class="mb_10"><strong>Membsrship No: </strong>{{$fetchMember->vch_1propersormembernom}}</p>
                                         <p class="mb_10"><strong>Email-Id: </strong>{{$fetchMember->vch_1emailid}}</p>
                                         <p class="mb_10"><strong>Status: </strong>

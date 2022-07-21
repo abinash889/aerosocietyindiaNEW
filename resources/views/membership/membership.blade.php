@@ -69,7 +69,7 @@
 											<td>{{$key+1}}</td>
 											<td>
 												@php $MembershipID=Crypt::encrypt($memberships->id); @endphp
-												<a href="{{url('/membershipapplications_view',$MembershipID)}}">{{$memberships->vch_firstname}}</a>
+												<a href="{{url('/membership_edit_by_admin',$MembershipID)}}">{{$memberships->vch_firstname}}</a>
 											</td>
 											
 											<td>{{$memberships->vch_emailid}}</td>
