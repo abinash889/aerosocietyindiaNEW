@@ -17,10 +17,12 @@ class BranchEventController extends Controller
     public function createbrancheventPOSTINS(Request $request)
     {
         $session_id = Auth::user()->id;
+        $slog= str_slug($request->eventnametxt , "-");
         //dd($session_id);
         $post=new AddBranchEvent;
         $post->Branch_ID=$session_id;
         $post->vch_eventname=$request->eventnametxt;
+        $post->VCH_eventslogname=$slog;
         $post->DT_Eventdate=$request->eventdatetxt;
         $post->vch_eventdetails=$request->eventdetailstxt;
         $post->Reg_startdate=$request->eventstartdatetxt;
@@ -48,9 +50,11 @@ class BranchEventController extends Controller
         $file->move('Upload_DBImage/', $filename);
         //$post->vch_image = $filename; 
         //dd($filename);
+        $slog= str_slug($request->UDTeventnametxt , "-");
         $post=AddBranchEvent::where('id',$request->id)->update([
             'Branch_ID'=>$session_id,
             'vch_eventname'=>$request->UDTeventnametxt,
+            'VCH_eventslogname'=>$slog,
             'DT_Eventdate'=>$request->UDTeventdatetxt,
             'vch_eventdetails'=>$request->UDTeventdetailstxt,
             'vch_image'=>$filename,

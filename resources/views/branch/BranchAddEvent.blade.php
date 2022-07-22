@@ -52,7 +52,7 @@
 										<th>Action / Status</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody >
 									@foreach($result as $key=>$eventfetch)
 									@php
 									$session_id=Auth::user()->id;

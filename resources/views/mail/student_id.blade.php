@@ -28,7 +28,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-						{{$f_name}} {{$m_name}} {{$l_name}}
+						{{$full_name}}
 						</p>
 					</td>
 				</tr>
@@ -48,7 +48,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-							{{$membercode}}
+							{{$member_code}}
 						</p>
 					</td>
 				</tr>
@@ -58,7 +58,7 @@
 					</td>
 					<td>
 						<p style="font-weight: 600;font-family: 'Roboto', sans-serif; text-align: left; font-size: 12px; margin: 0px; color: #484546; line-height: 140%; word-wrap: break-word; padding-top: 6px; padding-left: 12px;">
-							{!! date("F j, Y", strtotime($dateissue)) !!}
+							{!! date("F j, Y", strtotime($dateof_issue)) !!}
 						</p>
 					</td>
 				</tr>

@@ -243,7 +243,7 @@ class StudentapplyController extends Controller
 
         $data = [ 'email'=>$pdf_email, 'member_code' => $pdf_membercode , 'full_name' => $pdf_fullname, 'c_name' => $pdf_collagename, 'dateof_issue' => $pdf_dateofissue];
 
-        $pdf = FacadePdf::loadView('admin.pdf',$data);
+        $pdf = FacadePdf::loadView('mail.student_id',$data);
  
         try{
             $user['to']=$data["email"];

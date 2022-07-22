@@ -221,7 +221,10 @@ Route::get('temp', [App\Http\Controllers\MembershipController::class, 'temp']);
 
 Route::get('/student-membership',[App\Http\Controllers\StudentMembershipController::class,'studentmembershipinsert'])->name('studentmembershipinsert');
 Route::post('/student_membership_insert',[App\Http\Controllers\StudentMembershipController::class,'studentmembershipinsert_data'])->name('studentmembershipinsert_data');
-Route::get('/event-registration',[App\Http\Controllers\EventregistrationController::class,'eventregistration'])->name('eventregistration');
+//Route::get('/event-registration',[App\Http\Controllers\EventregistrationController::class,'eventregistration'])->name('eventregistration');
+Route::get('/all-events',[App\Http\Controllers\EventregistrationController::class,'showallevents'])->name('showallevents');
+Route::get('/event/{slog}',[App\Http\Controllers\EventregistrationController::class,'showalleventslog'])->name('showalleventslog');
+Route::post('/event_registration_insert',[App\Http\Controllers\EventregistrationController::class,'eventregistration_insertion'])->name('eventregistration_insertion');
 
 
 

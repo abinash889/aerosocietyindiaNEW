@@ -230,14 +230,14 @@
                                                     :</b></label>
                                         </div>
                                         <div class="col-sm-7">
-                                            <input type="text" name="applicant_name" class="form-control">
+                                            <input type="text" name="applicant_name" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="applicant_name" class="control-label col-sm-3"><b>Sur Name
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <input type="text" name="last_name" class="form-control">
+                                            <input type="text" name="last_name" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -246,7 +246,7 @@
                                         <div class="col-sm-7">
                                             <div class="input-group">
                                                 <span class="input-group-addon">+91</span>
-                                                <input type="text" class="form-control" name="mobiletxt" maxlength="10">
+                                                <input type="text" class="form-control" required name="mobiletxt" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
@@ -255,7 +255,7 @@
                                                 :</b></label>
                                         <div class="row p_l">
                                             <div class="col-sm-7">
-                                            <input type="date" class="form-control" name="dobtxt">
+                                            <input type="date" class="form-control" required name="dobtxt">
                                             </div>
                                         </div>
                                     </div>
@@ -266,7 +266,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="memberofanysecoetytxt" id="applicant_name"
-                                                placeholder="E.g.:British Aeronautical Society" class="form-control">
+                                                placeholder="E.g.:British Aeronautical Society" class="form-control" required>
                                         </div>
                                     </div><br><br>
                                     <div class="form-group">
@@ -274,7 +274,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="caddresslinetxt" id="applicant_name"
-                                                placeholder="Line 1" class="form-control">
+                                                placeholder="Line 1" class="form-control" required>
 
                                         </div>
                                     </div>
@@ -282,7 +282,7 @@
                                         <label for="applicant_name" class="control-label col-sm-3"><b>Country
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="ccountrytxt" class="form-control" data-role="select-dropdown">
+                                            <select name="ccountrytxt" class="form-control" required data-role="select-dropdown">
                                                 <option value="" selected="" disabled="">Select</option>
                                                 @foreach($country as $countrys)
                                                 
@@ -297,7 +297,7 @@
                                         <label for="applicant_name" class="control-label col-sm-3"><b>State
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="cstatetxt" class="form-control" data-role="select-dropdown">
+                                            <select name="cstatetxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
                                                 @foreach($state as $states)
                                                 
@@ -312,7 +312,7 @@
                                     <div class="form-group">
                                         <label for="inputCity" class="control-label col-sm-3"><b>City :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="ccitytxt" class="form-control" data-role="select-dropdown">
+                                            <select name="ccitytxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
                                                 @foreach($city as $citys)
                                                 
@@ -329,7 +329,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="text" class="form-control" placeholder="Zip" name="cpostalcodetxt">
+                                            <input type="text" class="form-control" required placeholder="Zip" name="cpostalcodetxt">
                                         </div>
                                     </div>
                                     
@@ -341,7 +341,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
                                             <input type="text" name="middle_name"
-                                                class="form-control">
+                                                class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -349,7 +349,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <select name="genderddl" id="gender" class="form-control">
+                                            <select name="genderddl" id="gender" class="form-control" required>
                                                 <option value="" selected="" disabled="">Select</option>
                                                 <option value="male">MALE</option>
                                                 <option value="female">FEMALE</option>
@@ -363,7 +363,7 @@
                                         <div class="col-sm-7">
                                             <div class="input-group">
                                                 <span class="input-group-addon">+91</span>
-                                                <input type="text" class="form-control" name="mobile2txt" maxlength="10">
+                                                <input type="text" class="form-control" required name="mobile2txt" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
@@ -372,7 +372,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="email" class="form-control" placeholder="Enter email"
+                                            <input type="email" class="form-control" required placeholder="Enter email"
                                                 name="emailtxt">
                                         </div>
                                     </div><br><br><br><br><br><br>
@@ -389,7 +389,7 @@
                                             </div>
                                         <div class="col-sm-7">
                                             <input type="text" name="plinetxt" 
-                                                placeholder="Line 1" class="form-control">
+                                                placeholder="Line 1" class="form-control" required>
 
                                         </div>
                                     </div>
@@ -399,7 +399,7 @@
                                         <label for="applicant_name" class="control-label col-sm-3"><b>Country
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="pcountrytxt" class="form-control" data-role="select-dropdown">
+                                            <select name="pcountrytxt" class="form-control" required data-role="select-dropdown">
                                                 <option value="" selected="" disabled="">Select</option>
                                                 @foreach($country as $countrys)
                                                 
@@ -414,7 +414,7 @@
                                         <label for="applicant_name" class="control-label col-sm-3"><b>State
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="pstatetxt" class="form-control" data-role="select-dropdown">
+                                            <select name="pstatetxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
                                                 @foreach($state as $states)
                                                 
@@ -429,7 +429,7 @@
                                     <div class="form-group">
                                         <label for="inputCity" class="control-label col-sm-3"><b>City :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="pcitytxt" class="form-control" data-role="select-dropdown">
+                                            <select name="pcitytxt" class="form-control" required data-role="select-dropdown">
                                                 <option selected="">Select</option>
                                                 @foreach($city as $citys)
                                                 
@@ -446,7 +446,7 @@
                                                 :</b></label>
                                         <div class="col-sm-7">
 
-                                            <input type="text" class="form-control" placeholder="Zip" name="ppostalcodetxt"
+                                            <input type="text" class="form-control" required placeholder="Zip" name="ppostalcodetxt"
                                                 >
                                         </div>
                                     </div>
@@ -471,7 +471,7 @@
                                         <div data-repeater-item class="o_h mb_15">
                                             <div class="wd_12 fl_lf  mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Qualification</b>:</label>
-                                                <select class="form-control" data-role="select-dropdown" name="cqualificationtxtt">  <!-- onchange='CheckColors(this.value);' -->
+                                                <select class="form-control" required data-role="select-dropdown" name="cqualificationtxtt">  <!-- onchange='CheckColors(this.value);' -->
                                                     <option selected="">Select</option>
                                                     <option value="b.tech">b.tech</option>
                                                     <option value="mca">mca</option>
@@ -481,19 +481,19 @@
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>college</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="collagetxt">
+                                                <input type="text" class="form-control" required placeholder="" name="collagetxt">
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Address</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="addresstxt">
+                                                <input type="text" class="form-control" required placeholder="" name="addresstxt">
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>University</b>:</label>
-                                                <input type="text" class="form-control" placeholder="" name="universitytxt">
+                                                <input type="text" class="form-control" required placeholder="" name="universitytxt">
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Year Of Passing</b>:</label>
-                                                <select name="yaerofpassingtxt" class="form-control" data-role="select-dropdown">
+                                                <select name="yaerofpassingtxt" class="form-control" required data-role="select-dropdown">
                                                     <option selected="">Select</option>
                                                     <option value="2017">2017</option>
                                                     <option value="2018">2018</option>
@@ -503,7 +503,7 @@
                                             </div>
                                             <div class="wd_12 fl_lf mb_33">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Specialization</b>:</label>
-                                                <input type="text" class="form-control" placeholder="Specialization" name="specializationtxt">
+                                                <input type="text" class="form-control" required placeholder="Specialization" name="specializationtxt">
                                             </div>
                                             <div class="wd_7 fl_lf col-6">
                                                 <label for="applicant_name" class="control-label lbl_hide"><b>Action</b>:</label>
@@ -537,22 +537,22 @@
 
                                     <tr>
                                       <td>1</td>
-                                      <td><select id="demo_overview" class="form-control" data-role="select-dropdown">
+                                      <td><select id="demo_overview" class="form-control" required data-role="select-dropdown">
                                         <option selected="">Select</option>
                                         <option value="b.tech">b.tech</option>
                                         <option value="mca">mca</option>
                                     </select></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                        <td><input type="text" class="form-control" placeholder="" id="inputZip"></td>
-                                      <td><select id="demo_overview" class="form-control" data-role="select-dropdown">
+                                        <td><input type="text" class="form-control" required placeholder="" id="inputZip"></td>
+                                        <td><input type="text" class="form-control" required placeholder="" id="inputZip"></td>
+                                        <td><input type="text" class="form-control" required placeholder="" id="inputZip"></td>
+                                      <td><select id="demo_overview" class="form-control" required data-role="select-dropdown">
                                         <option selected="">Select</option>
                                         <option value="2017">2017</option>
                                         <option value="2018">2018</option>
                                         <option value="2019">2019</option>
                                         <option value="2020">2020</option>
                                     </select></td>
-                                      <td><input type="text" class="form-control" placeholder="Fee" id=""></td>
+                                      <td><input type="text" class="form-control" required placeholder="Fee" id=""></td>
                                       <td> 
                                         <button type="button" data-repeater-delete class="btn btn-danger"><i class="ft-x"></i> Delete</button>
                                     </td>
@@ -578,7 +578,7 @@
                                         <div class="col-md-6">
                                             <div>
                                                 <label for="applicant_name" class="control-label "><b>Membership</b></label>
-                                                <select name="membershiptxt" class="form-control">
+                                                <select name="membershiptxt" class="form-control" required>
                                                     <option selected="">Select</option>
                                                     <option value="1">Student 1 Year</option>
                                                     <option value="2">Student 2 Year</option>
@@ -590,7 +590,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="applicant_name" class="control-label "><b>Fee</b></label>
-                                            <input type="number" class="form-control" placeholder="Fee" name="feetxt">
+                                            <input type="number" class="form-control" required placeholder="Fee" name="feetxt">
                                         </div>
                                     </div>
                                 </div>
@@ -606,7 +606,7 @@
                                                 <option value="2">PAN</option>
                                                 <option value="3">Passport</option>
                                             </select>
-                                            <select name="uploaddoc2txt" class="form-control" data-role="select-dropdown"
+                                            <select name="uploaddoc2txt" class="form-control" required data-role="select-dropdown"
                                                 placeholder="select">
                                                 <option selected="">Select</option>
                                                 <option value="1">Authentication Doc</option>
@@ -621,7 +621,7 @@
                                         <p class="p_txt">Please upload.png, .jpg, .jpeg files only</p>
                                         <div class="col-sm-7 p_l">
 
-                                            <input type="file" class="form-control hg_45"
+                                            <input type="file" class="form-control hg_45" required
                                                 name="signaturefileupload">
 
                                         </div>
@@ -632,7 +632,7 @@
                                                 be
                                                 attached to the branch located in :</b></label>
                                         <div class="col-sm-7">
-                                            <select name="branchddl" class="form-control" data-role="select-dropdown">
+                                            <select name="branchddl" class="form-control" required data-role="select-dropdown">
                                             <option value="" selected="" disabled="">Select Branch</option>
                                                 @foreach($result as $fetchbranch)
                                                 
@@ -646,7 +646,7 @@
                                         <label for="inputCity" class="control-label col-sm-5"><b>Payment Mode
                                                 :</b></label>
                                         <div class="col-sm-7">
-                                            <select class="form-control" name="paymenttypeddl" data-role="select-dropdown">
+                                            <select class="form-control" required name="paymenttypeddl" data-role="select-dropdown">
                                                 <option selected="">Select</option>
                                                 <option value="0">Online</option>
                                                 <option value="1">Offline</option>
@@ -669,7 +669,7 @@
 
                                         <div class="col-sm-7 p_l">
                                             <input type="file" class="form-control hg_45"
-                                                name="fileupload1">
+                                                name="fileupload1" required>
 
                                         </div>
                                     </div>
@@ -677,7 +677,7 @@
 
                                         <div class="col-sm-7 p_l">
                                             <input type="file" class="form-control hg_45"
-                                                name="fileupload2">
+                                                name="fileupload2" required>
 
                                         </div>
                                     </div>
